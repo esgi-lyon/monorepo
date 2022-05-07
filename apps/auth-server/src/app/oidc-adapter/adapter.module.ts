@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AdapterService } from './oidc.adapter.service';
+import { MixedCacheDbStorageService } from "./mixed-cache-db-storage.service";
+import oidcRepos from '../oidc/oidc.model'
 
 @Module({
-    providers: [AdapterService],
-    exports: [AdapterService]
+    providers: [MixedCacheDbStorageService, ...oidcRepos],
+    exports: [MixedCacheDbStorageService]
 })
 export class OidcAdapterModule {}

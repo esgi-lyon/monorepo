@@ -1,5 +1,4 @@
 {
-  "root": "apps/integrationtesting",
   "sourceRoot": "apps/integrationtesting/src",
   "projectType": "application",
   "targets": {

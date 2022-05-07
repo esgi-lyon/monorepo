@@ -1,4 +1,6 @@
 spring:
   profiles:
     group:
-      default: dev,test
+      default: common,test
+
+---

@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios';
 import { InteractionController } from './interaction.controller';
+import { UserService } from "../ldap/user.service";
+import {User, UserRepository} from "../ldap/user.model";
+import { SequelizeModule } from "@nestjs/sequelize";
 
 @Module({
-  imports: [HttpModule],
+  imports: [
+    SequelizeModule.forFeature([User])
+  ],
   controllers: [InteractionController],
-  providers: [],
+  providers: [UserRepository, UserService],
 })
 export class InteractionModule {}

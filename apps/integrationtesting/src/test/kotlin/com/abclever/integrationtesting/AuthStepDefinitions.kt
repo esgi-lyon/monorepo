@@ -1,62 +1,80 @@
 package com.abclever.integrationtesting
 
-import com.abclever.auth.model.user.User
-import com.github.tomakehurst.wiremock.*
+import com.abclever.integrationtesting.restassured.RestTestingEnv
+import com.abclever.integrationtesting.restassured.Templating
+import com.abclever.integrationtesting.strings.randomString
 import io.cucumber.datatable.DataTable
 import io.cucumber.java8.En
-import org.springframework.beans.factory.annotation.Autowired
-import java.sql.Date
-import com.abclever.integrationtesting.appLauncher.*
-import com.abclever.integrationtesting.http.post
 import io.cucumber.java8.Scenario
+import io.restassured.filter.cookie.CookieFilter
+import io.restassured.filter.session.SessionFilter
+import kotlinx.serialization.Serializable
+
+import org.assertj.core.api.Assertions
+
+var lastInstanceAuth: AuthStepDefinitions? = null
 
 class AuthStepDefinitions(
-  @Autowired private var wireMockServer: WireMockServer,
-  @Autowired private var properties: AppsConfigurationProperties
+  private val templating: Templating
 ) : En {
 
   init {
+    val restTestingEnv = RestTestingEnv(templating, CookieFilter(), SessionFilter())
 
-    var processes: Map<String, Process> = mapOf()
-
-    Given("start auth test env") {
-      // Initial add of clients
-      processes = launch(listOf("auth-server"))
-
-      post(properties.fullRoute("auth-server", "/client"), mapOf(
-        "client_id" to "toto",
-        "client_secret" to "test"
-      ))
-
-      // restart to refresh clients
-      processes = restart(processes)
-    }
-
-    var users: List<User>? = null
+    @Serializable
+    data class Client(
+      val client_name: String,
+      val redirect_uris: List<String>,
+      val scopes: String
+    )
 
     DataTableType { entry: Map<String, String> ->
-      return@DataTableType User(
-        entry["id"]?.toLong()!!,
-        entry["firstName"],
-        entry["lastName"],
-        entry["password"],
-        entry["picture"],
-        entry["email"],
-        entry["emailVerified"],
-        Date.valueOf(entry["updatedAt"]),
-        entry["gender"]?.toInt()!!,
-        Date.valueOf(entry["createdAt"]),
-        Date.valueOf(entry["birthdate"]),
-      )
+      var clientName = entry["client_name"]!!
+      val isApp = entry["is_app"].toBoolean()
+      val scopes = entry["scopes"]!!
+
+      if (clientName == "random" || !isApp)
+        clientName = randomString(15)
+
+      val redirectUris = entry["redirect_uris"]!!
+        .split(",")
+        .map(String::trim)
+        .map { if (isApp) "${apps[clientName]}/${it}" else it }
+        .toList()
+
+      return@DataTableType Client(clientName, redirectUris, scopes)
     }
 
-    Given("non registered users") { userTable: DataTable ->
-      users = userTable.asList(User::class.java)
+    this.Before { _: Scenario ->
+      Assertions.assertThat(this).isNotSameAs(lastInstanceAuth)
+      lastInstanceAuth = this
     }
 
-    AfterStep { _: Scenario ->
-      if (processes.isNotEmpty()) kill(processes)
+    var alreadyAdded: List<String> = listOf()
+
+    this.When("post client to {word}:") { route: String, table: DataTable ->
+      val clients: List<Client> = table.asList(Client::class.java)
+
+      clients.forEach {
+        if (it.client_name in alreadyAdded) return@forEach
+
+        val reqSpec = restTestingEnv.getSpecForSerializable(it)
+
+        val currentResponse = restTestingEnv.processReqForMethod(
+          reqSpec,
+          "post",
+          this.templating.processExpressionInWord(route)
+        )
+
+        this.templating.add(mapOf("currentResponse" to (currentResponse as Any)))
+
+        alreadyAdded = alreadyAdded + listOf(it.client_name)
+      }
     }
 
+    this.After { _: Scenario ->
+      Assertions.assertThat(this).isSameAs(lastInstanceAuth)
+      lastInstanceAuth = this
+    }
   }
 }

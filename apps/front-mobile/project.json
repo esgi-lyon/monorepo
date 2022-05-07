@@ -1,5 +1,4 @@
 {
-  "root": "apps/front-mobile",
   "sourceRoot": "apps/front-mobile/src",
   "projectType": "application",
   "targets": {

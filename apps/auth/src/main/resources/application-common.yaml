@@ -1,0 +1,51 @@
+
+auth_root: "http://0.0.0.0:3333"
+auth_address: ${auth_root}/oidc
+gateway_address: "http://0.0.0.0:8080"
+
+cors:
+  allowed:
+    origins: "${auth_root}, ${gateway_address}"
+
+spring:
+  # Move to gateway
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/auth_client
+    username: ${AUTH_DB_USER:auth_client_user}
+    password: ${AUTH_DB_PASSWORD:pass}
+  jpa:
+    hibernate:
+      use-new-id-generator-mappings: false
+      ddl-auto: create
+    properties:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${auth_address}
+      client:
+        registration:
+          authserver:
+            client-id: ${AUTH_CLIENT_ID:test_id}
+            provider: authserver
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            client-authentication-method: none
+            scope: openid, email, phone, profile
+
+        provider:
+          authserver:
+            authorization-uri: ${auth_address}/auth
+            jwk-set-uri: ${auth_address}/jwks
+            user-info-uri: ${auth_address}/me
+            token-uri: ${auth_address}/token
+            user-name-attribute: sub
+            resource:
+              user-info-uri: ${auth_address}/me
+
+springdoc:
+  swagger-ui:
+    path: /api-docs
+    operationsSorter: method

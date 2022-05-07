@@ -1,7 +1,11 @@
 spring:
   profiles:
     group:
-      default: dev
+      default: dev, common
+      prod: prod, common
 
 ---
 
+server:
+  port: 8082
+  address: 0.0.0.0

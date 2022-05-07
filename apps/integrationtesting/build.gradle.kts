@@ -1,12 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotlinVersion = "1.6.21"
+
 plugins {
 	id("org.springframework.boot") version "2.6.7"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	war
-	kotlin("jvm") version "1.6.10"
+	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	id("com.diffplug.spotless") version "6.2.2"
+  kotlin("plugin.serialization") version "1.6.21"
 }
 
 group = "com.abclever"
@@ -18,24 +21,28 @@ repositories {
 }
 
 dependencies {
-  annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-
   val cucumberVersion = "7.3.2"
-  implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21")
+  implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+
+  // Essentials
+  implementation("org.slf4j:slf4j-api:1.7.36")
 
   // Project to test
   implementation("${group}:auth")
 
-  testImplementation("org.junit.platform:junit-platform-suite-api:1.8.2")
-  testImplementation("org.junit.platform:junit-platform-console:1.8.2")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
+  testImplementation("org.hamcrest:hamcrest:2.2")
+  testImplementation("io.rest-assured:kotlin-extensions:5.1.1")
+
+	testImplementation("org.junit.platform:junit-platform-suite:1.8.2")
+  testImplementation("io.cucumber:cucumber-picocontainer:$cucumberVersion")
 	testImplementation("io.cucumber:cucumber-junit-platform-engine:$cucumberVersion")
   testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
   testImplementation("io.cucumber:cucumber-junit:$cucumberVersion")
-  testImplementation("io.cucumber:cucumber-spring:$cucumberVersion")
   testImplementation("org.assertj:assertj-guava:3.4.0")
-  testImplementation("com.github.tomakehurst:wiremock-jre8:2.33.1")
 }
 
 tasks.withType<KotlinCompile> {
@@ -67,6 +74,7 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         // Apply ktfmt formatter(similar to google-java-format, but for Kotlin)
         ktfmt()
     }
+
     kotlinGradle {
         target("*.gradle.kts") // default target for kotlinGradle
         ktfmt()

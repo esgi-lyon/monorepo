@@ -1,5 +1,4 @@
 {
-  "root": "apps/statistic",
   "sourceRoot": "apps/statistic/src",
   "projectType": "application",
   "targets": {

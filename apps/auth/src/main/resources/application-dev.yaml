@@ -1,42 +1,13 @@
-server:
-  port: 8082
-
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        org.hibernate: DEBUG
+        web:
+          client:
+            RestTemplate: DEBUG
 spring:
-  # Move to gateway
-  datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/auth_client
-    username: auth_client_user
-    password: pass
-  jpa:
-    hibernate:
-      use-new-id-generator-mappings: false
-      ddl-auto: none
-    properties:
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-
-  security:
-    oauth2:
-      client:
-        registration:
-          authserver:
-            provider: authserver
-            client-authentication-method: client_secret_jwt
-            authorization-grant-type: client_credentials
-            client-id: test_id
-            client-secret: test_secret
-
-        provider:
-          authserver:
-            client-id: test_id
-            client-secret: test_secret
-            scope: api, profile, openid
-            authorization-uri: http://0.0.0.0:3333/oidc/auth
-            issuer-uri: http://0.0.0.0:3333
-            jwk-set-uri: http://0.0.0.0:3333/oidc/jwks
-            user-info-uri: http://0.0.0.0:3333/oidc/me
-            token-uri: http://0.0.0.0:3333/oidc/token
-
-springdoc:
-  swagger-ui:
-    path: /api-docs
-    operationsSorter: method
+  mvc:
+    log-request-details: true
+    log-resolved-exception: true

@@ -1,5 +1,4 @@
 {
-  "root": "apps/auth",
   "sourceRoot": "apps/auth/src",
   "projectType": "application",
   "targets": {
@@ -13,6 +12,14 @@
       "executor": "@nxrocks/nx-spring-boot:test",
       "options": {
         "root": "apps/auth"
+      }
+    },
+    "integration": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/auth",
+        "command": "nx run-many --projects=auth-server,auth --target=serve",
+        "parallel": true
       }
     },
     "clean": {

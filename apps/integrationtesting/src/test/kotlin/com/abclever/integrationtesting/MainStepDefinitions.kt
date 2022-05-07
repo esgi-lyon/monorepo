@@ -1,89 +1,98 @@
 package com.abclever.integrationtesting
 
-import io.cucumber.datatable.DataTable
+import com.abclever.integrationtesting.restassured.Templating
+import com.abclever.integrationtesting.strings.splitCommas
+import com.abclever.integrationtesting.tasks.*
 import io.cucumber.java8.En
 import io.cucumber.java8.Scenario
+import kotlinx.coroutines.DelicateCoroutinesApi
 import org.junit.jupiter.api.Assertions.*
-import org.opentest4j.TestAbortedException
-import org.springframework.beans.factory.annotation.Autowired
-import com.abclever.integrationtesting.http.*
 
+@DelicateCoroutinesApi
 var lastInstance: MainStepDefinitions? = null
+var runningApps: NamedTask = mapOf()
+var runningDockerServices: NamedTask = mapOf()
+var singleTimeDockerTask: List<String> = listOf()
 
+@DelicateCoroutinesApi
+fun cleanEnv() {
+  kill(runningApps)
+
+  dockerDown(runningDockerServices.keys.joinToString(","))
+  runningApps = mapOf()
+}
+
+@DelicateCoroutinesApi
 class MainStepDefinitions(
-  @Autowired private var properties: AppsConfigurationProperties
-) : En {
+  private val templating: Templating
+): En {
 
   init {
+    this.templating.add(mapOf("apps" to apps))
 
-    Before { _: Scenario ->
+    this.Before { _: Scenario ->
       assertNotSame(this, lastInstance)
       lastInstance = this
     }
 
-    BeforeStep { _: Scenario ->
+    this.BeforeStep { _: Scenario ->
       assertSame(this, lastInstance)
       lastInstance = this
     }
 
-    AfterStep { _: Scenario ->
+    this.AfterStep { _: Scenario ->
       assertSame(this, lastInstance)
       lastInstance = this
     }
 
-    After { _: Scenario ->
+    this.After { _: Scenario ->
       assertSame(this, lastInstance)
       lastInstance = this
     }
 
-    Then("app {word} on route {word} status is {int}") { app: String, route: String, code: Int ->
-      assertEquals(get(properties.fullRoute(app, route)), code)
+    this.Given("wait {int} ms") { it: Int ->
+      println("[ Waiting for $it ms ]")
+      delayBlocking(it)
     }
 
-    DataTableType { entry: Map<String, String> ->
-      return@DataTableType Person(
-        entry["first"],
-        entry["last"]
+    this.Given("start apps {word} with boot time {int}") {
+      userApps: String, bootTime: Int ->
+      val enteringApps = splitCommas(userApps)
+      if (runningApps.keys.containsAll(enteringApps)) return@Given
+
+      runningApps = runningApps + launchMultiple(
+        enteringApps,
+        "pnpm --dir %s exec nx serve %s",
+        2000
       )
+
+      delayBlocking(bootTime)
     }
 
-    Given("this data table:") { peopleTable: DataTable ->
-      val people: List<Person> = peopleTable.asList(Person::class.java)
-      assertEquals("Aslak", people[0].first)
-      assertEquals("Hellesoy", people[0].last)
+    this.Given("stop apps {word}") { apps: String ->
+      if (runningApps.isEmpty()) return@Given
+
+      val filteredAppsToKill: NamedTask = runningApps.filter { it.key in splitCommas(apps) }
+      kill(filteredAppsToKill)
+      runningApps = runningApps.filter { it.key !in splitCommas(apps) }
     }
 
-    val alreadyHadThisManyCukes = 1
-    Given("I have {double} cukes in my belly") { n: Double ->
-      assertEquals(1, alreadyHadThisManyCukes)
-      assertEquals(42.00, n)
+    this.Given("docker rebuild once {word}") { services: String ->
+      val nonRunned = splitCommas(services).filter { !singleTimeDockerTask.contains(it)  }
+      if (nonRunned.isEmpty()) return@Given
+
+      runningDockerServices = runningDockerServices + dockerRebuild(nonRunned.joinToString(","))
+      singleTimeDockerTask = singleTimeDockerTask + nonRunned
     }
 
-    val localState = "hello"
-    Then("I really have {int} cukes in my belly") { i: Int ->
-      assertEquals(42, i)
-      assertEquals("hello", localState)
+    this.Then("stop all current apps") {
+      kill(runningApps)
+      runningApps = mapOf()
     }
 
-    Given("A statement with a body expression") { assertTrue(true) }
-
-    Given("A statement with a simple match") { assertTrue(true) }
-
-    Given("something that is skipped") { throw TestAbortedException("skip this!") }
-
-    val localInt = 1
-    Given("A statement with a scoped argument") { assertEquals(2, localInt + 1) }
-
-    Given(
-      "I will give you {int} and {float} and {word} and {int}")
-    { a: Int, b: Float, c: String, d: Int ->
-      assertEquals(1, a)
-      assertEquals(2.2f, b)
-      assertEquals("three", c)
-      assertEquals(4, d)
+    this.Then("stop running containers") {
+      kill(runningDockerServices)
+      runningDockerServices = mapOf()
     }
   }
-
 }
-
-data class Person(val first: String?, val last: String?)

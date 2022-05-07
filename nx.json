@@ -17,7 +17,12 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
         "accessToken": "ZGZjODM0NTAtNDA3Yi00ODNiLTg5OGQtOWFjNzU1ZWRjMTIwfHJlYWQtd3JpdGU="
       }
     }
@@ -30,6 +35,9 @@
       }
     ]
   },
-  "plugins": ["@nxrocks/nx-flutter", "@nxrocks/nx-spring-boot"],
+  "plugins": [
+    "@nxrocks/nx-flutter",
+    "@nxrocks/nx-spring-boot"
+  ],
   "defaultProject": "quizz"
 }

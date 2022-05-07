@@ -2,13 +2,22 @@
   "0 debug pnpm:scope": {
     "selected": 1
   },
-  "1 error pnpm": {
-    "code": "ERR_PNPM_NO_SCRIPT",
+  "1 info pnpm": {
+    "err": {
+      "name": "Error",
+      "message": "not found: --dir",
+      "code": "ENOENT",
+      "stack": "Error: not found: --dir\n    at getNotFoundError (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:41585:51)\n    at Function.whichSync [as sync] (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:41662:13)\n    at getCommandAbsolutePathSync (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:43227:44)\n    at default_1 (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:43236:32)\n    at /opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:178180:39"
+    }
+  },
+  "2 error pnpm": {
+    "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+    "prefix": "/Users/loic/Softs/monorepo",
     "err": {
       "name": "pnpm",
-      "message": "Missing script: serve",
-      "code": "ERR_PNPM_NO_SCRIPT",
-      "stack": "pnpm: Missing script: serve\n    at Object.handler (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:177943:15)\n    at async /opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:182194:21\n    at async run (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:182168:34)\n    at async runPnpm (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:182387:5)\n    at async /opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:182379:7"
+      "message": "not found: --dir",
+      "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+      "stack": "Error: not found: --dir\n    at getNotFoundError (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:41585:51)\n    at Function.whichSync [as sync] (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:41662:13)\n    at getCommandAbsolutePathSync (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:43227:44)\n    at default_1 (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:43236:32)\n    at /opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:178180:39"
     }
   }
 }

@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "2.6.4"
+	id("org.springframework.boot") version "2.6.7"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	war
 	kotlin("jvm") version "1.6.10"
@@ -18,34 +18,38 @@ repositories {
 }
 
 dependencies {
+  val springDocVersion = "1.6.8"
 	implementation("org.springframework.boot:spring-boot-starter-web")
-  implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
+  implementation("org.springframework.boot:spring-boot-starter-validation")
+  implementation("org.springdoc:springdoc-openapi-ui:${springDocVersion}")
+  implementation("org.springdoc:springdoc-openapi-kotlin:${springDocVersion}")
 
   implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+  implementation("org.jetbrains.kotlin:kotlin-noarg")
 
   implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
   implementation("org.springdoc:springdoc-openapi-security:1.6.6")
+  implementation("org.springframework:spring-webflux:5.3.20")
+  implementation("io.projectreactor.netty:reactor-netty:1.0.19")
+
+  implementation("org.projectlombok:lombok:1.18.22")
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  runtimeOnly("com.h2database:h2")
+  runtimeOnly("org.postgresql:postgresql")
+  implementation("org.springframework.boot:spring-boot-starter-jdbc")
+
+  implementation("org.springframework.security:spring-security-test")
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
   implementation("org.glassfish.jaxb:jaxb-runtime:3.0.2")
   implementation("com.sun.xml.bind:jaxb-core:3.0.2")
   implementation("com.sun.xml.bind:jaxb-impl:3.0.2")
   implementation("javax.xml.bind:jaxb-api:2.3.1")
   implementation("org.javassist:javassist:3.28.0-GA")
-
-  implementation("org.projectlombok:lombok:1.18.22")
-  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-  runtimeOnly("com.h2database:h2")
-  runtimeOnly("org.postgresql:postgresql")
-
-  implementation("org.springframework.boot:spring-boot-starter-jdbc")
-
-	implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
-
-  implementation("org.springframework.security:spring-security-test")
-	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<KotlinCompile> {
@@ -58,9 +62,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-springBoot {
-	buildInfo()
-}
+springBoot {}
 
 var env: String? = System.getenv("NODE_ENV")
 System.setProperty("spring.profiles.active", env ?: "dev")

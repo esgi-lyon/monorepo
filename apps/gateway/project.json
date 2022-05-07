@@ -1,5 +1,4 @@
 {
-  "root": "apps/gateway",
   "sourceRoot": "apps/gateway/src",
   "projectType": "application",
   "targets": {

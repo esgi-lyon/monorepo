@@ -1,12 +1,13 @@
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { OPEN_ID_ISSUER} from '../environment';
+import { ConfigService } from "@nestjs/config";
 const SWAGGER_API_ROOT = 'api-docs',
   SWAGGER_API_NAME = 'Authentication server',
   SWAGGER_API_DESCRIPTION = 'Authentication with oidc provider documentation',
   SWAGGER_API_CURRENT_VERSION = '1.0';
 
 export const setupSwagger = (app: INestApplication) => {
+  const config = app.get(ConfigService)
   const options = new DocumentBuilder()
     .setTitle(SWAGGER_API_NAME)
     .setDescription(SWAGGER_API_DESCRIPTION)
@@ -15,7 +16,7 @@ export const setupSwagger = (app: INestApplication) => {
       type: 'openIdConnect',
       description: 'Open id server',
       name: 'oidc',
-      openIdConnectUrl: `${OPEN_ID_ISSUER}/.well-known/openid-configuration`,
+      openIdConnectUrl: `${config.get('location')}/${config.get('OPEN_ID_PATH')}/.well-known/openid-configuration`,
     })
     .build();
   const document = SwaggerModule.createDocument(app, options);

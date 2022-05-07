@@ -1,32 +1,29 @@
 {
-  "root": "apps/auth-server",
   "sourceRoot": "apps/auth-server/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/auth-server",
         "main": "apps/auth-server/src/main.ts",
         "tsConfig": "apps/auth-server/tsconfig.app.json",
         "assets": [
-          "apps/auth-server/src/assets"
+          "apps/auth-server/src/assets",
+          "apps/auth-server/src/views",
+          {
+            "glob": ".env*",
+            "input": "apps/auth-server/src/",
+            "output": ""
+          }
         ]
       },
       "configurations": {
         "production": {
           "optimization": true,
           "extractLicenses": true,
-          "inspect": false,
-          "fileReplacements": [
-            {
-              "replace": "apps/auth-server/src/environments/environment.ts",
-              "with": "apps/auth-server/src/environments/environment.prod.ts"
-            }
-          ]
+          "inspect": false
         }
       }
     },
@@ -38,20 +35,14 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/auth-server/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/auth-server/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/auth-server"
-      ],
+      "outputs": ["coverage/apps/auth-server"],
       "options": {
         "jestConfig": "apps/auth-server/jest.config.js",
         "passWithNoTests": true
@@ -65,6 +56,20 @@
           "pnpm openapi-generator-cli generate -i 0.0.0.0:3333/api/docs-json --generator-name typescript-axios -o apps/auth-server/gen/api --config apps/auth-server/api.json",
           "cd apps/auth-server && pnpm install && pnpm run build"
         ]
+      }
+    },
+    "db:migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npx sequelize-cli db:migrate"],
+        "cwd": "apps/auth-server"
+      }
+    },
+    "migration:generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npx sequelize-cli migration:generate"],
+        "cwd": "apps/auth-server"
       }
     }
   },

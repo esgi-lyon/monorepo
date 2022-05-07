@@ -1,5 +1,4 @@
 {
-  "root": "apps/quizz",
   "sourceRoot": "apps/quizz/src",
   "projectType": "application",
   "targets": {
