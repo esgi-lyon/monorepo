@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quizz
+  name: auth
   labels:
-    app: quizz
+    app: auth
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: quizz
+      app: auth
   template:
     metadata:
       labels:
-        app: quizz
+        app: auth
     spec:
       containers:
-        - name: quizz
-          image: quizz:0.0.1-SNAPSHOT
+        - name: auth
+          image: auth:0.0.1-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -32,14 +32,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: quizz
+  name: auth
 spec:
   type: NodePort
   selector:
-    app: quizz
+    app: auth
   ports:
     - protocol: TCP
       port: 8085
       targetPort: 8085
-      nodePort: 30005
+      nodePort: 30001
 
