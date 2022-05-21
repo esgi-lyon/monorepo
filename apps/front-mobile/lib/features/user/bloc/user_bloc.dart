@@ -189,7 +189,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     UserRegistrationSubmitted event,
     Emitter<UserState> emit,
   ) async {
-
     if (state.status.isOneOfInvalidStatus) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
       return;

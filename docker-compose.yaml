@@ -1,12 +1,11 @@
 version: '3.9'
 services:
-
   auth-server:
     image: loicroux/auth-server:develop
     networks:
       - internals
     ports:
-      - "3333:3333"
+      - '3333:3333'
     environment:
       - PG_HOST=postgres
     depends_on:
@@ -21,15 +20,25 @@ services:
       - POSTGRES_PASSWORD=root
     ports:
       # Standard port for PostgreSQL databases
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - pgsql:/var/lib/postgresql/data
       - ./ops/db-seed.sql:/docker-entrypoint-initdb.d/database-seed.sql:rw
     networks:
       - internals
 
+  elasticsearch:
+    image: elasticsearch:8.2.3
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - es:/usr/share/elasticsearch/data
+    ports:
+      - '9200:9200'
+
 networks:
   internals: {}
 
 volumes:
   pgsql:
+  es:

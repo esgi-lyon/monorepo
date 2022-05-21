@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class LocalAuthModal extends StatelessWidget {
   final void Function() action;
 
-  const LocalAuthModal({Key? key, required this.action})
-      : super(key: key);
+  const LocalAuthModal({Key? key, required this.action}) : super(key: key);
 
   static const Color primaryColor = Color(0xFF13B5A2);
 

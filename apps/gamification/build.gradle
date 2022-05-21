@@ -1,0 +1,27 @@
+plugins {
+  id 'org.springframework.boot' version '2.7.1'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id 'java'
+  id("com.diffplug.spotless") version "6.2.2"
+}
+
+group = 'com.abclever'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'org.springframework.data:spring-data-elasticsearch:4.4.0'
+  implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.projectlombok:lombok:1.18.24'
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+}

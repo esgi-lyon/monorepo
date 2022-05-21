@@ -7,6 +7,8 @@ import 'package:abcleaver/features/authentication/authentication.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../commons/constants/routes.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -50,18 +52,24 @@ class _HomeState extends State<Home> {
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
                     children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(175, 254, 232, 167),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                topRight: Radius.circular(12),
-                                bottomLeft: Radius.circular(12),
-                                bottomRight: Radius.circular(12))),
-                        child: const Center(
-                          child: Text(
-                            'Jouer !',
-                            style: TextStyle(color: Colors.amber, fontSize: 20),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(Routes.quizz);
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(175, 254, 232, 167),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(12),
+                                  topRight: Radius.circular(12),
+                                  bottomLeft: Radius.circular(12),
+                                  bottomRight: Radius.circular(12))),
+                          child: const Center(
+                            child: Text(
+                              'Jouer !',
+                              style:
+                                  TextStyle(color: Colors.amber, fontSize: 20),
+                            ),
                           ),
                         ),
                       ),
@@ -126,28 +134,3 @@ class _HomeState extends State<Home> {
         ));
   }
 }
-//  child: GridView.count(
-//       crossAxisCount: 2,
-//       crossAxisSpacing: 10,
-//       mainAxisSpacing: 10,
-//       children: [
-//         Container(
-//           decoration: const BoxDecoration(
-//             color: Colors.amber,
-//             borderRadius: BorderRadius.only(
-//                 topLeft: Radius.circular(10.0),
-//                 topRight: Radius.circular(10.0),
-//                 bottomRight: Radius.circular(10.0),
-//                 bottomLeft: Radius.circular(10.0)),
-//           ),
-//           padding: const EdgeInsets.all(8),
-//           child: const Center(
-//             child: Text(
-//               'Mon',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(color: Colors.white, fontSize: 30),
-//             ),
-//           ),
-//         ),
-//       ],
-//     ),

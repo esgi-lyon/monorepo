@@ -19,7 +19,7 @@
     "format": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter format apps/front-mobile/*",
+        "command": "flutter --verbose format apps/front-mobile/lib/*.dart",
         "cwd": "apps/front-mobile"
       }
     },
