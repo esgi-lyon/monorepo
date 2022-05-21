@@ -4,7 +4,7 @@
     "auth-server": "apps/auth-server",
     "front-mobile": "apps/front-mobile",
     "gamification": "apps/gamification",
-    "integrationtesting": "apps/integrationtesting",
-    "quizz": "apps/quizz"
+    "quizz": "apps/quizz",
+    "integrationtesting": "apps/integrationtesting"
   }
 }

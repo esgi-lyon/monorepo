@@ -28,7 +28,8 @@ class MainController : QuizzIn {
   override fun submit(@RequestBody userAnswerDto: UserAnswerDto): Boolean{
     return quizzService.submit(userAnswerDto.answer,
       userAnswerDto.userId,
-      Letter.fromString(userAnswerDto.question))
+      Letter.fromString(userAnswerDto.question),
+    )
   }
 
 }
