@@ -17,7 +17,8 @@
             "input": "apps/auth-server/src/",
             "output": ""
           }
-        ]
+        ],
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -46,6 +47,14 @@
       "options": {
         "jestConfig": "apps/auth-server/jest.config.js",
         "passWithNoTests": true
+      }
+    },
+    "buildImage": {
+      "executor": "@nx-tools/nx-docker:build",
+      "dependsOn": ["^build"],
+      "options": {
+        "push": true,
+        "tags": ["loic-roux/auth-server:develop"]
       }
     },
     "api": {
