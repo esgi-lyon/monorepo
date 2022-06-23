@@ -32,8 +32,6 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
   implementation("org.springdoc:springdoc-openapi-security:1.6.6")
-  implementation("org.springframework:spring-webflux:5.3.20")
-  implementation("io.projectreactor.netty:reactor-netty:1.0.19")
 
   implementation("org.projectlombok:lombok:1.18.22")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -44,12 +42,6 @@ dependencies {
   implementation("org.springframework.security:spring-security-test")
 	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-  implementation("org.glassfish.jaxb:jaxb-runtime:3.0.2")
-  implementation("com.sun.xml.bind:jaxb-core:3.0.2")
-  implementation("com.sun.xml.bind:jaxb-impl:3.0.2")
-  implementation("javax.xml.bind:jaxb-api:2.3.1")
-  implementation("org.javassist:javassist:3.28.0-GA")
 }
 
 tasks.withType<KotlinCompile> {
