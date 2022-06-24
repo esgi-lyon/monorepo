@@ -54,7 +54,7 @@
       "dependsOn": ["^build"],
       "options": {
         "push": true,
-        "tags": ["loic-roux/auth-server:develop"]
+        "tags": ["loicroux/auth-server:develop"]
       }
     },
     "api": {
