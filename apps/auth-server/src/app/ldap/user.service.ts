@@ -111,8 +111,8 @@ export class UserService {
   }
 
   protected secureClass(u: User): Omit<User, "password" | "salt"> {
-    delete u.password
-    delete u.salt
+    u.password = null
+    u.salt = null
     return u
   }
 

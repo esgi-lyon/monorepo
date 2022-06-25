@@ -51,7 +51,7 @@
     },
     "buildImage": {
       "executor": "@nx-tools/nx-docker:build",
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "options": {
         "push": true,
         "tags": ["loicroux/auth-server:develop"]
