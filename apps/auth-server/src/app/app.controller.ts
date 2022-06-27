@@ -5,7 +5,6 @@ import {
   InternalServerErrorException,
   Logger,
   Query,
-  Render,
   Response
 } from '@nestjs/common';
 import { Oidc } from "nest-oidc-provider";

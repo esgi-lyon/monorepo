@@ -24,7 +24,7 @@ export class OidcConfigService implements OidcModuleOptionsFactory {
 
   async createModuleOptions(): Promise<OidcModuleOptions> {
     await this.clientModel.sync({ alter: true })
-    console.log(this.config.get<AdditionalOIDCConfig>('oidcConfig'))
+
     return {
       path: this.config.get<string>('OIDC_PATH'),
       issuer: this.config.get<string>('location'),
