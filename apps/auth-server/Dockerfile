@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 WORKDIR /app
-COPY ./dist/apps/auth-server .
+COPY dist/apps/auth-server .
 ENV PORT=3333
 EXPOSE ${PORT}
 RUN npm install --production
