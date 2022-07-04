@@ -3,9 +3,8 @@ package com.abclever.gateway
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
-class GatewayApplication
+@SpringBootApplication class GatewayApplication
 
 fun main(args: Array<String>) {
-	runApplication<GatewayApplication>(*args)
+  runApplication<GatewayApplication>(*args)
 }
