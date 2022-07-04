@@ -1,0 +1,13 @@
+name: user_repository
+description: User repository
+version: 0.0.1
+homepage: https://github.com/esgi-lyon/flutter-myaccount
+
+environment:
+  sdk: ">=2.17.1 <3.0.0"
+
+dependencies: 
+  equatable: ^2.0.0
+  uuid: ^3.0.0
+
+dev_dependencies: {}

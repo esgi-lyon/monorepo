@@ -1,4 +1,4 @@
-package abclever_front_mobile.front_mobile
+package com.example.myaccount
 
 import io.flutter.embedding.android.FlutterActivity
 

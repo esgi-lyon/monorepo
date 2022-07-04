@@ -1,0 +1,73 @@
+{
+    "welcome": "AbClever",
+    "app": "My account",
+    "back": "back",
+    "saved": "saved successfully",
+    "failed": "Failed submission",
+    "apply": "apply",
+    "home": "Home",
+    "form": {
+        "required": "Required field"
+    },
+    "null": "Error",
+    "logout": "Logout",
+    "login": {
+        "email": "Email",
+        "connect": "Connect",
+        "hint": "Please enter your email...",
+        "password": {
+            "hint": "Please enter your password...",
+            "value": "Password",
+            "remember": "Remember password",
+            "forgotten": {
+                "value": "Password forgotten ?",
+                "hint": "We will send you an email with a link to reset your password, please enter the email associated with your account below."
+            }
+        },
+        "password_confirmation": {
+            "value": "Password confirmation",
+            "hint": "Please confirm your password..."
+        }
+    },
+    "user": {
+        "submit": "Valider",
+        "name": {
+            "hint": "Enter your Name...",
+            "value": "Name"
+        },
+        "family_name": {
+            "hint": "Enter your family name..",
+            "value": "Family name"
+        },
+        "gender": {
+            "hint": "Enter your Gender...",
+            "value": "Gender"
+        },
+        "profile": "Change profile informations",
+        "picture": "Photo"
+    },
+    "register": {
+        "sent": "Sent registration",
+        "success": "Successfuly resgistered",
+        "value": "Register",
+        "no_account": "Not registered ? "
+    },
+    "settings": {
+        "value": "Settings",
+        "hint": "Choose what special option you want and we will update the settings in our services.",
+        "locale": {
+            "value": "Change language",
+            "hint": "Switch to en or fr"
+        },
+        "light_theme": {
+            "value": "Light / dark theme",
+            "hint": "Switch luminosity mode. Default to system setting"
+        },
+        "biometric": {
+            "value": "Biometric authentication",
+            "hint": "Save your biometric authentication for next times"
+        }
+    },
+    "EmailValidationError.invalid": "Invalid email",
+    "PasswordValidationError.empty": "Invalid password"
+}

@@ -1,11 +1,11 @@
 {
-    "name": "front_mobile",
-    "short_name": "front_mobile",
+    "name": "myaccount",
+    "short_name": "myaccount",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Multi plateform Mobile app",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -1,16 +1,26 @@
-# front_mobile
+# myaccount
 
-Multi plateform Mobile app
+Account manager flutter app
 
-## Getting Started
+### Launch
 
-This project is a starting point for a Flutter application.
+Use vscode workspace recommandations and verify flutter toolchain with `flutter doctor`
 
-A few resources to get you started if this is your first Flutter project:
+## Resources
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Translations : https://file-translate.com/en/app/json-translate
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Current step](https://bloclibrary.dev/#/flutterlogintutorial?id=authentication-bloc)
+
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+
+- [online documentation](https://docs.flutter.dev/), 
+
+# TODO
+- [x] use https://pub.dev/packages/easy_localization
+- [x] Before login pages and widget design
+- [ ] Fill repositories with api fetch
+- [ ] reactivity with streams and bloc (partial done)
+- [ ] Settings switch locale
+- [ ] Settings enable face id

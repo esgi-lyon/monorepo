@@ -1,0 +1,73 @@
+{
+    "welcome": "AbClever",
+    "app": "Mon compte",
+    "back": "Précédent",
+    "saved": "enregistré avec succès",
+    "failed": "Échec de la soumission",
+    "apply": "appliquer",
+    "home": "Domicile",
+    "null": "Erreur",
+    "form": {
+        "required": "Champ obligatoire"
+    },
+    "logout": "Déconnexion",
+    "login": {
+        "email": "Messagerie électronique",
+        "connect": "Relier",
+        "hint": "Veuillez saisir votre adresse e-mail...",
+        "password": {
+            "hint": "Veuillez saisir votre mot de passe...",
+            "value": "Mot de passe",
+            "remember": "Mémoriser le mot de passe",
+            "forgotten": {
+                "value": "Mot de passe oublié ?",
+                "hint": "We will send you an email with a link to reset your password, please enter the email associated with your account below."
+            }
+        },
+        "password_confirmation": {
+            "value": "Password confirmation",
+            "hint": "Please confirm your password..."
+        }
+    },
+    "user": {
+        "submit": "Valider",
+        "name": {
+            "hint": "Entrez votre nom...",
+            "value": "Nom"
+        },
+        "family_name": {
+            "hint": "Entrez votre nom de famille..",
+            "value": "Nom de famille"
+        },
+        "gender": {
+            "hint": "Entrez votre sexe...",
+            "value": "Genre"
+        },
+        "profile": "Change profile informations",
+        "picture": "Photo"
+    },
+    "register": {
+        "sent": "Inscription envoyée",
+        "success": "Resgistered réussi",
+        "value": "Registre",
+        "no_account": "Vous n’êtes pas inscrit ? "
+    },
+    "settings": {
+        "value": "Paramètres",
+        "hint": "Choisissez l’option spéciale que vous souhaitez et nous mettrons à jour les paramètres de nos services.",
+        "locale": {
+            "value": "Changer la langue",
+            "hint": "Passer à en ou fr"
+        },
+        "light_theme": {
+            "value": "Thème light / dark",
+            "hint": "Changer le thème de luminosité. Défaut au paramètre système."
+        },
+        "biometric": {
+            "value": "Authentification biométrique",
+            "hint": "Enregistrez votre authentification biométrique pour les prochaines fois"
+        }
+    },
+    "EmailValidationError.invalid": "E-mail non valide",
+    "PasswordValidationError.empty": "Mot de passe non valide"
+}

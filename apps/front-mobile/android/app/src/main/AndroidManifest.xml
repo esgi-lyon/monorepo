@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="abclever_front_mobile.front_mobile">
+    package="com.example.myaccount">
    <application
-        android:label="front_mobile"
+        android:label="myaccount"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
