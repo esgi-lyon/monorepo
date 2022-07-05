@@ -1,0 +1,76 @@
+name: Bump version and release
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'develop'
+
+jobs:
+  artifact:
+    name: Publish - GitHub Packages
+    if: >
+      contains(github.event.head_commit.message, '[skip-release]') == false
+      && contains(github.event.pull_request.labels.*.name, 'skip-release') == false
+
+    strategy:
+      matrix:
+        java: [ 17 ]
+        os: [ ubuntu-latest ]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+      - name: log commit in common
+        run: |
+          git fetch origin;
+          [[ -z $(git branch -a --list origin/develop) ]] && exit 0;
+          [[ $(git rev-parse --verify HEAD) = $(git rev-parse --verify origin/develop) ]] \
+           && echo 'History OK' && exit 0 || echo "history don't match with pre-release" && exit 1;
+
+      - uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: main
+
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: temurin
+          cache: 'gradle'
+
+      - name: semver plugins (develop)
+        shell: bash
+        run: |
+          pnpm nx affected --target version -- --releaseAs=prerelease --preid=beta --push
+        if: github.ref == 'develop'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: semver plugins (main)
+        run: |
+          pnpm nx affected --target version -- --push
+        if: github.ref == 'main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: push tag
+        run: |
+          git push origin --tags --force

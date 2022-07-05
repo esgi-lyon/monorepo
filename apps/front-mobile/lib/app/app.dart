@@ -20,19 +20,24 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<UserRepository>(create: (context) => userRepository),
-        RepositoryProvider<AuthenticationRepository>(
-            create: (context) => authenticationRepository),
-      ],
-      child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
-          userRepository: userRepository,
-        ),
-        child: const AppView(),
-      ),
-    );
+        providers: [
+          RepositoryProvider<UserRepository>(
+              create: (context) => userRepository),
+          RepositoryProvider<AuthenticationRepository>(
+              create: (context) => authenticationRepository),
+        ],
+        child: EasyLocalization(
+          supportedLocales: const [Locale('en'), Locale('fr')],
+          path: 'assets/translations',
+          fallbackLocale: const Locale('en'),
+          child: BlocProvider(
+            create: (_) => AuthenticationBloc(
+              authenticationRepository: authenticationRepository,
+              userRepository: userRepository,
+            ),
+            child: const AppView(),
+          ),
+        ));
   }
 }
 

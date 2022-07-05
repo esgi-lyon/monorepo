@@ -16,37 +16,41 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @ComponentScan(basePackages = ["com.abclever"])
 @EnableWebSecurity(debug = false)
 class SecurityConfig(
-  @Value("\${cors.allowed.origins}") val origins: String,
-
-  ) : WebSecurityConfigurerAdapter() {
+    @Value("\${cors.allowed.origins}") val origins: String,
+) : WebSecurityConfigurerAdapter() {
 
   @Throws(java.lang.Exception::class)
   override fun configure(http: HttpSecurity) {
-    http
-      .authorizeRequests()
-
+    http.authorizeRequests()
         .mvcMatchers(
-          "/login", "/", "/api-docs/**", "/swagger-ui/**",
-          "/webjars/**", "/error**", "/login/oauth2/code/**", "/oauth2/authorization/**"
-        )
+            "/login",
+            "/",
+            "/api-docs/**",
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/error**",
+            "/login/oauth2/code/**",
+            "/oauth2/authorization/**")
         .permitAll()
-//         .mvcMatchers("/me")
-//         .hasAuthority("openid")
+        //         .mvcMatchers("/me")
+        //         .hasAuthority("openid")
         .anyRequest()
         .authenticated()
-      .and()
+        .and()
         .oauth2Login()
-      .and()
-        .logout{
-              // TODO call auth server auth/session/end"
-              it.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
-              it.logoutSuccessUrl("/")
-              it.deleteCookies("JSESSIONID")
-              it.invalidateHttpSession(true)
-              it.clearAuthentication(true)
+        .and()
+        .logout {
+          // TODO call auth server auth/session/end"
+          it.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
+          it.logoutSuccessUrl("/")
+          it.deleteCookies("JSESSIONID")
+          it.invalidateHttpSession(true)
+          it.clearAuthentication(true)
         }
-        .cors().disable()
-        .csrf().disable()
+        .cors()
+        .disable()
+        .csrf()
+        .disable()
   }
 
   @Bean

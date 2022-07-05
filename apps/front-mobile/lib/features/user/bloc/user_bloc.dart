@@ -113,7 +113,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     Emitter<UserState> emit,
   ) {
     final birthdate = SimpleString.dirty(event.birthdate);
-    print(birthdate);
+
     emit(state.copyWith(
       birthdate: birthdate,
       status: Formz.validate([
@@ -189,8 +189,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     UserRegistrationSubmitted event,
     Emitter<UserState> emit,
   ) async {
-    print(state);
-    print(state.status);
+
     if (state.status.isOneOfInvalidStatus) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
       return;

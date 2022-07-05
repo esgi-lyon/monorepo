@@ -1,12 +1,12 @@
 package com.abclever.integrationtesting
 
 import io.cucumber.plugin.EventListener
+import io.cucumber.plugin.Plugin
 import io.cucumber.plugin.event.EventPublisher
 import io.cucumber.plugin.event.TestRunFinished
 import kotlinx.coroutines.DelicateCoroutinesApi
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import io.cucumber.plugin.Plugin
 
 @DelicateCoroutinesApi
 class AppsHooks : EventListener, Plugin {

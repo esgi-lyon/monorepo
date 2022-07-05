@@ -2,9 +2,7 @@ package com.abclever.integrationtesting.restassured
 
 import io.restassured.response.Response
 
-class Templating(
-  var varRegistery: Map<String, Any?> = mapOf()
-) {
+class Templating(var varRegistery: Map<String, Any?> = mapOf()) {
 
   fun add(m: Map<String, Any>) {
     varRegistery = varRegistery + m
@@ -17,9 +15,7 @@ class Templating(
   fun delete(key: String) {
     varRegistery = varRegistery.filter { it.key != key }
   }
-  /**
-   *  Non supported multiple variable
-   */
+  /** Non supported multiple variable */
   fun processExpressionInWord(word: String): String {
 
     val keyParts: List<String> = word.split("$")
@@ -41,19 +37,19 @@ class Templating(
   }
 
   fun processExpressionInMapEntries(map: Map<String, Any>) =
-    map.mapValues {
-      if (it.value is String) processExpressionInWord(it.value as String) else it.value }
+      map.mapValues {
+        if (it.value is String) processExpressionInWord(it.value as String) else it.value
+      }
 
   private fun getReplacement(obj: String, objKey: String): Any? {
     val varVal = varRegistery[obj]
     if (objKey == "") return "null"
     var replacement: Any? = null
 
-    if (varVal is Response)
-      replacement = varVal.jsonPath()?.get(objKey)!!
+    if (varVal is Response) replacement = varVal.jsonPath()?.get(objKey)!!
 
     if (varVal is Map<*, *>)
-      replacement = kotlin.runCatching { varVal[objKey] }.getOrElse { varVal }
+        replacement = kotlin.runCatching { varVal[objKey] }.getOrElse { varVal }
 
     println("replacement $replacement")
 

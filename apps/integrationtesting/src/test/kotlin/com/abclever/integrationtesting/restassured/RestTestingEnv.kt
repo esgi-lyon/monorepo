@@ -14,20 +14,18 @@ import org.apache.http.client.config.CookieSpecs
 import org.apache.http.client.params.ClientPNames
 
 class RestTestingEnv(
-  private val templating: Templating,
-  private val cookieFilter: CookieFilter,
-  private val sessionFilter: SessionFilter
+    private val templating: Templating,
+    private val cookieFilter: CookieFilter,
+    private val sessionFilter: SessionFilter
 ) {
 
   init {
-    RestAssured.config = RestAssuredConfig
-      .newConfig()
-      .httpClient(
-        HttpClientConfig
-          .httpClientConfig()
-          .reuseHttpClientInstance()
-          .addParams(mapOf(ClientPNames.COOKIE_POLICY to CookieSpecs.DEFAULT))
-      )
+    RestAssured.config =
+        RestAssuredConfig.newConfig()
+            .httpClient(
+                HttpClientConfig.httpClientConfig()
+                    .reuseHttpClientInstance()
+                    .addParams(mapOf(ClientPNames.COOKIE_POLICY to CookieSpecs.DEFAULT)))
   }
 
   companion object {
@@ -41,56 +39,50 @@ class RestTestingEnv(
   fun processReq(route: String, method: String, data: Map<String, Any>) {
     val reqSpec = this.getSpecForMethod(method, data)
 
-    val res = this.processReqForMethod(
-      reqSpec,
-      method,
-      this.templating.processExpressionInWord(route)
-    )
+    val res =
+        this.processReqForMethod(reqSpec, method, this.templating.processExpressionInWord(route))
 
     this.templating.add(mapOf("currentResponse" to (res as Any)))
   }
 
   private fun addParamsSpec(
-    requestSpecBuilder: RequestSpecBuilder,
-    queryParams: Map<String, Any>
+      requestSpecBuilder: RequestSpecBuilder,
+      queryParams: Map<String, Any>
   ): RequestSpecBuilder {
 
-    queryParams.forEach {
-      requestSpecBuilder.addParam(it.key, it.value)
-    }
+    queryParams.forEach { requestSpecBuilder.addParam(it.key, it.value) }
 
     return requestSpecBuilder
   }
 
   fun processReqForMethod(spec: RequestSpecification, method: String, route: String) =
-    when (method.lowercase()) {
-      POST -> spec.When { post(route) }
-      PATCH -> spec.When { patch(route) }
-      PUT -> spec.When { put(route) }
-      GET -> spec.When { get(route) }
-      DELETE -> spec.When { delete(route) }
-      else -> throw Exception("Invalid method $method for request to $route")
-    }
+      when (method.lowercase()) {
+        POST -> spec.When { post(route) }
+        PATCH -> spec.When { patch(route) }
+        PUT -> spec.When { put(route) }
+        GET -> spec.When { get(route) }
+        DELETE -> spec.When { delete(route) }
+        else -> throw Exception("Invalid method $method for request to $route")
+      }
 
   fun getSpecForMethod(method: String, data: Map<String, Any>) =
-    if (method !in listOf("get", "delete"))
-      Given {
-        body(data)
-        filter(cookieFilter)
-        filter(sessionFilter)
-        contentType(ContentType.JSON)
-      }
-    else
-      Given {
-        spec(
-          addParamsSpec(RequestSpecBuilder(), data)
-            .addFilter(cookieFilter)
-            .addFilter(sessionFilter)
-            .build()
-        )
+      if (method !in listOf("get", "delete"))
+          Given {
+            body(data)
+            filter(cookieFilter)
+            filter(sessionFilter)
+            contentType(ContentType.JSON)
+          }
+      else
+          Given {
+            spec(
+                addParamsSpec(RequestSpecBuilder(), data)
+                    .addFilter(cookieFilter)
+                    .addFilter(sessionFilter)
+                    .build())
 
-        contentType(ContentType.ANY)
-      }
+            contentType(ContentType.ANY)
+          }
 
   fun getSpecForSerializable(serializable: Any) = Given {
     body(serializable)
@@ -99,4 +91,3 @@ class RestTestingEnv(
     contentType(ContentType.JSON)
   }
 }
-

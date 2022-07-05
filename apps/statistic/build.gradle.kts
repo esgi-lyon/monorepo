@@ -10,12 +10,12 @@ plugins {
 }
 
 group = "com.abcleaver"
+
 version = System.getenv("APP_VERSION") ?: "0.0.1-SNAPSHOT"
+
 java.sourceCompatibility = JavaVersion.VERSION_17
 
-repositories {
-  mavenCentral()
-}
+repositories { mavenCentral() }
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
@@ -37,11 +37,9 @@ tasks.withType<Test> {
   systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
 
-springBoot {
-  buildInfo()
-}
-configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+springBoot { buildInfo() }
 
+configure<com.diffplug.gradle.spotless.SpotlessExtension> {
   format("misc") {
     // define the files to apply 'misc' to
     target("*.md", ".gitignore")
@@ -52,7 +50,8 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
     endWithNewline()
   }
 
-  kotlin { // to customize, go to https://github.com/diffplug/spotless/tree/main/plugin-gradle#kotlin
+  kotlin { // to customize, go to
+    // https://github.com/diffplug/spotless/tree/main/plugin-gradle#kotlin
 
     // Apply ktfmt formatter(similar to google-java-format, but for Kotlin)
     ktfmt()

@@ -5,6 +5,7 @@
     "firsttris.vscode-jest-runner",
     "dbaeumer.vscode-eslint",
     "AbhijoyBasak.nestjs-files",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "nrwl.angular-console"
   ]
 }

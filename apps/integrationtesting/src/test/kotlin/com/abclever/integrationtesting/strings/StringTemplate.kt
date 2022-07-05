@@ -7,7 +7,7 @@ class StringTemplate(var value: () -> String) {
     return this.value()
   }
 
-  operator fun setValue(thisRef:  Nothing?, prop: KProperty<*>, value: String) {
-    this.value = {value}
+  operator fun setValue(thisRef: Nothing?, prop: KProperty<*>, value: String) {
+    this.value = { value }
   }
 }

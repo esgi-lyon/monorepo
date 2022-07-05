@@ -1,5 +1,6 @@
 {
   "sourceRoot": "apps/gamification/src",
+  "root": "apps/gamification",
   "projectType": "application",
   "targets": {
     "build": {

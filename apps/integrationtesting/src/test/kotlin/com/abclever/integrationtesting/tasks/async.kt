@@ -4,7 +4,5 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
 fun delayBlocking(it: Int) {
-  runBlocking {
-    delay(it.toLong())
-  }
+  runBlocking { delay(it.toLong()) }
 }

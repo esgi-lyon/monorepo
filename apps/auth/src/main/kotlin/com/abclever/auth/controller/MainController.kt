@@ -1,9 +1,9 @@
 package com.abclever.auth.controller
 
+import java.util.logging.Logger
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.web.bind.annotation.*
-import java.util.logging.Logger
 
 @RestController
 @RequestMapping("/")

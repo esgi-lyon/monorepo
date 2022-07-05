@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-@DelicateCoroutinesApi
-var lastInstance: MainStepDefinitions? = null
+@DelicateCoroutinesApi var lastInstance: MainStepDefinitions? = null
 var runningApps: NamedTask = mapOf()
 var runningDockerServices: NamedTask = mapOf()
 var singleTimeDockerTask: List<String> = listOf()
@@ -25,9 +24,7 @@ fun cleanEnv() {
 }
 
 @DelicateCoroutinesApi
-class MainStepDefinitions(
-  private val templating: Templating
-): En {
+class MainStepDefinitions(private val templating: Templating) : En {
 
   private var logger: Logger = LoggerFactory.getLogger(MainStepDefinitions::class.java)
 
@@ -59,16 +56,12 @@ class MainStepDefinitions(
       delayBlocking(it)
     }
 
-    this.Given("start apps {word} with boot time {int}") {
-      userApps: String, bootTime: Int ->
+    this.Given("start apps {word} with boot time {int}") { userApps: String, bootTime: Int ->
       val enteringApps = splitCommas(userApps)
       if (runningApps.keys.containsAll(enteringApps)) return@Given
 
-      runningApps = runningApps + launchMultiple(
-        enteringApps,
-        "pnpm --dir %s exec nx serve %s",
-        2000
-      )
+      runningApps =
+          runningApps + launchMultiple(enteringApps, "pnpm --dir %s exec nx serve %s", 2000)
 
       delayBlocking(bootTime)
     }
@@ -82,7 +75,7 @@ class MainStepDefinitions(
     }
 
     this.Given("docker rebuild once {word}") { services: String ->
-      val nonRunned = splitCommas(services).filter { !singleTimeDockerTask.contains(it)  }
+      val nonRunned = splitCommas(services).filter { !singleTimeDockerTask.contains(it) }
       if (nonRunned.isEmpty()) return@Given
 
       runningDockerServices = runningDockerServices + dockerRebuild(nonRunned.joinToString(","))

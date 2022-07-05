@@ -7,11 +7,7 @@ fun getComposeCmd(cmd: String) = "docker-compose -f %s $cmd %s"
 
 @DelicateCoroutinesApi
 fun dockerComposeCmd(services: List<String>, cmd: String): NamedTask {
-  return launchMultiple(
-    services,
-    getComposeCmd(cmd),
-    userCwd = "$cwd/docker-compose.yaml"
-  )
+  return launchMultiple(services, getComposeCmd(cmd), userCwd = "$cwd/docker-compose.yaml")
 }
 
 @DelicateCoroutinesApi

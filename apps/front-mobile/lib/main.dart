@@ -10,12 +10,8 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await AppTheme.initialize();
 
-  runApp(EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('fr')],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
-      child: App(
-        authenticationRepository: AuthenticationRepository(),
-        userRepository: UserRepository(),
-      )));
+  runApp(App(
+    authenticationRepository: AuthenticationRepository(),
+    userRepository: UserRepository(),
+  ));
 }
