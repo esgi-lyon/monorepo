@@ -40,9 +40,9 @@
       }
     },
     "buildImage": {
-      "executor": "@nxrocks/nx-spring-boot:buildImage",
+      "executor": "nx:run-commands",
       "options": {
-        "root": "apps/integrationtesting"
+        "command": "echo 'Build image is not implemented in a test app'"
       }
     },
     "buildInfo": {

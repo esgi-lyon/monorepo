@@ -48,13 +48,38 @@
     "buildImage": {
       "executor": "@nxrocks/nx-spring-boot:buildImage",
       "options": {
-        "root": "apps/quizz"
+        "root": "apps/quizz",
+        "metadata": {
+          "images": [
+            "loicroux/quizz"
+          ],
+          "tags": [
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=sha"
+          ]
+        }
       }
     },
     "buildInfo": {
       "executor": "@nxrocks/nx-spring-boot:buildInfo",
       "options": {
         "root": "apps/quizz"
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "postTargets": [
+          "quizz:github"
+        ]
+      }
+    },
+    "github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
       }
     }
   },

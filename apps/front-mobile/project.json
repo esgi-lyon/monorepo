@@ -121,6 +121,21 @@
         "command": "flutter build ipa",
         "cwd": "apps/front-mobile"
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "postTargets": [
+          "front-mobile:github"
+        ]
+      }
+    },
+    "github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
+      }
     }
   },
   "tags": []

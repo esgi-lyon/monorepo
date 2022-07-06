@@ -11,7 +11,7 @@ class MainController {
 
   @RequestMapping(value = ["/"], method = [RequestMethod.GET])
   fun home(): Any {
-    return "Auth app"
+    return "Auth app - home"
   }
 
   @CrossOrigin(allowedHeaders = ["*"], methods = [RequestMethod.GET])

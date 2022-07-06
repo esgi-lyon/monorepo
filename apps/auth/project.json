@@ -48,7 +48,17 @@
     "buildImage": {
       "executor": "@nxrocks/nx-spring-boot:buildImage",
       "options": {
-        "root": "apps/auth"
+        "root": "apps/auth",
+        "metadata": {
+          "images": [
+            "loicroux/auth"
+          ],
+          "tags": [
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=sha"
+          ]
+        }
       }
     },
     "buildInfo": {
@@ -60,7 +70,9 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": ["auth:github"]
+        "postTargets": [
+          "auth:github"
+        ]
       }
     },
     "github": {
