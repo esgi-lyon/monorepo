@@ -3,11 +3,15 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "prepare": "pnpm dlx husky-init; npx husky set .husky/pre-commit \"pnpm precommit\" && husky install",
     "start": "nx run-many --all --target=serve",
     "format": "nx run-many --all --target=format",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test",
-    "buildImage": "nx run-many --all --target=buildImage"
+    "buildImage": "nx run-many --all --target=buildImage",
+    "precommit": "pnpm precommit:format && pnpm precommit:test",
+    "precommit:format": "pnpm nx affected --target format --head=HEAD --base=develop",
+    "precommit:test": "pnpm nx affected --target test --head=HEAD --base=develop"
   },
   "private": true,
   "devDependencies": {
@@ -33,6 +37,7 @@
     "@typescript-eslint/parser": "5.24.0",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.1.0",
+    "husky": "^8.0.0",
     "jest": "27.5.1",
     "prettier": "2.7.0",
     "ts-jest": "27.1.4",

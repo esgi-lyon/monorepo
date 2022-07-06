@@ -48,26 +48,31 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+#
+#      - name: Set up JDK
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: ${{ matrix.java }}
+#          distribution: temurin
+#          cache: 'gradle'
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ matrix.java }}
-          distribution: temurin
-          cache: 'gradle'
+      - name: Setup github bot
+        run: |
+          git config --global user.email "github-actions-abcleaver@users.noreply.github.com"
+          git config --global user.name "Github actions"
 
       - name: semver plugins (develop)
         shell: bash
         run: |
-          pnpm nx affected --target version -- --releaseAs=prerelease --preid=beta --push
-        if: github.ref == 'develop'
+          pnpm nx affected --head=HEAD --base=develop --target version -- --releaseAs=prerelease --preid=beta --push
+        if: github.ref == 'refs/heads/develop'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: semver plugins (main)
         run: |
-          pnpm nx affected --target version -- --push
-        if: github.ref == 'main'
+          pnpm nx affected --head=HEAD --target version ----push
+        if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 

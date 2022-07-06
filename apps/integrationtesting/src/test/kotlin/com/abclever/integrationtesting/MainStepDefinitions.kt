@@ -60,10 +60,16 @@ class MainStepDefinitions(private val templating: Templating) : En {
       val enteringApps = splitCommas(userApps)
       if (runningApps.keys.containsAll(enteringApps)) return@Given
 
-      runningApps =
-          runningApps + launchMultiple(enteringApps, "pnpm --dir %s exec nx serve %s", 2000)
+      val bootTimeWithForced =
+          runCatching {
+                Integer.parseInt(System.getenv("INTEGRATION_TEST_BOOT_TIME_MULTIPLIER")) * bootTime
+              }
+              .getOrDefault(bootTime)
 
-      delayBlocking(bootTime)
+      runningApps =
+          runningApps + launchMultiple(enteringApps, "pnpm --dir %s exec nx serve %s", 1000)
+
+      delayBlocking(bootTimeWithForced)
     }
 
     this.Given("stop apps {word}") { apps: String ->

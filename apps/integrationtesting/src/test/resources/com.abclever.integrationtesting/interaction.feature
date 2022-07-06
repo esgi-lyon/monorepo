@@ -3,7 +3,7 @@ Feature: interaction
 
   Background:
     Given docker rebuild once postgres
-    And start apps auth-server,auth with boot time 16000
+    And start apps auth-server,auth with boot time 20000
     Given set rest address to $apps.auth-server$
 
   Scenario: Full login interaction success

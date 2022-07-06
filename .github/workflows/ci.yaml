@@ -46,6 +46,19 @@ jobs:
         with:
           channel: 'stable'
 
+      - uses: KengoTODA/actions-setup-docker-compose@main
+        with:
+          version: '2.6.1'
+
       - run: pnpm nx affected --target=format-check --parallel=5
-      - run: pnpm nx affected --target=test --parallel=2
+      - run: pnpm nx affected --target=test --parallel=5
+        env:
+          INTEGRATION_TEST_BOOT_TIME_MULTIPLIER: 2
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: integration-report
+          path: file:///home/runner/work/monorepo/monorepo/apps/integrationtesting/build/reports/tests/test/index.html
+          if-no-files-found: warn
+
       - run: pnpm nx affected --target=build --parallel=3
