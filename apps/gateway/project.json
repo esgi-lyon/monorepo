@@ -48,13 +48,38 @@
     "buildImage": {
       "executor": "@nxrocks/nx-spring-boot:buildImage",
       "options": {
-        "root": "apps/gateway"
+        "root": "apps/gateway",
+        "metadata": {
+          "images": [
+            "loicroux/gateway"
+          ],
+          "tags": [
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=sha"
+          ]
+        }
       }
     },
     "buildInfo": {
       "executor": "@nxrocks/nx-spring-boot:buildInfo",
       "options": {
         "root": "apps/gateway"
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "postTargets": [
+          "gateway:github"
+        ]
+      }
+    },
+    "github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
       }
     }
   },

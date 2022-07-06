@@ -3,7 +3,7 @@ name: Bump version and release
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
       - 'develop'
 
 jobs:
@@ -13,24 +13,27 @@ jobs:
       contains(github.event.head_commit.message, '[skip-release]') == false
       && contains(github.event.pull_request.labels.*.name, 'skip-release') == false
 
-    strategy:
-      matrix:
-        java: [ 17 ]
-        os: [ ubuntu-latest ]
-
     runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
     steps:
       - uses: actions/checkout@v3
         with:
             fetch-depth: 0
       - name: log commit in common
         run: |
-          git fetch origin;
+          git fetch --all;
           [[ -z $(git branch -a --list origin/develop) ]] && exit 0;
           [[ $(git rev-parse --verify HEAD) = $(git rev-parse --verify origin/develop) ]] \
            && echo 'History OK' && exit 0 || echo "history don't match with pre-release" && exit 1;
 
       - uses: nrwl/nx-set-shas@v2
+        if: github.ref == 'refs/heads/develop'
+        with:
+          main-branch-name: develop
+
+      - uses: nrwl/nx-set-shas@v2
+        if: github.ref == 'refs/heads/main'
         with:
           main-branch-name: main
 
@@ -48,34 +51,26 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-#
-#      - name: Set up JDK
-#        uses: actions/setup-java@v3
-#        with:
-#          java-version: ${{ matrix.java }}
-#          distribution: temurin
-#          cache: 'gradle'
 
       - name: Setup github bot
+        env:
+          BOT_USER: ${{ github.actor }}
         run: |
-          git config --global user.email "github-actions-abcleaver@users.noreply.github.com"
+          git config --global user.email "$BOT_USER@users.noreply.github.com"
           git config --global user.name "Github actions"
 
       - name: semver plugins (develop)
         shell: bash
         run: |
-          pnpm nx affected --head=HEAD --base=develop --target version -- --releaseAs=prerelease --preid=beta --push
+          pnpm nx affected --head=HEAD --base=develop~1 --target version -- --releaseAs=prerelease --preid=beta
         if: github.ref == 'refs/heads/develop'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: semver plugins (main)
         run: |
-          pnpm nx affected --head=HEAD --target version ----push
+          pnpm nx affected --head=HEAD --base=main~1 --target version
         if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: push tag
-        run: |
-          git push origin --tags --force
