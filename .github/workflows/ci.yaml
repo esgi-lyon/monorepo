@@ -10,8 +10,8 @@ jobs:
   test:
     strategy:
       matrix:
-        java: [ 17 ]
-        os: [ ubuntu-latest ]
+        java: [17]
+        os: [ubuntu-latest]
     name: Tests - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
