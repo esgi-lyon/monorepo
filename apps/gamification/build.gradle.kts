@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
   id("org.springframework.boot") version "2.6.7"
@@ -47,7 +48,7 @@ openApiGenerate {
 
 val dartDest: String = file("../front-mobile/packages/gamificationapi").absolutePath
 
-tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("dartApi") {
+tasks.register<GenerateTask>("dartApi") {
   generatorName.set("dart")
   inputSpec.set("api-docs.yaml")
   outputDir.set(dartDest)
