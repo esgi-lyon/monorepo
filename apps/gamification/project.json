@@ -45,6 +45,12 @@
         "root": "apps/gamification"
       }
     },
+    "apiClient": {
+      "executor": "@nxrocks/nx-spring-boot:serve",
+      "options": {
+        "root": "apps/gamification"
+      }
+    },
     "buildImage": {
       "executor": "@nxrocks/nx-spring-boot:buildImage",
       "options": {

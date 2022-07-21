@@ -17,5 +17,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: string
+                type: object
+                additionalProperties:
+                  type: string
 components: {}

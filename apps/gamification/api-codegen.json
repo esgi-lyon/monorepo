@@ -1,6 +1,0 @@
-{
-  "hideGenerationTimestamp": true,
-  "modelPackage": "com.abclever.gen.gamification.model",
-  "apiPackage": "com.abclever.gen.gamification.api",
-  "invokerPackage": "com.abclever.gen.gamification"
-}

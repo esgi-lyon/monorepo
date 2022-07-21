@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*
 class MainController {
 
   @RequestMapping(value = ["/"], method = [RequestMethod.GET])
-  fun home(): Any {
-    return "Auth app - home"
+  fun home(): Map<String, String> {
+    return mapOf("message" to "Auth app - home")
   }
 
   @CrossOrigin(allowedHeaders = ["*"], methods = [RequestMethod.GET])
