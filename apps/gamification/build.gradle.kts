@@ -45,6 +45,20 @@ openApiGenerate {
   ))
 }
 
+val dartDest: String = file("../front-mobile/packages/gamificationapi").absolutePath
+
+tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("dartApi") {
+  generatorName.set("dart")
+  inputSpec.set("api-docs.yaml")
+  outputDir.set(dartDest)
+  configOptions.set(mapOf(
+    "pubName" to "gamificationapi",
+    "pubLibrary" to "abclever.api",
+    "sourceFolder" to "gamificationapi",
+    "pubAuthorEmail" to "loic.roux@abclever.com"
+  ))
+}
+
 group = "com.abcleaver"
 
 version = System.getenv("APP_VERSION") ?: "0.0.1-SNAPSHOT"
@@ -72,8 +86,9 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
+  dependsOn("dartApi", tasks.openApiGenerate)
   kotlinOptions {
-    freeCompilerArgs = listOf("-Xjsr305=strict")
+    freeCompilerArgs = listOf("-Xjsr305=strict", "-Xopt-in=kotlin.RequiresOptIn")
     jvmTarget = "17"
   }
 }
