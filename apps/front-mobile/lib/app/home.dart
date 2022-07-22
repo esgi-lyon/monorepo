@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:abcleaver/app/simple_app_bar.dart';
 import 'package:abcleaver/commons/theme.dart';
 import 'package:abcleaver/features/authentication/authentication.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:sizer/sizer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,43 +21,133 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldKey,
-        appBar: SimpleAppBar('home'.tr()),
-        backgroundColor: AppTheme.of(context).primaryBackground,
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SafeArea(
-                child: GestureDetector(
-                  onTap: () => FocusScope.of(context).unfocus(),
-                  child: Center(
-                      child: Column(
-                    mainAxisSize: MainAxisSize.min,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SafeArea(
+            child: Column(
+              children: [
+                SvgPicture.asset(
+                  'assets/svg/baby-lion.svg',
+                  height: 25.h,
+                ),
+                const Text(
+                  'Bienvenue',
+                  style: TextStyle(fontSize: 20),
+                ),
+                const Text(
+                  'Luce',
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.amber,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
                     children: [
-                      Builder(
-                        builder: (context) {
-                          final userId = context.select(
-                            (AuthenticationBloc bloc) => bloc.state.user.id,
-                          );
-                          return Text('UserID: $userId');
-                        },
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(175, 254, 232, 167),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                                bottomLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12))),
+                        child: const Center(
+                          child: Text(
+                            'Jouer !',
+                            style: TextStyle(color: Colors.amber, fontSize: 20),
+                          ),
+                        ),
                       ),
-                      const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12)),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: AppTheme.of(context).secondaryColor),
-                        child: const Text('logout').tr(),
-                        onPressed: () {
-                          context
-                              .read<AuthenticationBloc>()
-                              .add(AuthenticationLogoutRequested());
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Color(0xFFC8E6C9),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                                bottomLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12))),
+                        child: const Center(
+                          child: Text(
+                            'Progression',
+                            style: TextStyle(fontSize: 20, color: Colors.green),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Color(0xFFFEF9E4),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                                bottomLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12))),
+                        child: const Center(
+                          child: Text(
+                            'Paramètres',
+                            style: TextStyle(
+                                fontSize: 20, color: Color(0xFFFCE86C)),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print("tapped on container");
                         },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              color: Color(0xFFebe8fd),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(12),
+                                  topRight: Radius.circular(12),
+                                  bottomLeft: Radius.circular(12),
+                                  bottomRight: Radius.circular(12))),
+                          child: const Center(
+                            child: Text(
+                              'Espace parent',
+                              style: TextStyle(
+                                  fontSize: 20, color: Color(0xFF6e5ebb)),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
-                  )),
+                  ),
                 ),
-              ),
-            ]));
+              ],
+            ),
+          ),
+        ));
   }
 }
+//  child: GridView.count(
+//       crossAxisCount: 2,
+//       crossAxisSpacing: 10,
+//       mainAxisSpacing: 10,
+//       children: [
+//         Container(
+//           decoration: const BoxDecoration(
+//             color: Colors.amber,
+//             borderRadius: BorderRadius.only(
+//                 topLeft: Radius.circular(10.0),
+//                 topRight: Radius.circular(10.0),
+//                 bottomRight: Radius.circular(10.0),
+//                 bottomLeft: Radius.circular(10.0)),
+//           ),
+//           padding: const EdgeInsets.all(8),
+//           child: const Center(
+//             child: Text(
+//               'Mon',
+//               textAlign: TextAlign.center,
+//               style: TextStyle(color: Colors.white, fontSize: 30),
+//             ),
+//           ),
+//         ),
+//       ],
+//     ),

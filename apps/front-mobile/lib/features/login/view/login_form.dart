@@ -34,7 +34,6 @@ class LoginForm extends StatelessWidget {
           const Padding(padding: EdgeInsets.all(12)),
           _PasswordInput(),
           const Padding(padding: EdgeInsets.all(12)),
-          _PasswordSaveCheckbox(),
           const Padding(padding: EdgeInsets.all(12)),
           _LoginButton(),
         ]),
@@ -49,15 +48,17 @@ class _UsernameInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
-        return SimpleTextField(
+        return TextField(
           key: const Key('loginForm_usernameInput_SimpleTextField'),
           onChanged: (username) =>
               context.read<LoginBloc>().add(LoginUsernameChanged(username)),
-          hintText: 'login.hint'.tr(),
-          labelText: 'login.email'.tr(),
-          errorText: state.username.pure
-              ? null
-              : state.username.error?.toString().tr(),
+          decoration: InputDecoration(
+            hintText: 'login.hint'.tr(),
+            labelText: 'login.email'.tr(),
+            errorText: state.username.pure
+                ? null
+                : state.username.error?.toString().tr(),
+          ),
         );
       },
     );
@@ -70,37 +71,18 @@ class _PasswordInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
-        return SimpleTextField(
+        return TextField(
           obscureText: true,
           key: const Key('loginForm_passwordInput_SimpleTextField'),
+          decoration: InputDecoration(
+            labelText: 'login.password.value'.tr(),
+            hintText: 'login.password.hint'.tr(),
+            errorText: state.password.pure
+                ? null
+                : state.password.error?.toString().tr(),
+          ),
           onChanged: (password) =>
               context.read<LoginBloc>().add(LoginPasswordChanged(password)),
-          labelText: 'login.password.value'.tr(),
-          hintText: 'login.password.hint'.tr(),
-          errorText: state.password.pure
-              ? null
-              : state.password.error?.toString().tr(),
-        );
-      },
-    );
-  }
-}
-
-class _PasswordSaveCheckbox extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-      buildWhen: (previous, current) =>
-          previous.passwordSave != current.passwordSave,
-      builder: (context, state) {
-        return CheckboxListTile(
-          value: state.passwordSave.value,
-          key: const Key('loginForm_passwordSave_checkbox'),
-          onChanged: (v) => context
-              .read<LoginBloc>()
-              .add(LoginPasswordSaveChanged(v ?? false)),
-          title: const Text("login.password.remember").tr(),
-          activeColor: AppTheme.of(context).secondaryColor,
         );
       },
     );
@@ -115,13 +97,12 @@ class _LoginButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : InternalButtonWidget(
-                text: 'login.connect'.tr(),
+            : ElevatedButton(
                 key: const Key('loginForm_continue_raisedButton'),
-                options: ComplexButtonOptions.of(context),
                 onPressed: () {
                   context.read<LoginBloc>().add(const LoginSubmitted());
-                });
+                },
+                child: Text('login.connect'.tr()));
       },
     );
   }

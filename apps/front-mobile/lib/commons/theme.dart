@@ -5,11 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:abcleaver/app/app.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 
 const kThemeModeKey = '__theme_mode__';
 SharedPreferences? _prefs;
 
 abstract class AppTheme {
+  BorderRadius borderRadius = BorderRadius.circular(30.h);
+
   static Future initialize() async =>
       _prefs = await SharedPreferences.getInstance();
   static ThemeMode get themeMode {
@@ -20,6 +23,26 @@ abstract class AppTheme {
             ? ThemeMode.dark
             : ThemeMode.light;
   }
+
+  ThemeData getThemeData() => ThemeData(
+        appBarTheme: AppBarTheme(backgroundColor: primaryBackground),
+        useMaterial3: true,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+          onPrimary: primaryColor,
+          primary: secondaryColor,
+          fixedSize: Size(100.w, 5.h),
+        )),
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: secondaryColor),
+            borderRadius: borderRadius,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: borderRadius,
+          ),
+        ),
+      );
 
   static void saveThemeMode(ThemeMode mode) => mode == ThemeMode.system
       ? _prefs?.remove(kThemeModeKey)
@@ -128,10 +151,10 @@ class LightModeTheme extends AppTheme {
 }
 
 class DarkModeTheme extends AppTheme {
-  final primaryColor = const Color(0xFF4B39EF);
-  final secondaryColor = const Color(0xFF39D2C0);
-  final tertiaryColor = const Color(0xFFEE8B60);
-  final alternate = const Color(0xFFFF5963);
+  final primaryColor = const Color(0xFF6750A4);
+  final secondaryColor = const Color(0xFF625B71);
+  final tertiaryColor = const Color(0xFF7D5260);
+  final alternate = const Color(0xFFB3261E);
   final primaryBackground = const Color(0xFF1A1F24);
   final secondaryBackground = const Color(0xFF101213);
   final primaryText = const Color(0xFFFFFFFF);
