@@ -2,7 +2,7 @@ import {
   BadRequestException, Body,
   Controller,
   Get,
-  Logger,
+  Logger, Param,
   Post,
   Res,
 } from '@nestjs/common';
@@ -34,6 +34,7 @@ export class InteractionController {
 
   @Get('/:uid')
   async login(
+    @Param('uid') _: string,
     @Oidc.Interaction() interaction: InteractionHelper,
     @Res() res: Response
   ) {
@@ -58,6 +59,7 @@ export class InteractionController {
 
   @Post('/:uid')
   async loginCheck(
+    @Param('uid') _: string,
     @Oidc.Interaction() interaction: InteractionHelper,
     @Body() { email, password }: Record<string, string>,
   ) {
@@ -90,7 +92,10 @@ export class InteractionController {
   }
 
   @Post(':uid/confirm')
-  async confirmLogin(@Oidc.Interaction() interaction: InteractionHelper) {
+  async confirmLogin(
+    @Param('uid') _: string,
+    @Oidc.Interaction() interaction: InteractionHelper
+  ) {
     const interactionDetails = await interaction.details();
     const { prompt, params, session } = interactionDetails;
 
@@ -137,7 +142,10 @@ export class InteractionController {
   }
 
   @Get(':uid/abort')
-  async abortLogin(@Oidc.Interaction() interaction: InteractionHelper) {
+  async abortLogin(
+    @Param('uid') _: string,
+    @Oidc.Interaction() interaction: InteractionHelper
+  ) {
     const result = {
       error: 'access_denied',
       error_description: 'End-user aborted interaction',

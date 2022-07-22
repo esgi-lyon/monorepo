@@ -1,0 +1,276 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://0.0.0.0:8082
+  description: Generated server url
+paths:
+  /me:
+    get:
+      tags:
+      - main-controller
+      operationId: me
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OidcUser'
+  /:
+    get:
+      tags:
+      - main-controller
+      operationId: home
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    AddressStandardClaim:
+      type: object
+      properties:
+        region:
+          type: string
+        country:
+          type: string
+        formatted:
+          type: string
+        streetAddress:
+          type: string
+        locality:
+          type: string
+        postalCode:
+          type: string
+    GrantedAuthority:
+      type: object
+      properties:
+        authority:
+          type: string
+    OidcIdToken:
+      type: object
+      properties:
+        tokenValue:
+          type: string
+        issuedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        claims:
+          type: object
+          additionalProperties:
+            type: object
+        audience:
+          type: array
+          items:
+            type: string
+        authenticatedAt:
+          type: string
+          format: date-time
+        authenticationMethods:
+          type: array
+          items:
+            type: string
+        authorizedParty:
+          type: string
+        accessTokenHash:
+          type: string
+        authorizationCodeHash:
+          type: string
+        authenticationContextClass:
+          type: string
+        issuer:
+          type: string
+          format: url
+        nonce:
+          type: string
+        subject:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressStandardClaim'
+        locale:
+          type: string
+        fullName:
+          type: string
+        zoneInfo:
+          type: string
+        givenName:
+          type: string
+        familyName:
+          type: string
+        middleName:
+          type: string
+        nickName:
+          type: string
+        preferredUsername:
+          type: string
+        emailVerified:
+          type: boolean
+        birthdate:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+        email:
+          type: string
+        profile:
+          type: string
+        picture:
+          type: string
+        website:
+          type: string
+        gender:
+          type: string
+    OidcUser:
+      type: object
+      properties:
+        userInfo:
+          $ref: '#/components/schemas/OidcUserInfo'
+        claims:
+          type: object
+          additionalProperties:
+            type: object
+        idToken:
+          $ref: '#/components/schemas/OidcIdToken'
+        attributes:
+          type: object
+          additionalProperties:
+            type: object
+        authorities:
+          type: array
+          items:
+            $ref: '#/components/schemas/GrantedAuthority'
+        name:
+          type: string
+        audience:
+          type: array
+          items:
+            type: string
+        expiresAt:
+          type: string
+          format: date-time
+        issuedAt:
+          type: string
+          format: date-time
+        authenticatedAt:
+          type: string
+          format: date-time
+        authenticationMethods:
+          type: array
+          items:
+            type: string
+        authorizedParty:
+          type: string
+        accessTokenHash:
+          type: string
+        authorizationCodeHash:
+          type: string
+        authenticationContextClass:
+          type: string
+        issuer:
+          type: string
+          format: url
+        nonce:
+          type: string
+        subject:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressStandardClaim'
+        locale:
+          type: string
+        fullName:
+          type: string
+        zoneInfo:
+          type: string
+        givenName:
+          type: string
+        familyName:
+          type: string
+        middleName:
+          type: string
+        nickName:
+          type: string
+        preferredUsername:
+          type: string
+        emailVerified:
+          type: boolean
+        birthdate:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+        email:
+          type: string
+        profile:
+          type: string
+        picture:
+          type: string
+        website:
+          type: string
+        gender:
+          type: string
+    OidcUserInfo:
+      type: object
+      properties:
+        claims:
+          type: object
+          additionalProperties:
+            type: object
+        address:
+          $ref: '#/components/schemas/AddressStandardClaim'
+        locale:
+          type: string
+        fullName:
+          type: string
+        zoneInfo:
+          type: string
+        givenName:
+          type: string
+        familyName:
+          type: string
+        middleName:
+          type: string
+        nickName:
+          type: string
+        preferredUsername:
+          type: string
+        emailVerified:
+          type: boolean
+        birthdate:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+        email:
+          type: string
+        profile:
+          type: string
+        picture:
+          type: string
+        website:
+          type: string
+        gender:
+          type: string
+        subject:
+          type: string

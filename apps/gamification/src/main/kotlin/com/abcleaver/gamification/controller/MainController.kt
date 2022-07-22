@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class MainController {
+
   @GetMapping("/")
-  fun index(): String {
-    return "blog"
+  fun index(): Map<String, String> {
+    return mapOf("message" to "Gamification - home")
   }
 }

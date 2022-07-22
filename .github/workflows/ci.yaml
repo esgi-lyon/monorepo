@@ -10,8 +10,8 @@ jobs:
   test:
     strategy:
       matrix:
-        java: [ 17 ]
-        os: [ ubuntu-latest ]
+        java: [17]
+        os: [ubuntu-latest]
     name: Tests - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
@@ -52,8 +52,8 @@ jobs:
         with:
           version: '2.6.1'
 
-      - run: pnpm nx affected --target=format-check --parallel=5
-      - run: pnpm nx affected --target=test --parallel=5
+      - run: pnpm nx affected --target=format-check --parallel=3
+      - run: pnpm nx affected --target=test --parallel=3
         env:
           INTEGRATION_TEST_BOOT_TIME_MULTIPLIER: 2
 

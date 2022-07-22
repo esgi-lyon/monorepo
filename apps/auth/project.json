@@ -50,14 +50,8 @@
       "options": {
         "root": "apps/auth",
         "metadata": {
-          "images": [
-            "loicroux/auth"
-          ],
-          "tags": [
-            "type=ref,event=branch",
-            "type=ref,event=tag",
-            "type=sha"
-          ]
+          "images": ["loicroux/auth"],
+          "tags": ["type=ref,event=branch", "type=ref,event=tag", "type=sha"]
         }
       }
     },
@@ -70,9 +64,7 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": [
-          "auth:github"
-        ]
+        "postTargets": ["auth:github"]
       }
     },
     "github": {

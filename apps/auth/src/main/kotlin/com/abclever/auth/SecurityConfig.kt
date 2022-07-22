@@ -26,6 +26,7 @@ class SecurityConfig(
             "/login",
             "/",
             "/api-docs/**",
+            "/*/api-docs**",
             "/swagger-ui/**",
             "/webjars/**",
             "/error**",

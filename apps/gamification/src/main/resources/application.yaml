@@ -5,3 +5,8 @@ security:
   oauth2:
     resource:
       filter-order: 3
+
+springdoc:
+  swagger-ui:
+    path: /api-docs
+    operationsSorter: method

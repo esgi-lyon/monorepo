@@ -50,14 +50,8 @@
       "options": {
         "root": "apps/quizz",
         "metadata": {
-          "images": [
-            "loicroux/quizz"
-          ],
-          "tags": [
-            "type=ref,event=branch",
-            "type=ref,event=tag",
-            "type=sha"
-          ]
+          "images": ["loicroux/quizz"],
+          "tags": ["type=ref,event=branch", "type=ref,event=tag", "type=sha"]
         }
       }
     },
@@ -70,9 +64,7 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": [
-          "quizz:github"
-        ]
+        "postTargets": ["quizz:github"]
       }
     },
     "github": {

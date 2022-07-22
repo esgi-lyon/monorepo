@@ -57,11 +57,7 @@
         "push": true,
         "metadata": {
           "images": ["loicroux/auth-server"],
-          "tags": [
-            "type=ref,event=branch",
-            "type=ref,event=tag",
-            "type=sha"
-          ]
+          "tags": ["type=ref,event=branch", "type=ref,event=tag", "type=sha"]
         }
       }
     },
@@ -92,9 +88,7 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": [
-          "auth:github"
-        ]
+        "postTargets": ["auth:github"]
       }
     },
     "github": {

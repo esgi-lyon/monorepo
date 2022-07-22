@@ -29,9 +29,6 @@
       }
     ]
   },
-  "plugins": [
-    "@nxrocks/nx-flutter",
-    "@nxrocks/nx-spring-boot"
-  ],
+  "plugins": ["@nxrocks/nx-flutter", "@nxrocks/nx-spring-boot"],
   "defaultProject": "quizz"
 }

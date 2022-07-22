@@ -1,6 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from "@nestjs/config";
+import * as fs from "fs";
+
 const SWAGGER_API_ROOT = 'api-docs',
   SWAGGER_API_NAME = 'Authentication server',
   SWAGGER_API_DESCRIPTION = 'Authentication with oidc provider documentation',
@@ -20,5 +22,8 @@ export const setupSwagger = (app: INestApplication) => {
     })
     .build();
   const document = SwaggerModule.createDocument(app, options);
+
+  fs.writeFileSync("apps/auth-server/api-docs-auth-server.json", JSON.stringify(document))
+
   SwaggerModule.setup(SWAGGER_API_ROOT, app, document);
 };

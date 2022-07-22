@@ -45,19 +45,19 @@
         "root": "apps/gamification"
       }
     },
+    "apiClient": {
+      "executor": "@nxrocks/nx-spring-boot:serve",
+      "options": {
+        "root": "apps/gamification"
+      }
+    },
     "buildImage": {
       "executor": "@nxrocks/nx-spring-boot:buildImage",
       "options": {
         "root": "apps/gamification",
         "metadata": {
-          "images": [
-            "loicroux/gamification"
-          ],
-          "tags": [
-            "type=ref,event=branch",
-            "type=ref,event=tag",
-            "type=sha"
-          ]
+          "images": ["loicroux/gamification"],
+          "tags": ["type=ref,event=branch", "type=ref,event=tag", "type=sha"]
         }
       }
     },
@@ -70,9 +70,7 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": [
-          "gamification:github"
-        ]
+        "postTargets": ["gamification:github"]
       }
     },
     "github": {

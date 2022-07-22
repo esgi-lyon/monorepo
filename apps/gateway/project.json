@@ -50,14 +50,8 @@
       "options": {
         "root": "apps/gateway",
         "metadata": {
-          "images": [
-            "loicroux/gateway"
-          ],
-          "tags": [
-            "type=ref,event=branch",
-            "type=ref,event=tag",
-            "type=sha"
-          ]
+          "images": ["loicroux/gateway"],
+          "tags": ["type=ref,event=branch", "type=ref,event=tag", "type=sha"]
         }
       }
     },
@@ -70,9 +64,7 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": [
-          "gateway:github"
-        ]
+        "postTargets": ["gateway:github"]
       }
     },
     "github": {

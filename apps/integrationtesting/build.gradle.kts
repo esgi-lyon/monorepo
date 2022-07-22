@@ -32,6 +32,10 @@ dependencies {
 
   // Project to test
   implementation("${group}:auth")
+  implementation("${group}.gen.gamification:api")
+
+  // client api deps
+  implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
   testImplementation("org.hamcrest:hamcrest:2.2")
@@ -47,7 +51,7 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
   kotlinOptions {
-    freeCompilerArgs = listOf("-Xjsr305=strict")
+    freeCompilerArgs = listOf("-Xjsr305=strict", "-Xopt-in=kotlin.RequiresOptIn")
     jvmTarget = "17"
   }
 }
