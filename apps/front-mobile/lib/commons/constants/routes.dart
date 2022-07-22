@@ -1,3 +1,4 @@
+import 'package:abcleaver/features/quizz/view/quizz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:abcleaver/app/home.dart';
 import 'package:abcleaver/app/splash_screen.dart';
@@ -17,6 +18,7 @@ class Routes {
   static const String logout = '/logout';
   static const String home = '/home';
   static const String loading = '/loading';
+  static const String quizz = '/quizz';
 
   static Map<String, WidgetBuilder> all = {
     Routes.login: (context) => const LoginPage(),
@@ -27,6 +29,7 @@ class Routes {
     Routes.register: (context) => const RegisterPage(),
     Routes.forgot: (context) => const ForgotPage(),
     Routes.loading: (context) => const LoadingIndicator(),
+    Routes.quizz: (context) => const QuizzPage()
   };
 
   static Map<String, WidgetBuilder> bottomMenu = {

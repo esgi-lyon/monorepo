@@ -19,7 +19,6 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
         preferredSize: preferredSize,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           AppBar(
-            backgroundColor: AppTheme.of(context).primaryBackground,
             title: Text(
               pageTitle,
               style: AppTheme.of(context)

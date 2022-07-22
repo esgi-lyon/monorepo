@@ -5,15 +5,15 @@
     "saved": "enregistré avec succès",
     "failed": "Échec de la soumission",
     "apply": "appliquer",
-    "home": "Domicile",
+    "home": "Accueil",
     "null": "Erreur",
     "form": {
         "required": "Champ obligatoire"
     },
     "logout": "Déconnexion",
     "login": {
-        "email": "Messagerie électronique",
-        "connect": "Relier",
+        "email": "Email",
+        "connect": "Se connecter",
         "hint": "Veuillez saisir votre adresse e-mail...",
         "password": {
             "hint": "Veuillez saisir votre mot de passe...",

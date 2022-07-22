@@ -14,13 +14,16 @@ class EmailInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
         buildWhen: (previous, current) => previous.email != current.email,
-        builder: (context, state) => SimpleTextField(
+        builder: (context, state) => TextField(
               onChanged: (v) =>
                   context.read<UserBloc>().add(UserEmailChanged(v)),
-              hintText: 'login.hint'.tr(),
-              labelText: 'login.email'.tr(),
-              errorText:
-                  state.email.pure ? null : state.email.error?.toString().tr(),
+              decoration: InputDecoration(
+                hintText: 'login.hint'.tr(),
+                labelText: 'login.email'.tr(),
+                errorText: state.email.pure
+                    ? null
+                    : state.email.error?.toString().tr(),
+              ),
             ));
   }
 }
@@ -33,15 +36,17 @@ class PasswordInput extends StatelessWidget {
     return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
-        return SimpleTextField(
+        return TextField(
           obscureText: true,
           onChanged: (password) =>
               context.read<UserBloc>().add(UserPasswordChanged(password)),
-          labelText: 'login.password.value'.tr(),
-          hintText: 'login.password.hint'.tr(),
-          errorText: state.password.pure
-              ? null
-              : state.password.error?.toString().tr(),
+          decoration: InputDecoration(
+            labelText: 'login.password.value'.tr(),
+            hintText: 'login.password.hint'.tr(),
+            errorText: state.password.pure
+                ? null
+                : state.password.error?.toString().tr(),
+          ),
         );
       },
     );
@@ -57,15 +62,17 @@ class ConfirmationPasswordInput extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.confirmationPassword != current.confirmationPassword,
       builder: (context, state) {
-        return SimpleTextField(
+        return TextField(
           obscureText: true,
           onChanged: (v) =>
               context.read<UserBloc>().add(UserConfirmationPasswordChanged(v)),
-          labelText: 'login.password_confirmation.value'.tr(),
-          hintText: 'login.password_confirmation.hint'.tr(),
-          errorText: state.confirmationPassword.pure
-              ? null
-              : state.confirmationPassword.error?.toString().tr(),
+          decoration: InputDecoration(
+            labelText: 'login.password_confirmation.value'.tr(),
+            hintText: 'login.password_confirmation.hint'.tr(),
+            errorText: state.confirmationPassword.pure
+                ? null
+                : state.confirmationPassword.error?.toString().tr(),
+          ),
         );
       },
     );
@@ -80,11 +87,14 @@ class NameInput extends StatelessWidget {
     return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) => previous.name != current.name,
       builder: (context, state) {
-        return SimpleTextField(
+        return TextField(
           onChanged: (v) => context.read<UserBloc>().add(UserNameChanged(v)),
-          labelText: 'user.name.value'.tr(),
-          hintText: 'user.name.hint'.tr(),
-          errorText: state.name.pure ? null : state.name.error?.toString().tr(),
+          decoration: InputDecoration(
+            labelText: 'user.name.value'.tr(),
+            hintText: 'user.name.hint'.tr(),
+            errorText:
+                state.name.pure ? null : state.name.error?.toString().tr(),
+          ),
         );
       },
     );
@@ -100,14 +110,16 @@ class FamilyNameInput extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.familyName != current.familyName,
       builder: (context, state) {
-        return SimpleTextField(
+        return TextField(
           onChanged: (familyName) =>
               context.read<UserBloc>().add(UserFamilyNameChanged(familyName)),
-          labelText: 'user.family_name.value'.tr(),
-          hintText: 'user.family_name.hint'.tr(),
-          errorText: state.familyName.pure
-              ? null
-              : state.familyName.error?.toString().tr(),
+          decoration: InputDecoration(
+            labelText: 'user.family_name.value'.tr(),
+            hintText: 'user.family_name.hint'.tr(),
+            errorText: state.familyName.pure
+                ? null
+                : state.familyName.error?.toString().tr(),
+          ),
         );
       },
     );
@@ -145,12 +157,14 @@ class GenderInput extends StatelessWidget {
     return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) => previous.gender != current.gender,
       builder: (context, state) {
-        return SimpleTextField(
+        return TextField(
           onChanged: (v) => context.read<UserBloc>().add(UserGenderChanged(v)),
-          labelText: 'user.gender.value'.tr(),
-          hintText: 'user.gender.hint'.tr(),
-          errorText:
-              state.gender.pure ? null : state.gender.error?.toString().tr(),
+          decoration: InputDecoration(
+            labelText: 'user.gender.value'.tr(),
+            hintText: 'user.gender.hint'.tr(),
+            errorText:
+                state.gender.pure ? null : state.gender.error?.toString().tr(),
+          ),
         );
       },
     );
@@ -165,12 +179,15 @@ class PictureInput extends StatelessWidget {
     return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) => previous.picture != current.picture,
       builder: (context, state) {
-        return SimpleTextField(
+        return TextField(
           onChanged: (v) => context.read<UserBloc>().add(UserPictureChanged(v)),
-          labelText: 'user.picture.value'.tr(),
-          hintText: 'user.picture.hint'.tr(),
-          errorText:
-              state.picture.pure ? null : state.picture.error?.toString().tr(),
+          decoration: InputDecoration(
+            labelText: 'user.picture.value'.tr(),
+            hintText: 'user.picture.hint'.tr(),
+            errorText: state.picture.pure
+                ? null
+                : state.picture.error?.toString().tr(),
+          ),
         );
       },
     );
