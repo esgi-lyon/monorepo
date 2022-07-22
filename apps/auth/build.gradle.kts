@@ -15,16 +15,10 @@ plugins {
 tasks.register("SwaggerDownload") {
   doLast {
     val url = "http://0.0.0.0:8082/v3/api-docs.yaml"
-    val url2 = "http://0.0.0.0:3333/api-docs-json"
     download {
       run {
         src(url)
         dest(file("api-docs.yaml"))
-        overwrite(true)
-      }
-      run {
-        src(url2)
-        dest(file("api-docs-auth-server.json"))
         overwrite(true)
       }
     }
@@ -37,12 +31,10 @@ openApiMeta {
   outputFolder.set("$buildDir/meta")
 }
 
-val dartDest: String = file("../front-mobile/packages/authapi").absolutePath
-
 tasks.register<GenerateTask>("dartApi") {
   generatorName.set("dart")
   inputSpec.set("api-docs.yaml")
-  outputDir.set(dartDest)
+  outputDir.set("../front-mobile/packages/authapi")
   configOptions.set(
       mapOf(
           "pubName" to "authapi",
@@ -57,7 +49,7 @@ openApiGenerate {
   generatorName.set("kotlin")
   library.set("jvm-okhttp4")
   inputSpec.set("api-docs.yaml")
-  outputDir.set("$buildDir/api")
+  outputDir.set("${file("./").absolutePath}/api")
   apiPackage.set("com.abclever.gen.auth.api")
   invokerPackage.set("com.abclever.gen.auth.invoker")
   modelPackage.set("com.abclever.gen.auth.model")
@@ -65,6 +57,7 @@ openApiGenerate {
 }
 
 // Auth server
+val authServerOpenapiDoc = "../auth-server/api-docs-auth-server.json"
 
 tasks.register<GenerateTask>("kotlinAuthServerApi") {
   groupId.set("com.abclever.gen.authserver")
@@ -72,20 +65,18 @@ tasks.register<GenerateTask>("kotlinAuthServerApi") {
   generatorName.set("kotlin")
   library.set("jvm-okhttp4")
   validateSpec.set(false)
-  inputSpec.set("api-docs-auth-server.json")
-  outputDir.set("$buildDir/api-auth-server")
+  inputSpec.set(authServerOpenapiDoc)
+  outputDir.set("${file("../auth-server").absolutePath}/api")
   apiPackage.set("com.abclever.gen.authserver.api")
   invokerPackage.set("com.abclever.gen.authserver.invoker")
   modelPackage.set("com.abclever.gen.authserver.model")
   configOptions.set(mapOf("dateLibrary" to "java11"))
 }
 
-val dartServerDest: String = file("../front-mobile/packages/authserverapi").absolutePath
-
 tasks.register<GenerateTask>("dartAuthServerApi") {
   generatorName.set("dart")
-  inputSpec.set("api-docs-auth-server.json")
-  outputDir.set(dartServerDest)
+  inputSpec.set(authServerOpenapiDoc)
+  outputDir.set("../front-mobile/packages/authserverapi")
   validateSpec.set(false)
   configOptions.set(
       mapOf(

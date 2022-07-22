@@ -2,4 +2,4 @@ rootProject.name = "integrationtesting"
 
 includeBuild("../auth")
 
-includeBuild("../gamification/build/api")
+includeBuild("../gamification/api")

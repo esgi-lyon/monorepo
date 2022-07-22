@@ -2,6 +2,7 @@
 .travis.yml
 README.md
 analysis_options.yaml
+doc/MainControllerApi.md
 git_push.sh
 lib/api.dart
 lib/api_client.dart
@@ -12,4 +13,5 @@ lib/auth/authentication.dart
 lib/auth/http_basic_auth.dart
 lib/auth/http_bearer_auth.dart
 lib/auth/oauth.dart
+lib/authapi/api/main_controller_api.dart
 pubspec.yaml

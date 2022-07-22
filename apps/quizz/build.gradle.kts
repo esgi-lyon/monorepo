@@ -37,7 +37,7 @@ openApiGenerate {
   generatorName.set("kotlin")
   library.set("jvm-okhttp4")
   inputSpec.set("api-docs.yaml")
-  outputDir.set("$buildDir/api")
+  outputDir.set("${file("./").absolutePath}/api")
   apiPackage.set("com.abclever.gen.quizz.api")
   invokerPackage.set("com.abclever.gen.quizz.invoker")
   modelPackage.set("com.abclever.gen.quizz.model")

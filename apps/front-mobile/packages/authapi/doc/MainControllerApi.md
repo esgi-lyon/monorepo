@@ -5,15 +5,15 @@
 import 'package:authapi/api.dart';
 ```
 
-All URIs are relative to *http://localhost:8085*
+All URIs are relative to *http://localhost:8082*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**index**](MainControllerApi.md#index) | **GET** / | 
+[**home**](MainControllerApi.md#home) | **GET** / | 
 
 
-# **index**
-> String index()
+# **home**
+> Map<String, String> home()
 
 
 
@@ -24,10 +24,10 @@ import 'package:authapi/api.dart';
 final api_instance = MainControllerApi();
 
 try {
-    final result = api_instance.index();
+    final result = api_instance.home();
     print(result);
 } catch (e) {
-    print('Exception when calling MainControllerApi->index: $e\n');
+    print('Exception when calling MainControllerApi->home: $e\n');
 }
 ```
 
@@ -36,7 +36,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**String**
+**Map<String, String>**
 
 ### Authorization
 

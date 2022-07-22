@@ -17,7 +17,7 @@ class MainControllerApi {
   final ApiClient apiClient;
 
   /// Performs an HTTP 'GET /' operation and returns the [Response].
-  Future<Response> indexWithHttpInfo() async {
+  Future<Response> homeWithHttpInfo() async {
     // ignore: prefer_const_declarations
     final path = r'/';
 
@@ -42,8 +42,8 @@ class MainControllerApi {
     );
   }
 
-  Future<String?> index() async {
-    final response = await indexWithHttpInfo();
+  Future<Map<String, String>?> home() async {
+    final response = await homeWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -51,8 +51,8 @@ class MainControllerApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'String',) as String;
-    
+      return Map<String, String>.from(await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Map<String, String>'),);
+
     }
     return null;
   }

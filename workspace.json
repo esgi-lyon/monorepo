@@ -6,8 +6,8 @@
     "front-mobile": "apps/front-mobile",
     "gamification": "apps/gamification",
     "gateway": "apps/gateway",
-    "integrationtesting": "apps/integrationtesting",
     "quizz": "apps/quizz",
+    "integrationtesting": "apps/integrationtesting",
     "statistic": "apps/statistic"
   }
 }

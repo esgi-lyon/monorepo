@@ -11,7 +11,7 @@
 part of abclever.api;
 
 class ApiClient {
-  ApiClient({this.basePath = 'http://localhost', this.authentication});
+  ApiClient({this.basePath = 'http://localhost:8082', this.authentication});
 
   final String basePath;
 
