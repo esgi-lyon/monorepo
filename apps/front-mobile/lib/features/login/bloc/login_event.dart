@@ -34,6 +34,15 @@ class LoginPasswordSaveChanged extends LoginEvent {
   List<Object> get props => [passwordSave];
 }
 
+class LoginTokenChanged extends LoginEvent {
+  const LoginTokenChanged(this.tokenInfo);
+
+  final Map<String, dynamic> tokenInfo;
+
+  @override
+  List<Object> get props => [tokenInfo];
+}
+
 class LoginSubmitted extends LoginEvent {
   const LoginSubmitted();
 }

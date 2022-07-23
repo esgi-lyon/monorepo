@@ -38,11 +38,11 @@ const getConfig = (
     },
   },
   ttl: {
-    Session: 86400000,
-    Interaction: 7200,
-    Grant: 43200000,
-    IdToken: 86400000,
-    AccessToken: 86400000,
+    Session: 1 * 24 * 60 * 60 * 1000,
+    Interaction: 300000,
+    Grant: 15 * 24 * 60 * 60 * 1000,
+    IdToken: 15 * 24 * 60 * 60 * 1000,
+    AccessToken: 15 * 24 * 60 * 60 * 1000,
     ClientCredentials: 5400000,
   },
   findAccount: async (_, id, token) => {

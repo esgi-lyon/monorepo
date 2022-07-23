@@ -75,6 +75,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [LoginDto](doc/LoginDto.md)
  - [UserDto](doc/UserDto.md)
 
 

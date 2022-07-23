@@ -213,7 +213,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **interactionControllerLoginCheck**
-> interactionControllerLoginCheck(uid)
+> interactionControllerLoginCheck(uid, loginDto)
 
 
 
@@ -223,9 +223,10 @@ import 'package:authserver/api.dart';
 
 final api = Authserver().getDefaultApi();
 final String uid = uid_example; // String | 
+final LoginDto loginDto = ; // LoginDto | 
 
 try {
-    api.interactionControllerLoginCheck(uid);
+    api.interactionControllerLoginCheck(uid, loginDto);
 } catch on DioError (e) {
     print('Exception when calling DefaultApi->interactionControllerLoginCheck: $e\n');
 }
@@ -236,6 +237,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uid** | **String**|  | 
+ **loginDto** | [**LoginDto**](LoginDto.md)|  | 
 
 ### Return type
 
@@ -247,7 +249,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

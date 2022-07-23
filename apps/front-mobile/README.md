@@ -6,6 +6,8 @@ Account manager flutter app
 
 Use vscode workspace recommandations and verify flutter toolchain with `flutter doctor`
 
+**To Build api *.g.dart dto run** : `dart run build_runner build --delete-conflicting-outputs`
+
 ## Resources
 
 - Translations : https://file-translate.com/en/app/json-translate
