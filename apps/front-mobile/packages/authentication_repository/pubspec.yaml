@@ -13,8 +13,11 @@ dependencies:
   local_auth: ^2.1.0
   authserver:
     path: ../authserverapi
-  dio: '>=4.0.1 <5.0.0'
+  dio: '>=4.0.6 <5.0.0'
   json_annotation: ^4.6.0
+  cookie_jar: ^3.0.1
+  dio_cookie_manager: ^2.0.0
+  pretty_dio_logger: ^1.2.0-beta-1
 
 dev_dependencies:
   json_serializable: '^6.1.5'

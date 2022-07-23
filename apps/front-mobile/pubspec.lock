@@ -183,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  cookie_jar:
+    dependency: transitive
+    description:
+      name: cookie_jar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   coverage:
     dependency: transitive
     description:
@@ -225,6 +232,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
+  dio_cookie_manager:
+    dependency: transitive
+    description:
+      name: dio_cookie_manager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   easy_localization:
     dependency: "direct main"
     description:
@@ -686,6 +700,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.1"
+  pretty_dio_logger:
+    dependency: transitive
+    description:
+      name: pretty_dio_logger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0-beta-1"
   process:
     dependency: transitive
     description:

@@ -15,6 +15,7 @@ import { isEmpty } from 'lodash';
 import { UserService } from '../ldap/user.service';
 import { ConfigService } from '@nestjs/config';
 import { filterUndefinedInObj } from '../utils/object.utils';
+import { ApiProperty } from '@nestjs/swagger';
 
 type InteractionPayload = {
   prompt: PromptDetail;
@@ -22,6 +23,14 @@ type InteractionPayload = {
   params: object;
   uid: string;
 };
+
+class LoginDto {
+  @ApiProperty()
+  email: string ;
+
+  @ApiProperty()
+  password: string ;
+}
 
 @Controller('/interaction')
 export class InteractionController {
@@ -68,7 +77,7 @@ export class InteractionController {
   async loginCheck(
     @Param('uid') _: string,
     @Oidc.Interaction() interaction: InteractionHelper,
-    @Body() { email, password }: Record<string, string>
+    @Body() { email, password }: LoginDto
   ) {
     const { prompt, params, uid } = await interaction.details();
 
