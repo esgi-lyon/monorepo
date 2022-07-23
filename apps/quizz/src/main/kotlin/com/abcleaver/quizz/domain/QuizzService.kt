@@ -2,7 +2,6 @@ package com.abcleaver.quizz.domain
 
 import com.abcleaver.quizz.port.ImageOut
 import com.abcleaver.quizz.port.MessageOut
-import java.nio.file.Path
 
 class QuizzService constructor(private val imageIn: ImageOut, private val messageOut: MessageOut) {
 
@@ -17,26 +16,19 @@ class QuizzService constructor(private val imageIn: ImageOut, private val messag
     return Quizz(questions);
   }
 
-  fun submit(answer: String, userId: Long, question: Letter, type: QuestionType): Boolean {
-    val correct = isCorrect(type, answer, question)
+  fun submit(answer: String, userId: Long, question: Letter): Boolean {
+    val correct = isCorrect(answer, question)
 
     messageOut.dispatch(
       correct,
       answer,
       userId,
-      question.toString(),
-      type.toString())
+      question.toString()
+    )
 
     return correct
   }
 
-  private fun isCorrect(
-    type: QuestionType,
-    answer: String,
-    question: Letter
-  ): Boolean = when (type) {
-    QuestionType.Letter -> Letter.fromString(answer) == question
-    QuestionType.Image -> Path.of(answer) == imageIn.getImage(question)
-  }
+  private fun isCorrect( answer: String, question: Letter): Boolean = Letter.fromString(answer) == question
 
 }
