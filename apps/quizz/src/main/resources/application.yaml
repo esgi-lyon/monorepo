@@ -1,2 +1,9 @@
+spring:
+  profiles:
+    group:
+      default: dev, common
+      prod: prod, common
+---
 server:
-  port : 8085
+  address: 0.0.0.0
+  port: 8085

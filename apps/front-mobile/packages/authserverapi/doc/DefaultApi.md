@@ -5,12 +5,12 @@
 import 'package:authserver/api.dart';
 ```
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://0.0.0.0:3333*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**appControllerCallback**](DefaultApi.md#appcontrollercallback) | **GET** /callback | 
 [**appControllerIndex**](DefaultApi.md#appcontrollerindex) | **GET** / | 
-[**appControllerTest**](DefaultApi.md#appcontrollertest) | **GET** /callback | 
 [**interactionControllerAbortLogin**](DefaultApi.md#interactioncontrollerabortlogin) | **GET** /interaction/{uid}/abort | 
 [**interactionControllerConfirmLogin**](DefaultApi.md#interactioncontrollerconfirmlogin) | **POST** /interaction/{uid}/confirm | 
 [**interactionControllerLogin**](DefaultApi.md#interactioncontrollerlogin) | **GET** /interaction/{uid} | 
@@ -20,8 +20,8 @@ Method | HTTP request | Description
 [**ldapControllerUpdate**](DefaultApi.md#ldapcontrollerupdate) | **PATCH** /ldap | 
 
 
-# **appControllerIndex**
-> appControllerIndex()
+# **appControllerCallback**
+> appControllerCallback()
 
 
 
@@ -29,12 +29,12 @@ Method | HTTP request | Description
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
+final api = Authserver().getDefaultApi();
 
 try {
-    api_instance.appControllerIndex();
-} catch (e) {
-    print('Exception when calling DefaultApi->appControllerIndex: $e\n');
+    api.appControllerCallback();
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->appControllerCallback: $e\n');
 }
 ```
 
@@ -56,8 +56,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **appControllerTest**
-> appControllerTest()
+# **appControllerIndex**
+> appControllerIndex()
 
 
 
@@ -65,12 +65,12 @@ No authorization required
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
+final api = Authserver().getDefaultApi();
 
 try {
-    api_instance.appControllerTest();
-} catch (e) {
-    print('Exception when calling DefaultApi->appControllerTest: $e\n');
+    api.appControllerIndex();
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->appControllerIndex: $e\n');
 }
 ```
 
@@ -101,12 +101,12 @@ No authorization required
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
-final uid = uid_example; // String | 
+final api = Authserver().getDefaultApi();
+final String uid = uid_example; // String | 
 
 try {
-    api_instance.interactionControllerAbortLogin(uid);
-} catch (e) {
+    api.interactionControllerAbortLogin(uid);
+} catch on DioError (e) {
     print('Exception when calling DefaultApi->interactionControllerAbortLogin: $e\n');
 }
 ```
@@ -141,12 +141,12 @@ No authorization required
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
-final uid = uid_example; // String | 
+final api = Authserver().getDefaultApi();
+final String uid = uid_example; // String | 
 
 try {
-    api_instance.interactionControllerConfirmLogin(uid);
-} catch (e) {
+    api.interactionControllerConfirmLogin(uid);
+} catch on DioError (e) {
     print('Exception when calling DefaultApi->interactionControllerConfirmLogin: $e\n');
 }
 ```
@@ -181,12 +181,12 @@ No authorization required
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
-final uid = uid_example; // String | 
+final api = Authserver().getDefaultApi();
+final String uid = uid_example; // String | 
 
 try {
-    api_instance.interactionControllerLogin(uid);
-} catch (e) {
+    api.interactionControllerLogin(uid);
+} catch on DioError (e) {
     print('Exception when calling DefaultApi->interactionControllerLogin: $e\n');
 }
 ```
@@ -221,12 +221,12 @@ No authorization required
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
-final uid = uid_example; // String | 
+final api = Authserver().getDefaultApi();
+final String uid = uid_example; // String | 
 
 try {
-    api_instance.interactionControllerLoginCheck(uid);
-} catch (e) {
+    api.interactionControllerLoginCheck(uid);
+} catch on DioError (e) {
     print('Exception when calling DefaultApi->interactionControllerLoginCheck: $e\n');
 }
 ```
@@ -261,11 +261,11 @@ No authorization required
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
+final api = Authserver().getDefaultApi();
 
 try {
-    api_instance.ldapControllerDeletion();
-} catch (e) {
+    api.ldapControllerDeletion();
+} catch on DioError (e) {
     print('Exception when calling DefaultApi->ldapControllerDeletion: $e\n');
 }
 ```
@@ -297,12 +297,12 @@ No authorization required
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
-final userDto = UserDto(); // UserDto | 
+final api = Authserver().getDefaultApi();
+final UserDto userDto = ; // UserDto | 
 
 try {
-    api_instance.ldapControllerRegister(userDto);
-} catch (e) {
+    api.ldapControllerRegister(userDto);
+} catch on DioError (e) {
     print('Exception when calling DefaultApi->ldapControllerRegister: $e\n');
 }
 ```
@@ -337,12 +337,12 @@ No authorization required
 ```dart
 import 'package:authserver/api.dart';
 
-final api_instance = DefaultApi();
-final userDto = UserDto(); // UserDto | 
+final api = Authserver().getDefaultApi();
+final UserDto userDto = ; // UserDto | 
 
 try {
-    api_instance.ldapControllerUpdate(userDto);
-} catch (e) {
+    api.ldapControllerUpdate(userDto);
+} catch on DioError (e) {
     print('Exception when calling DefaultApi->ldapControllerUpdate: $e\n');
 }
 ```

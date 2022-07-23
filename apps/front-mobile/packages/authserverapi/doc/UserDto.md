@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **phoneNumber** | **String** |  | 
 **name** | **String** |  | 
 **familyName** | **String** |  | 
-**address** | [**Object**](.md) |  | 
+**address** | **Object** |  | 
 **birthdate** | [**DateTime**](DateTime.md) |  | 
 **gender** | **String** |  | 
 **password** | **String** |  | 

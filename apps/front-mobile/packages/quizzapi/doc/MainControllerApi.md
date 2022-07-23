@@ -1,8 +1,8 @@
-# quizzapi.api.MainControllerApi
+# quizz.api.MainControllerApi
 
 ## Load the API package
 ```dart
-import 'package:quizzapi/api.dart';
+import 'package:quizz/api.dart';
 ```
 
 All URIs are relative to *http://localhost:8085*
@@ -19,14 +19,14 @@ Method | HTTP request | Description
 
 ### Example
 ```dart
-import 'package:quizzapi/api.dart';
+import 'package:quizz/api.dart';
 
-final api_instance = MainControllerApi();
+final api = Quizz().getMainControllerApi();
 
 try {
-    final result = api_instance.index();
-    print(result);
-} catch (e) {
+    final response = api.index();
+    print(response);
+} catch on DioError (e) {
     print('Exception when calling MainControllerApi->index: $e\n');
 }
 ```

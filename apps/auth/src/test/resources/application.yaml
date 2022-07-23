@@ -1,6 +1,0 @@
-spring:
-  profiles:
-    group:
-      default: common,test
-
----

@@ -49,3 +49,7 @@ build/
 **/gen
 *.log
 *.debug
+
+# Project specific
+apps/apis
+
