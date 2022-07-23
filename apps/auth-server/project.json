@@ -1,6 +1,5 @@
 {
   "sourceRoot": "apps/auth-server/src",
-  "root": "apps/auth-server",
   "projectType": "application",
   "targets": {
     "build": {
@@ -88,7 +87,7 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": ["auth:github"]
+        "postTargets": ["auth-server:github"]
       }
     },
     "github": {

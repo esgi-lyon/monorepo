@@ -1,35 +1,42 @@
 import {
-  BadRequestException, Body,
+  BadRequestException,
+  Body,
   Controller,
   Get,
-  Logger, Param,
+  Logger,
+  Param,
   Post,
   Res,
 } from '@nestjs/common';
 import { PromptDetail, Provider, UnknownObject } from 'oidc-provider';
 import { Oidc, InteractionHelper } from 'nest-oidc-provider';
-import { Response} from 'express';
-import { isEmpty } from "lodash";
-import { UserService } from "../ldap/user.service";
-import { ConfigService } from "@nestjs/config";
-import { filterUndefinedInObj } from "../utils/object.utils";
+import { Response } from 'express';
+import { isEmpty } from 'lodash';
+import { UserService } from '../ldap/user.service';
+import { ConfigService } from '@nestjs/config';
+import { filterUndefinedInObj } from '../utils/object.utils';
 
-type InteractionPayload = { prompt: PromptDetail, client: object, params: object, uid: string }
+type InteractionPayload = {
+  prompt: PromptDetail;
+  client: object;
+  params: object;
+  uid: string;
+};
 
 @Controller('/interaction')
 export class InteractionController {
   private readonly logger = new Logger(InteractionController.name);
-  private readonly enableUi: boolean
-  private readonly fullLocation: string
-  protected static readonly INTERACTION_TYPES = ['consent', 'login']
+  private readonly enableUi: boolean;
+  private readonly fullLocation: string;
+  protected static readonly INTERACTION_TYPES = ['consent', 'login'];
 
   constructor(
     private readonly provider: Provider,
     private readonly userService: UserService,
-    config: ConfigService,
+    config: ConfigService
   ) {
-    this.enableUi = config.get<boolean>('OIDC_INTERACTION_UI')
-    this.fullLocation = config.get<string>('location')
+    this.enableUi = config.get<boolean>('OIDC_INTERACTION_UI');
+    this.fullLocation = config.get<string>('location');
   }
 
   @Get('/:uid')
@@ -39,7 +46,7 @@ export class InteractionController {
     @Res() res: Response
   ) {
     const { prompt, params, uid } = await interaction.details();
-    this.checkPrompt(prompt.name)
+    this.checkPrompt(prompt.name);
 
     const client = await this.provider.Client.find(params.client_id as string);
 
@@ -48,36 +55,36 @@ export class InteractionController {
       client,
       params,
       uid,
-    }
+    };
 
     if (this.enableUi === true) {
       return res.render(`${prompt.name}`, interactionPayload);
     }
 
-    return this.hateosPrompt(res, interactionPayload)
+    return this.hateosPrompt(res, interactionPayload);
   }
 
   @Post('/:uid')
   async loginCheck(
     @Param('uid') _: string,
     @Oidc.Interaction() interaction: InteractionHelper,
-    @Body() { email, password }: Record<string, string>,
+    @Body() { email, password }: Record<string, string>
   ) {
     const { prompt, params, uid } = await interaction.details();
 
     if (!email || !password)
-      throw new BadRequestException("Missing login form data")
+      throw new BadRequestException('Missing login form data');
 
-    this.checkPrompt(prompt.name)
+    this.checkPrompt(prompt.name);
 
     this.logger.debug(`Login UID: ${uid}`);
     this.logger.debug(`Login user: ${email}`);
     this.logger.debug(`Client ID: ${params.client_id}`);
 
-    const user = await this.userService.login(email, password)
+    const user = await this.userService.login(email, password);
 
     if (isEmpty(user) || user.id == null)
-      throw new BadRequestException("Unable to find user")
+      throw new BadRequestException('Unable to find user');
 
     await interaction.finished(
       {
@@ -85,9 +92,9 @@ export class InteractionController {
           accountId: String(user.id),
         },
         client: params.client_id,
-        ...this.addAppRelativeParams(params)
+        ...this.addAppRelativeParams(params),
       },
-      { mergeWithLastSubmission: false },
+      { mergeWithLastSubmission: false }
     );
   }
 
@@ -107,9 +114,9 @@ export class InteractionController {
     const grant = grantId
       ? await this.provider.Grant.find(grantId)
       : new this.provider.Grant({
-        accountId: session.accountId,
-        clientId: params.client_id as string,
-      });
+          accountId: session.accountId,
+          clientId: params.client_id as string,
+        });
 
     if (prompt.details.missingOIDCScope) {
       const scopes = prompt.details.missingOIDCScope as string[];
@@ -122,18 +129,23 @@ export class InteractionController {
 
     if (prompt.details.missingResourceScopes) {
       for (const [indicator, scopes] of Object.entries(
-        prompt.details.missingResourceScopes,
+        prompt.details.missingResourceScopes
       )) {
-        grant.addResourceScope(indicator, ((scopes || []) as string[]).join(' '));
+        grant.addResourceScope(
+          indicator,
+          ((scopes || []) as string[]).join(' ')
+        );
       }
     }
 
-    this.logger.log(`Processing ${grant.accountId} / rejection : ${grant.rejected}`)
-    this.logger.log(`Oidc grant ${grant.openid.scope}`)
-    this.logger.log(`Oidc claims ${grant.openid.claims}`)
+    this.logger.log(
+      `Processing ${grant.accountId} / rejection : ${grant.rejected}`
+    );
+    this.logger.log(`Oidc grant ${grant.openid.scope}`);
+    this.logger.log(`Oidc claims ${grant.openid.claims}`);
 
     grantId = await grant.save();
-    this.logger.log(`Granted ${session.uid}`)
+    this.logger.log(`Granted ${session.uid}`);
 
     await interaction.finished(
       { consent: { grantId }, ...this.addAppRelativeParams(params) },
@@ -159,41 +171,47 @@ export class InteractionController {
     { prompt, client, params, uid }: InteractionPayload
   ) {
     const interactionNavigation = {
-      ...(prompt.name === 'consent')
+      ...(prompt.name === 'consent'
         ? {
-          confirm: this.getInteractionRoute(uid, 'confirm'),
-          abort: this.getInteractionRoute(uid, 'abort')
-        }
+            confirm: this.getInteractionRoute(uid, 'confirm'),
+            abort: this.getInteractionRoute(uid, 'abort'),
+          }
         : {
-          login: this.getInteractionRoute(uid)
-        }
-    }
+            login: this.getInteractionRoute(uid),
+          }),
+    };
 
     res.json({
       prompt,
       client,
       params,
       uid,
-      _links: interactionNavigation
-    })
+      _links: interactionNavigation,
+    });
   }
 
-  protected getInteractionRoute(uid: string, part = "") {
-    return `${this.fullLocation}/interaction/${uid}/${part}`
+  protected getInteractionRoute(uid: string, part = '') {
+    return `${this.fullLocation}/interaction/${uid}/${part}`;
   }
 
   protected checkPrompt(promptName: string) {
-    if (!(InteractionController.INTERACTION_TYPES.includes(promptName)))
-      throw new BadRequestException(`Invalid prompt ${promptName}`)
+    if (!InteractionController.INTERACTION_TYPES.includes(promptName))
+      throw new BadRequestException(`Invalid prompt ${promptName}`);
   }
 
-  protected addAppRelativeParams({ state, nonce, code_challenge_method, code_challenge, code_verifier } : UnknownObject) {
+  protected addAppRelativeParams({
+    state,
+    nonce,
+    code_challenge_method,
+    code_challenge,
+    code_verifier,
+  }: UnknownObject) {
     return filterUndefinedInObj({
       state,
       nonce,
       code_challenge_method,
       code_challenge,
-      code_verifier
-    })
+      code_verifier,
+    });
   }
 }

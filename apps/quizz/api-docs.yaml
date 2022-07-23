@@ -3,16 +3,16 @@ info:
   title: OpenAPI definition
   version: v0
 servers:
-- url: http://localhost:8085
-  description: Generated server url
+  - url: http://localhost:8085
+    description: Generated server url
 paths:
   /:
     get:
       tags:
-      - main-controller
+        - main-controller
       operationId: index
       responses:
-        "200":
+        '200':
           description: OK
           content:
             '*/*':

@@ -1,0 +1,14 @@
+auth_root: 'http://0.0.0.0:3333'
+auth_address: ${auth_root}/oidc
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${auth_address}
+
+springdoc:
+  swagger-ui:
+    path: /api-docs
+    operationsSorter: method

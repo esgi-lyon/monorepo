@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
 	id("org.springframework.boot") version "2.6.7"
@@ -46,20 +45,6 @@ openApiGenerate {
   ))
 }
 
-val dartDest: String = file("../front-mobile/packages/quizzapi").absolutePath
-
-tasks.register<GenerateTask>("dartApi") {
-  generatorName.set("dart")
-  inputSpec.set("api-docs.yaml")
-  outputDir.set(dartDest)
-  configOptions.set(mapOf(
-    "pubName" to "quizzapi",
-    "pubLibrary" to "abclever.api",
-    "sourceFolder" to "quizzapi",
-    "pubAuthorEmail" to "loic.roux@abclever.com"
-  ))
-}
-
 group = "com.quizz"
 version = System.getenv("APP_VERSION") ?: "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -76,6 +61,11 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
+  // Security
+  implementation("org.springframework.boot:spring-boot-starter-security")
+  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server:2.7.2")
+  implementation("org.springframework.security:spring-security-oauth2-jose:5.7.2")
+
   // http client
   implementation("io.swagger.core.v3:swagger-annotations:2.2.1")
   implementation("com.google.code.gson:gson:2.8.9")
@@ -90,7 +80,7 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-  dependsOn("dartApi", tasks.openApiGenerate)
+  dependsOn(tasks.openApiGenerate)
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict", "-Xopt-in=kotlin.RequiresOptIn")
 		jvmTarget = "17"

@@ -1,8 +1,7 @@
-import { OidcConfiguration } from "nest-oidc-provider";
-import { UserService } from "../ldap/user.service";
-import { AdditionalOIDCConfig } from "./oidc.env-parse";
-import {Account} from "oidc-provider";
-import {toSnakeCase} from "../utils/object.utils";
+import { OidcConfiguration } from 'nest-oidc-provider';
+import { UserService } from '../ldap/user.service';
+import { AdditionalOIDCConfig } from './oidc.env-parse';
+import { toSnakeCase } from '../utils/object.utils';
 
 const getConfig = (
   userService: UserService,
@@ -17,7 +16,7 @@ const getConfig = (
   ],
   pkce: {
     methods: ['S256'],
-    required: (_) => false
+    required: (_) => false,
   },
   claims: {
     email: ['email', 'email_verified'],
@@ -42,21 +41,22 @@ const getConfig = (
     Session: 86400000,
     Interaction: 7200,
     Grant: 43200000,
-    IdToken: 43200000,
-    ClientCredentials: 5400000
+    IdToken: 86400000,
+    AccessToken: 86400000,
+    ClientCredentials: 5400000,
   },
   findAccount: async (_, id, token) => {
-    const user = await userService.find(Number(id))
+    const user = await userService.find(Number(id));
 
     return {
       accountId: id,
       async claims(use, scope) {
         return {
           sub: id,
-          ...toSnakeCase(user)
-        }
-      }
-    }
+          ...toSnakeCase(user),
+        };
+      },
+    };
   },
   cookies,
   clockTolerance: 5,
@@ -67,9 +67,12 @@ const getConfig = (
     devInteractions: { enabled: false },
     deviceFlow: { enabled: true },
     revocation: { enabled: true },
-    resourceIndicators: { enabled : true }
+    resourceIndicators: { enabled: true },
+    jwtUserinfo: { enabled: true },
+    jwtIntrospection: { enabled: false },
+    introspection: { enabled: true },
   },
-  clients
+  clients,
 });
 
-export default getConfig
+export default getConfig;

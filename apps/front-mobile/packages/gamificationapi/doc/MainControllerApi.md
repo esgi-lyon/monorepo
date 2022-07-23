@@ -1,8 +1,8 @@
-# gamificationapi.api.MainControllerApi
+# gamification.api.MainControllerApi
 
 ## Load the API package
 ```dart
-import 'package:gamificationapi/api.dart';
+import 'package:gamification/api.dart';
 ```
 
 All URIs are relative to *http://localhost:8083*
@@ -19,14 +19,14 @@ Method | HTTP request | Description
 
 ### Example
 ```dart
-import 'package:gamificationapi/api.dart';
+import 'package:gamification/api.dart';
 
-final api_instance = MainControllerApi();
+final api = Gamification().getMainControllerApi();
 
 try {
-    final result = api_instance.index();
-    print(result);
-} catch (e) {
+    final response = api.index();
+    print(response);
+} catch on DioError (e) {
     print('Exception when calling MainControllerApi->index: $e\n');
 }
 ```
@@ -36,7 +36,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Map<String, String>**
+**Map&lt;String, String&gt;**
 
 ### Authorization
 

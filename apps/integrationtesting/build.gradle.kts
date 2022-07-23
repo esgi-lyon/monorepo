@@ -3,11 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val kotlinVersion = "1.6.21"
 
 plugins {
-  id("org.springframework.boot") version "2.6.7"
-  id("io.spring.dependency-management") version "1.0.11.RELEASE"
-  war
   kotlin("jvm") version "1.6.21"
-  kotlin("plugin.spring") version "1.6.21"
   id("com.diffplug.spotless") version "6.2.2"
   kotlin("plugin.serialization") version "1.6.21"
 }
@@ -22,6 +18,8 @@ repositories { mavenCentral() }
 
 dependencies {
   val cucumberVersion = "7.3.2"
+  val restAssuredVersion = "4.5.1"
+
   implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
@@ -29,9 +27,9 @@ dependencies {
 
   // Essentials
   implementation("org.slf4j:slf4j-api:1.7.36")
+  testImplementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.2")
 
   // Project to test
-  implementation("${group}:auth")
   implementation("${group}.gen.gamification:api")
 
   // client api deps
@@ -39,7 +37,11 @@ dependencies {
 
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
   testImplementation("org.hamcrest:hamcrest:2.2")
-  testImplementation("io.rest-assured:kotlin-extensions:5.1.1")
+  testImplementation("io.rest-assured:rest-assured-all:$restAssuredVersion")
+  testImplementation("io.rest-assured:kotlin-extensions:$restAssuredVersion")
+  testImplementation("io.rest-assured:json-path:$restAssuredVersion")
+
+  testImplementation("com.google.code.gson:gson:2.6.2")
 
   testImplementation("org.junit.platform:junit-platform-suite:1.8.2")
   testImplementation("io.cucumber:cucumber-picocontainer:$cucumberVersion")

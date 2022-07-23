@@ -2,6 +2,44 @@
   "$schema": "node_modules/@openapitools/openapi-generator-cli/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "5.4.0"
+    "version": "6.0.1",
+    "generators": {
+      "authserverDart": {
+        "generatorName": "dart-dio",
+        "output": "#{cwd}/apps/front-mobile/packages/authserverapi",
+        "glob": "apps/auth-server/api-docs.json",
+        "skipValidateSpec": true,
+        "additionalProperties": {
+          "serializationLibrary": "json_serializable",
+          "pubLibrary": "authserver_api",
+          "pubName": "authserver",
+          "pubAuthorEmail": "loic.roux@abclever.com"
+        }
+      },
+      "quizzDart": {
+        "generatorName": "dart-dio",
+        "output": "#{cwd}/apps/front-mobile/packages/quizzapi",
+        "glob": "apps/quizz/api-docs.yaml",
+        "skipValidateSpec": true,
+        "additionalProperties": {
+          "serializationLibrary": "json_serializable",
+          "pubLibrary": "quizz_api",
+          "pubName": "quizz",
+          "pubAuthorEmail": "loic.roux@abclever.com"
+        }
+      },
+      "gamificationDart": {
+        "generatorName": "dart-dio",
+        "output": "#{cwd}/apps/front-mobile/packages/gamificationapi",
+        "glob": "apps/gamification/api-docs.yaml",
+        "skipValidateSpec": true,
+        "additionalProperties": {
+          "serializationLibrary": "json_serializable",
+          "pubLibrary": "gamification_api",
+          "pubName": "gamification",
+          "pubAuthorEmail": "loic.roux@abclever.com"
+        }
+      }
+    }
   }
 }

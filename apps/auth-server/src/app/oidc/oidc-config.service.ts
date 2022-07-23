@@ -4,14 +4,14 @@ import {
 } from 'nest-oidc-provider';
 import { Injectable } from '@nestjs/common';
 import { AdapterFactory, ClientMetadata } from 'oidc-provider';
-import  setupOidc from './oidc.config';
+import setupOidc from './oidc.config';
 import { InjectModel } from '@nestjs/sequelize';
-import { ModuleRef } from "@nestjs/core";
-import { UserService } from "../ldap/user.service";
-import { OidcAdapter } from "../oidc-adapter/oidc.adapter";
-import { Client } from "./oidc.model";
-import { ConfigService } from "@nestjs/config";
-import { AdditionalOIDCConfig } from "./oidc.env-parse";
+import { ModuleRef } from '@nestjs/core';
+import { UserService } from '../ldap/user.service';
+import { OidcAdapter } from '../oidc-adapter/oidc.adapter';
+import { Client } from './oidc.model';
+import { ConfigService } from '@nestjs/config';
+import { AdditionalOIDCConfig } from './oidc.env-parse';
 
 @Injectable()
 export class OidcConfigService implements OidcModuleOptionsFactory {
@@ -23,17 +23,19 @@ export class OidcConfigService implements OidcModuleOptionsFactory {
   ) {}
 
   async createModuleOptions(): Promise<OidcModuleOptions> {
-    await this.clientModel.sync({ alter: true })
-
+    await this.clientModel.sync({ alter: true });
+    const path = this.config.get<string>('OIDC_PATH');
     return {
-      path: this.config.get<string>('OIDC_PATH'),
-      issuer: this.config.get<string>('location'),
-      oidc: setupOidc(this.userService, this.config.get<AdditionalOIDCConfig>('oidcConfig')),
+      path,
+      issuer: `${this.config.get<string>('location')}${path}`,
+      oidc: setupOidc(
+        this.userService,
+        this.config.get<AdditionalOIDCConfig>('oidcConfig')
+      ),
     };
   }
 
   createAdapterFactory?(): AdapterFactory {
-    return (modelName: string) =>
-      new OidcAdapter(modelName, this.ref);
+    return (modelName: string) => new OidcAdapter(modelName, this.ref);
   }
 }
