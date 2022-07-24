@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "768906734565",
+    "project_id": "abcleaver-auth",
+    "storage_bucket": "abcleaver-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768906734565:android:d769fa46f05f746b36dd0c",
+        "android_client_info": {
+          "package_name": "com.example.abcleaverfront"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768906734565-s0mf8v2acp4ovk2khkv63fbqdqeb7b94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4KasnUE6op3IqqbPUxVQDPks6qqpaLF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768906734565-s0mf8v2acp4ovk2khkv63fbqdqeb7b94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
