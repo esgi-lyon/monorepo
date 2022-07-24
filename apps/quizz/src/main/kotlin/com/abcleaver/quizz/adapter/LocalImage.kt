@@ -16,7 +16,7 @@ class LocalImage( @Value("\${server.addressBis}") private val host : String,  @V
     return UriComponentsBuilder.newInstance()
       .scheme("http")
       .host(host).port(port)
-      .path("/${letter}.jpg")
+      .path("/public/${letter}.jpg")
       .build()
       .toUri()
 
