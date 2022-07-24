@@ -27,6 +27,10 @@
         "password_confirmation": {
             "value": "Password confirmation",
             "hint": "Please confirm your password..."
+        },
+        "password_old": {
+          "value": "Old password",
+          "hint": "If you don‘t want to change just provide current one"
         }
     },
     "user": {
@@ -42,6 +46,10 @@
         "gender": {
             "hint": "Enter your Gender...",
             "value": "Gender"
+        },
+        "phone": {
+          "hint": "Enter your phone number...",
+          "value": "Phone"
         },
         "profile": "Change profile informations",
         "picture": "Photo"

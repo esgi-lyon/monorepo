@@ -28,11 +28,11 @@ services:
       - internals
 
   elasticsearch:
-    image: elasticsearch:8.2.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
     environment:
       - discovery.type=single-node
     volumes:
-      - es:/usr/share/elasticsearch/data
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
     ports:
       - '9200:9200'
 

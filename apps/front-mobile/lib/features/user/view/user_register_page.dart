@@ -1,3 +1,4 @@
+import 'package:abcleaver/features/authentication/bloc/authentication_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,7 +46,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               ? Navigator.of(context).maybePop()
                               : null),
                       child: UserForm(
-                        // key: GlobalKey<_RegisterPageState>(),
                         inputs: UserFormConfigs.registrationinputs,
                         successMessage: 'saved'.tr(),
                         failedMessage: 'failed'.tr(),

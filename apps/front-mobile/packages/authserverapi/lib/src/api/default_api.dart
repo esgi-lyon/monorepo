@@ -10,6 +10,10 @@ import 'package:authserver/src/deserialize.dart';
 import 'package:dio/dio.dart';
 
 import 'package:authserver/src/model/login_dto.dart';
+import 'package:authserver/src/model/register_result_dto.dart';
+import 'package:authserver/src/model/register_user_dto.dart';
+import 'package:authserver/src/model/update_result_dto.dart';
+import 'package:authserver/src/model/update_user_dto.dart';
 import 'package:authserver/src/model/user_dto.dart';
 
 class DefaultApi {
@@ -326,9 +330,9 @@ _bodyData=jsonEncode(loginDto);
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [num] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<void>> ldapControllerDeletion({ 
+  Future<Response<num>> ldapControllerDeletion({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -357,14 +361,36 @@ _bodyData=jsonEncode(loginDto);
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    num _responseData;
+
+    try {
+_responseData = deserialize<num, num>(_response.data!, 'num', growable: true);
+    } catch (error, stackTrace) {
+      throw DioError(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioErrorType.other,
+        error: error,
+      )..stackTrace = stackTrace;
+    }
+
+    return Response<num>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
-  /// ldapControllerRegister
+  /// ldapControllerFindByEmail
   /// 
   ///
   /// Parameters:
-  /// * [userDto] 
+  /// * [email] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -372,10 +398,84 @@ _bodyData=jsonEncode(loginDto);
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [UserDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<void>> ldapControllerRegister({ 
-    required UserDto userDto,
+  Future<Response<UserDto>> ldapControllerFindByEmail({ 
+    required String email,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/ldap';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _queryParameters = <String, dynamic>{
+      r'email': email,
+    };
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      queryParameters: _queryParameters,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    UserDto _responseData;
+
+    try {
+_responseData = deserialize<UserDto, UserDto>(_response.data!, 'UserDto', growable: true);
+    } catch (error, stackTrace) {
+      throw DioError(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioErrorType.other,
+        error: error,
+      )..stackTrace = stackTrace;
+    }
+
+    return Response<UserDto>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// ldapControllerRegister
+  /// 
+  ///
+  /// Parameters:
+  /// * [registerUserDto] 
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [RegisterResultDto] as data
+  /// Throws [DioError] if API call or serialization fails
+  Future<Response<RegisterResultDto>> ldapControllerRegister({ 
+    required RegisterUserDto registerUserDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -400,7 +500,7 @@ _bodyData=jsonEncode(loginDto);
     dynamic _bodyData;
 
     try {
-_bodyData=jsonEncode(userDto);
+_bodyData=jsonEncode(registerUserDto);
     } catch(error, stackTrace) {
       throw DioError(
          requestOptions: _options.compose(
@@ -421,14 +521,36 @@ _bodyData=jsonEncode(userDto);
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    RegisterResultDto _responseData;
+
+    try {
+_responseData = deserialize<RegisterResultDto, RegisterResultDto>(_response.data!, 'RegisterResultDto', growable: true);
+    } catch (error, stackTrace) {
+      throw DioError(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioErrorType.other,
+        error: error,
+      )..stackTrace = stackTrace;
+    }
+
+    return Response<RegisterResultDto>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
   /// ldapControllerUpdate
   /// 
   ///
   /// Parameters:
-  /// * [userDto] 
+  /// * [updateUserDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -436,10 +558,10 @@ _bodyData=jsonEncode(userDto);
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [UpdateResultDto] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<void>> ldapControllerUpdate({ 
-    required UserDto userDto,
+  Future<Response<UpdateResultDto>> ldapControllerUpdate({ 
+    required UpdateUserDto updateUserDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -464,7 +586,7 @@ _bodyData=jsonEncode(userDto);
     dynamic _bodyData;
 
     try {
-_bodyData=jsonEncode(userDto);
+_bodyData=jsonEncode(updateUserDto);
     } catch(error, stackTrace) {
       throw DioError(
          requestOptions: _options.compose(
@@ -485,7 +607,29 @@ _bodyData=jsonEncode(userDto);
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    UpdateResultDto _responseData;
+
+    try {
+_responseData = deserialize<UpdateResultDto, UpdateResultDto>(_response.data!, 'UpdateResultDto', growable: true);
+    } catch (error, stackTrace) {
+      throw DioError(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioErrorType.other,
+        error: error,
+      )..stackTrace = stackTrace;
+    }
+
+    return Response<UpdateResultDto>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
 }

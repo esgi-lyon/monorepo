@@ -25,13 +25,11 @@ class UserDto {
 
     required  this.familyName,
 
-    required  this.address,
-
     required  this.birthdate,
 
     required  this.gender,
 
-    required  this.password,
+     this.password,
   });
 
   @JsonKey(
@@ -84,18 +82,6 @@ class UserDto {
 
   @JsonKey(
     
-    name: r'address',
-    required: true,
-    includeIfNull: false
-  )
-
-
-  final Object address;
-
-
-
-  @JsonKey(
-    
     name: r'birthdate',
     required: true,
     includeIfNull: false
@@ -121,12 +107,12 @@ class UserDto {
   @JsonKey(
     
     name: r'password',
-    required: true,
+    required: false,
     includeIfNull: false
   )
 
 
-  final String password;
+  final String? password;
 
 
 
@@ -136,7 +122,6 @@ class UserDto {
      other.phoneNumber == phoneNumber &&
      other.name == name &&
      other.familyName == familyName &&
-     other.address == address &&
      other.birthdate == birthdate &&
      other.gender == gender &&
      other.password == password;
@@ -147,7 +132,6 @@ class UserDto {
     phoneNumber.hashCode +
     name.hashCode +
     familyName.hashCode +
-    address.hashCode +
     birthdate.hashCode +
     gender.hashCode +
     password.hashCode;

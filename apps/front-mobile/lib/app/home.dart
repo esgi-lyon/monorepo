@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:abcleaver/app/simple_app_bar.dart';
-import 'package:abcleaver/commons/theme.dart';
 import 'package:abcleaver/features/authentication/authentication.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
@@ -33,16 +31,19 @@ class _HomeState extends State<Home> {
                   height: 25.h,
                 ),
                 const Text(
-                  'Bienvenue',
+                  'welcome',
                   style: TextStyle(fontSize: 20),
-                ),
-                const Text(
-                  'Luce',
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.amber,
-                      fontWeight: FontWeight.bold),
-                ),
+                ).tr(),
+                BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                    buildWhen: (previous, current) =>
+                        previous.user != current.user,
+                    builder: (context, state) => Text(
+                          state.user.name,
+                          style: const TextStyle(
+                              fontSize: 25,
+                              color: Colors.amber,
+                              fontWeight: FontWeight.bold),
+                        )),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -88,7 +89,8 @@ class _HomeState extends State<Home> {
                           child: const Center(
                             child: Text(
                               'Statistiques',
-                              style: TextStyle(fontSize: 20, color: Colors.green),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.green),
                             ),
                           ),
                         ),

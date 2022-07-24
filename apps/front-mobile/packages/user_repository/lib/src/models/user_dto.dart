@@ -9,7 +9,8 @@ class PartialUserDto extends Equatable {
       this.birthdate,
       this.gender,
       this.password,
-      this.confirmationPassword});
+      this.confirmationPassword,
+      this.oldPassword});
 
   final String? name;
 
@@ -20,10 +21,11 @@ class PartialUserDto extends Equatable {
   final String? gender;
   final String? password;
   final String? confirmationPassword;
+  final String? oldPassword;
 
   @override
   List<Object?> get props =>
-      [name, email, familyName, birthdate, gender, picture];
+      [name, email, familyName, birthdate, gender, picture, oldPassword];
 }
 
 class FullUserDto extends Equatable {
