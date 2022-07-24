@@ -70,9 +70,7 @@ class QuizzPage extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return CircularProgressIndicator(
-                        value: 2,
-                      );
+                      return Text("is loading");
                     }
 
                   },
