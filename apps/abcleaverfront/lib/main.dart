@@ -1,12 +1,12 @@
-import 'package:abcleaverfront/screen/register/register_screen.dart';
+import 'package:abcleaverfront/screen/dashboard/dashboard_screen.dart';
 import 'package:abcleaverfront/screen/splash/splash_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sizer/sizer.dart';
 
 import 'app_routes.dart';
 import 'config/config.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     // TODO Return Home Screen
-                    return const RegisterScreen();
+                    return const DashboardScreen();
                   }
                   return const LoginScreen();
                 }
