@@ -1,4 +1,6 @@
 package com.abclever.gamification.web;
 
- public record StatisticDto(int nbQuestionAnswered, double ratioCorrectAnswer){}
+import java.util.List;
+
+public record StatisticDto(int nbQuestionAnswered, double ratioCorrectAnswer){}
 

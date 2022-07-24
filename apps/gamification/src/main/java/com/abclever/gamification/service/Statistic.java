@@ -1,8 +1,11 @@
 package com.abclever.gamification.service;
 
+import com.abclever.gamification.repository.UserAnswer;
 import com.abclever.gamification.repository.UserAnswerRepository;
 import com.abclever.gamification.web.StatisticDto;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 public class Statistic {
@@ -19,10 +22,7 @@ public class Statistic {
   public StatisticDto getStat(long userId) {
 
     int nbQuestionAnswered  = userAnswerRepository.countAllByUserId(userId);
-    double ratioCorrectAnswer = userAnswerRepository.countAllByUserIdAndAnswer(userId, true) / nbQuestionAnswered;
-    return new StatisticDto(
-      nbQuestionAnswered = nbQuestionAnswered,
-      ratioCorrectAnswer = ratioCorrectAnswer
-    );
+    double ratioCorrectAnswer = (userAnswerRepository.countAllByUserIdAndCorrect(userId, true) * 1F) / nbQuestionAnswered;
+    return new StatisticDto(nbQuestionAnswered, ratioCorrectAnswer);
   }
 }

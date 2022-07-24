@@ -37,8 +37,8 @@ public class UserAnswerController {
     userAnswer.setAnswer(userAnswerDto.answer());
     userAnswer.setUserId(userAnswerDto.userId());
     userAnswer.setQuestion(userAnswerDto.question());
+    userAnswer.setTime(userAnswerDto.time());
     this.userAnswerRepository.save(userAnswer);
-
    return ResponseEntity.ok(userAnswer);
   }
 

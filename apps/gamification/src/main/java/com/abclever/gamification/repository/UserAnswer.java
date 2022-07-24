@@ -15,6 +15,7 @@ public class UserAnswer {
   private String answer;
   private Long userId;
   private String question;
+  private Double time;
 
   public UUID getId() {
     return id;
@@ -24,7 +25,13 @@ public class UserAnswer {
     this.id = id;
   }
 
+  public void setTime(double time) {
+    this.time = time;
+  }
 
+  public double getTime() {
+    return this.time;
+  }
 
   public boolean isCorrect() {
     return correct;
