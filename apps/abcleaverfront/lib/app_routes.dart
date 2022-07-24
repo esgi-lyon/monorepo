@@ -13,7 +13,7 @@ const addNoteRoute = '/new-note';
 const resetPasswordRoute = '/reset-password';
 
 Map<String, WidgetBuilder> routes = {
-  loginRoute: (context) => const StatsScreen(),
+  loginRoute: (context) => const StatPage(),
   splashScreen: (context) => const SplashScreen(),
   // loginRoute: (context) => const LoginScreen(),
   registerRoute: (context) => const RegisterScreen(),
