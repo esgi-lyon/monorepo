@@ -1,8 +1,8 @@
 package com.abcleaver.quizz.port
 
 import com.abcleaver.quizz.domain.Letter
-import java.nio.file.Path
+import java.net.URI
 
 interface ImageOut {
-  fun getImage(letter: Letter): Path
+  fun getImage(letter: Letter): URI
 }
