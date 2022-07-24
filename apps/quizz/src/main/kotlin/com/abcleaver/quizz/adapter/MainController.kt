@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-class MainController(  @Value("\${server.addressBis}") private val host : String,  @Value("\${server.port}")  private val port : String ) : QuizzIn {
+class MainController(  @Value("\${server.address}") private val host : String,  @Value("\${server.port}")  private val port : String ) : QuizzIn {
 
   private lateinit var quizzService: QuizzService
 
