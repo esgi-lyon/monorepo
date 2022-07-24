@@ -1,6 +1,7 @@
 import 'package:abcleaverfront/screen/register/register_screen.dart';
 import 'package:abcleaverfront/screen/reset-password/reset_password_screen.dart';
 import 'package:abcleaverfront/screen/splash/splash_screen.dart';
+import 'package:abcleaverfront/screen/stats/stats_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'modules/login/login_screen.dart';
@@ -13,8 +14,9 @@ const addNoteRoute = '/new-note';
 const resetPasswordRoute = '/reset-password';
 
 Map<String, WidgetBuilder> routes = {
+  loginRoute: (context) => const StatsScreen(),
   splashScreen: (context) => const SplashScreen(),
-  loginRoute: (context) => const LoginScreen(),
+  // loginRoute: (context) => const LoginScreen(),
   registerRoute: (context) => const RegisterScreen(),
   resetPasswordRoute: (context) => ResetPasswordScreen()
 };

@@ -31,6 +31,7 @@ class FormBloc extends Bloc<FormEvent, AppFormState> with ValidationMixin {
     });
 
     on<RegisterFormSubmittedEvent>((event, emit) {
+
       Map<String, FieldError> fieldsError = <String, FieldError>{};
       if (isFieldEmpty(event.email)) {
         fieldsError.putIfAbsent("email", () => FieldError.empty);
