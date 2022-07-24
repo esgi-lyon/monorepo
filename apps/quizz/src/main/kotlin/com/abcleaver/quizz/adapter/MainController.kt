@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-class MainController(  @Value("\${server.address}") private val host : String,  @Value("\${server.port}")  private val port : String ) : QuizzIn {
+class MainController(  @Value("\${server.address}") private val host : String,
+                       @Value("\${server.port}")  private val port : String,
+                       @Value("\${gamification.address}") private val gamificationHost: String,
+                       @Value("\${gamification.port}") private val gamificationPort: String) : QuizzIn {
 
   private lateinit var quizzService: QuizzService
 
   init {
     val imageOut = LocalImage(host, port)
-    val messageOut = KafkaMessage()
+    val messageOut = HttpMessage(gamificationHost, gamificationPort)
     quizzService = QuizzService(imageOut, messageOut)
   }
 
