@@ -5,9 +5,9 @@
   "1 info pnpm": {
     "err": {
       "name": "Error",
-      "message": "not found: --dir",
+      "message": "not found: format:check",
       "code": "ENOENT",
-      "stack": "Error: not found: --dir\n    at getNotFoundError (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:41585:51)\n    at Function.whichSync [as sync] (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:41662:13)\n    at getCommandAbsolutePathSync (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:43227:44)\n    at default_1 (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:43236:32)\n    at /opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:178180:39"
+      "stack": "Error: not found: format:check\n    at getNotFoundError (/snapshot/dist/pnpm.cjs)\n    at Function.whichSync [as sync] (/snapshot/dist/pnpm.cjs)\n    at getCommandAbsolutePathSync (/snapshot/dist/pnpm.cjs)\n    at default_1 (/snapshot/dist/pnpm.cjs)\n    at /snapshot/dist/pnpm.cjs"
     }
   },
   "2 error pnpm": {
@@ -15,9 +15,9 @@
     "prefix": "/Users/loic/Softs/monorepo",
     "err": {
       "name": "pnpm",
-      "message": "not found: --dir",
+      "message": "not found: format:check",
       "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
-      "stack": "Error: not found: --dir\n    at getNotFoundError (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:41585:51)\n    at Function.whichSync [as sync] (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:41662:13)\n    at getCommandAbsolutePathSync (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:43227:44)\n    at default_1 (/opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:43236:32)\n    at /opt/homebrew/lib/node_modules/pnpm/dist/pnpm.cjs:178180:39"
+      "stack": "Error: not found: format:check\n    at getNotFoundError (/snapshot/dist/pnpm.cjs)\n    at Function.whichSync [as sync] (/snapshot/dist/pnpm.cjs)\n    at getCommandAbsolutePathSync (/snapshot/dist/pnpm.cjs)\n    at default_1 (/snapshot/dist/pnpm.cjs)\n    at /snapshot/dist/pnpm.cjs"
     }
   }
 }

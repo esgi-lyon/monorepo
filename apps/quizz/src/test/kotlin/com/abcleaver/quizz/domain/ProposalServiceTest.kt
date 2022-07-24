@@ -6,11 +6,11 @@ import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertIs
 
-internal class ProposalServiceTest {
+class ProposalServiceTest() {
  private val proposalService: ProposalService;
 
-  constructor(){
-    val imageOut = LocalImage()
+  init {
+    val imageOut = LocalImage("::1", "8085")
     proposalService = ProposalService(imageOut)
   }
 
@@ -26,7 +26,7 @@ internal class ProposalServiceTest {
   fun proposal_should_not_contain_current_letter(){
     val letter = Letter.fromString("a")
     val content = proposalService.generate(letter).content
-    assert(!content.containsKey(letter))
+    assert(content.containsKey(letter))
   }
 
 }

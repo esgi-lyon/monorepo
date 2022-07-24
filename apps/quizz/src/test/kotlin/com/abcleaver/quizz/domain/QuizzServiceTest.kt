@@ -2,28 +2,24 @@ package com.abcleaver.quizz.domain
 
 import com.abcleaver.quizz.adapter.KafkaMessage
 import com.abcleaver.quizz.adapter.LocalImage
-import java.nio.file.Path
+import java.net.URI
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
 
-internal class QuizzServiceTest {
+class QuizzServiceTest {
 
-  private var quizzService: QuizzService
-  private var alphabet: Set<String> = setOf("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+  val imageOut: LocalImage = LocalImage("::1", "8085")
+  val messageOut: KafkaMessage = KafkaMessage()
+  val quizzService: QuizzService = QuizzService(imageOut, messageOut)
+  var alphabet: Set<String> = setOf("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
-
-  constructor() {
-    val imageOut = LocalImage()
-    val messageOut = KafkaMessage()
-    quizzService = QuizzService(imageOut, messageOut)
-  }
 
   @Test
   fun quizz_should_have_the_requested_size(){
-    assert(quizzService.get(15).questions.size.equals(15))
-    assert(quizzService.get(400).questions.size.equals(400))
+    assert(quizzService.get(15).questions.size == 15)
+    assert(quizzService.get(400).questions.size == 400)
   }
 
   @Test
@@ -32,9 +28,9 @@ internal class QuizzServiceTest {
     val (letter, imagePath, _, proposal) = quizz.questions.first()
 
     assertIs<Letter>(letter)
-    assertIs<Path>(imagePath)
+    assertIs<URI>(imagePath)
     assertIs<Proposal>(proposal)
-    assertEquals(proposal.content.size, 3)
+    assertEquals(4, proposal.content.size)
   }
 
 }
