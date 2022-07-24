@@ -1,4 +1,4 @@
-import 'package:abcleaverfront/screen/dashboard/dashboard_screen.dart';
+import 'package:abcleaverfront/screen/dashboard/widgets/dashboard_form.dart';
 import 'package:abcleaverfront/screen/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     // TODO Return Home Screen
-                    return const DashboardScreen();
+                    return const DashboardForm();
                   }
                   return const LoginScreen();
                 }

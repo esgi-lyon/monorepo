@@ -1,11 +1,9 @@
-import 'package:abcleaverfront/screen/dashboard/dashboard_screen.dart';
+import 'package:abcleaverfront/screen/dashboard/widgets/dashboard_form.dart';
 import 'package:abcleaverfront/screen/register/register_screen.dart';
 import 'package:abcleaverfront/screen/reset-password/reset_password_screen.dart';
 import 'package:abcleaverfront/screen/splash/splash_screen.dart';
 import 'package:abcleaverfront/screen/stats/stats_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'modules/login/login_screen.dart';
 
 const splashScreen = '/splash';
 const loginRoute = '/login';
@@ -20,5 +18,5 @@ Map<String, WidgetBuilder> routes = {
   // loginRoute: (context) => const LoginScreen(),
   registerRoute: (context) => const RegisterScreen(),
   resetPasswordRoute: (context) => ResetPasswordScreen(),
-  dashboardRoute: (context) => const DashboardScreen()
+  dashboardRoute: (context) => const DashboardForm()
 };
