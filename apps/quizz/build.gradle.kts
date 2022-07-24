@@ -7,43 +7,11 @@ plugins {
 	kotlin("jvm") version "1.6.10"
 	kotlin("plugin.spring") version "1.6.10"
 	id("com.diffplug.spotless") version "6.2.2"
-  id("org.openapi.generator") version "6.0.1"
   id("de.undercouch.download") version "5.1.0"
 }
 
-tasks.register("SwaggerDownload") {
-  doLast {
-    val url = "http://localhost:8085/v3/api-docs.yaml"
-    download {
-      run {
-        src(url)
-        dest(file("api-docs.yaml"))
-        overwrite(true)
-      }
-    }
-  }
-}
 
-openApiMeta {
-  generatorName.set("kotlin")
-  packageName.set("com.abclever.gen.quizz")
-  outputFolder.set("$buildDir/meta")
-}
 
-openApiGenerate {
-  groupId.set("com.abclever.gen.quizz")
-  id.set("api")
-  generatorName.set("kotlin")
-  library.set("jvm-okhttp4")
-  inputSpec.set("api-docs.yaml")
-  outputDir.set("${file("./").absolutePath}/api")
-  apiPackage.set("com.abclever.gen.quizz.api")
-  invokerPackage.set("com.abclever.gen.quizz.invoker")
-  modelPackage.set("com.abclever.gen.quizz.model")
-  configOptions.set(mapOf(
-    "dateLibrary" to "java11"
-  ))
-}
 
 group = "com.quizz"
 version = System.getenv("APP_VERSION") ?: "0.0.1-SNAPSHOT"
@@ -81,7 +49,6 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-  dependsOn(tasks.openApiGenerate)
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict", "-Xopt-in=kotlin.RequiresOptIn")
 		jvmTarget = "17"
