@@ -8,6 +8,8 @@ import 'package:abcleaver/features/settings/view/setting_page.dart';
 import 'package:abcleaver/features/user/view/user_forgot_page.dart';
 import 'package:abcleaver/features/user/view/user_view.dart';
 
+import '../../features/stat/view/stat_page.dart';
+
 class Routes {
   static const String splashScreen = '/';
   static const String profile = '/profile';
@@ -19,6 +21,7 @@ class Routes {
   static const String home = '/home';
   static const String loading = '/loading';
   static const String quizz = '/quizz';
+  static const String stat = '/stat';
 
   static Map<String, WidgetBuilder> all = {
     Routes.login: (context) => const LoginPage(),
@@ -29,7 +32,8 @@ class Routes {
     Routes.register: (context) => const RegisterPage(),
     Routes.forgot: (context) => const ForgotPage(),
     Routes.loading: (context) => const LoadingIndicator(),
-    Routes.quizz: (context) => const QuizzPage()
+    Routes.quizz: (context) => const QuizzPage(),
+    Routes.stat: (context) => const StatPage(),
   };
 
   static Map<String, WidgetBuilder> bottomMenu = {

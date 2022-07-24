@@ -73,18 +73,23 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      Container(
-                        decoration: const BoxDecoration(
-                            color: Color(0xFFC8E6C9),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                topRight: Radius.circular(12),
-                                bottomLeft: Radius.circular(12),
-                                bottomRight: Radius.circular(12))),
-                        child: const Center(
-                          child: Text(
-                            'Progression',
-                            style: TextStyle(fontSize: 20, color: Colors.green),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(Routes.stat);
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              color: Color(0xFFC8E6C9),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(12),
+                                  topRight: Radius.circular(12),
+                                  bottomLeft: Radius.circular(12),
+                                  bottomRight: Radius.circular(12))),
+                          child: const Center(
+                            child: Text(
+                              'Statistiques',
+                              style: TextStyle(fontSize: 20, color: Colors.green),
+                            ),
                           ),
                         ),
                       ),
