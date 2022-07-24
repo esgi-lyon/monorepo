@@ -255,7 +255,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ldapControllerDeletion**
-> ldapControllerDeletion()
+> num ldapControllerDeletion()
 
 
 
@@ -266,7 +266,8 @@ import 'package:authserver/api.dart';
 final api = Authserver().getDefaultApi();
 
 try {
-    api.ldapControllerDeletion();
+    final response = api.ldapControllerDeletion();
+    print(response);
 } catch on DioError (e) {
     print('Exception when calling DefaultApi->ldapControllerDeletion: $e\n');
 }
@@ -277,7 +278,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+**num**
 
 ### Authorization
 
@@ -286,12 +287,12 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ldapControllerRegister**
-> ldapControllerRegister(userDto)
+> RegisterResultDto ldapControllerRegister(userDto)
 
 
 
@@ -303,7 +304,8 @@ final api = Authserver().getDefaultApi();
 final UserDto userDto = ; // UserDto | 
 
 try {
-    api.ldapControllerRegister(userDto);
+    final response = api.ldapControllerRegister(userDto);
+    print(response);
 } catch on DioError (e) {
     print('Exception when calling DefaultApi->ldapControllerRegister: $e\n');
 }
@@ -317,7 +319,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**RegisterResultDto**](RegisterResultDto.md)
 
 ### Authorization
 
@@ -326,12 +328,12 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ldapControllerUpdate**
-> ldapControllerUpdate(userDto)
+> UpdateResultDto ldapControllerUpdate(userDto)
 
 
 
@@ -343,7 +345,8 @@ final api = Authserver().getDefaultApi();
 final UserDto userDto = ; // UserDto | 
 
 try {
-    api.ldapControllerUpdate(userDto);
+    final response = api.ldapControllerUpdate(userDto);
+    print(response);
 } catch on DioError (e) {
     print('Exception when calling DefaultApi->ldapControllerUpdate: $e\n');
 }
@@ -357,7 +360,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**UpdateResultDto**](UpdateResultDto.md)
 
 ### Authorization
 
@@ -366,7 +369,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

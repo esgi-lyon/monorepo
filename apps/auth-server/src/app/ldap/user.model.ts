@@ -154,6 +154,39 @@ export class User extends Model<User> implements UserDto {
   }
 }
 
+
+export class RegisterResultDto {
+
+  @ApiProperty()
+  public readonly message: string;
+
+  @ApiProperty()
+  public readonly user: User;
+
+  constructor(
+   message: string,
+   user: User) {
+    this.message = message
+    this.user = user
+   }
+
+}
+
+export class UpdateResultDto {
+  @ApiProperty()
+  public readonly message: string
+  @ApiProperty()
+  public readonly result: [affectedCount: number]
+
+  constructor(
+    message: string,
+    result: [affectedCount: number]) {
+     this.message = message
+     this.result = result
+    }
+}
+
+
 export const UserRepository = {
   provide: getRepoKey(User.name),
   useValue: User,

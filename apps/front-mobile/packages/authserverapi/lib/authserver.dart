@@ -11,4 +11,6 @@ export 'package:authserver/src/auth/oauth.dart';
 export 'package:authserver/src/api/default_api.dart';
 
 export 'package:authserver/src/model/login_dto.dart';
+export 'package:authserver/src/model/register_result_dto.dart';
+export 'package:authserver/src/model/update_result_dto.dart';
 export 'package:authserver/src/model/user_dto.dart';

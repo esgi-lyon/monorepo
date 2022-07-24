@@ -76,6 +76,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [LoginDto](doc/LoginDto.md)
+ - [RegisterResultDto](doc/RegisterResultDto.md)
+ - [UpdateResultDto](doc/UpdateResultDto.md)
  - [UserDto](doc/UserDto.md)
 
 
