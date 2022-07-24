@@ -1,7 +1,10 @@
 package com.abclever.gamification.web;
 
+
 import com.abclever.gamification.repository.UserAnswer;
 import com.abclever.gamification.repository.UserAnswerRepository;
+
+import com.abclever.gamification.service.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +17,17 @@ import java.util.UUID;
 @RequestMapping("/")
 public class UserAnswerController {
 
-  @Autowired
   private UserAnswerRepository userAnswerRepository;
+
+
+  private Statistic statistic;
+
+  public UserAnswerController(@Autowired UserAnswerRepository userAnswerRepository) {
+    statistic = new Statistic(userAnswerRepository);
+    this.userAnswerRepository = userAnswerRepository;
+  }
+
+
 
   @PostMapping("user-answers")
   public ResponseEntity<UserAnswer> create(@RequestBody UserAnswerDto userAnswerDto) {
@@ -37,4 +49,13 @@ public class UserAnswerController {
      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "UserAnswer not found"));
   }
 
+  @GetMapping("user-answers")
+  public Iterable<UserAnswer> getAll(@RequestParam(name = "userId") int userId){
+    return userAnswerRepository.findAllByUserId(userId);
+  }
+
+  @GetMapping("stats")
+  public StatisticDto getStat(@RequestParam(name = "userId") int userId) {
+    return statistic.getStat(userId);
+  }
 }
