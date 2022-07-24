@@ -36,13 +36,16 @@ class _HomeState extends State<Home> {
                   'Bienvenue',
                   style: TextStyle(fontSize: 20),
                 ),
-                const Text(
-                  'Luce',
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.amber,
-                      fontWeight: FontWeight.bold),
-                ),
+                BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                    buildWhen: (previous, current) =>
+                        previous.user != current.user,
+                    builder: (context, state) => Text(
+                          state.user.name,
+                          style: const TextStyle(
+                              fontSize: 25,
+                              color: Colors.amber,
+                              fontWeight: FontWeight.bold),
+                        )),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -88,7 +91,8 @@ class _HomeState extends State<Home> {
                           child: const Center(
                             child: Text(
                               'Statistiques',
-                              style: TextStyle(fontSize: 20, color: Colors.green),
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.green),
                             ),
                           ),
                         ),

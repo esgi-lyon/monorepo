@@ -14,23 +14,37 @@ class UserRepository {
   static final dio = addInterceptors(authServer.dio);
   final apiClient = DefaultApi(dio);
 
-  Future<User?> get() async {
-    return _user;
+  Future<User?> get(String email) async {
+    return _user != null ? _user : await findByEmail(email);
   }
 
   // use patch
   Future<List<String>> update(UpdateUserDto u) async {
     var uRes = await apiClient.ldapControllerUpdate(updateUserDto: u);
 
+    _user = await findByEmail(uRes.data!.result.first);
+
     return uRes.data!.result;
   }
 
   // use post
-  Future<User?> register(UserDto u) async {
-    var uDto = (await apiClient.ldapControllerRegister(userDto: u)).data!.user;
+  Future<User?> register(RegisterUserDto u) async {
+    var uDto =
+        (await apiClient.ldapControllerRegister(registerUserDto: u)).data!.user;
 
-    return User(uDto.name, uDto.email, uDto.familyName, "",
-        uDto.birthdate.toIso8601String(), uDto.gender.toString());
+    return User(uDto.name, uDto.phoneNumber, uDto.email, uDto.familyName, "",
+        uDto.birthdate.toIso8601String(), uDto.name);
+  }
+
+  Future<User?> findByEmail(String email) async {
+    try {
+      var u = (await apiClient.ldapControllerFindByEmail(email: email)).data!;
+      return User(u.name, u.phoneNumber, u.email, u.familyName, "",
+          u.birthdate.toIso8601String(), u.gender.name);
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 
   static Dio addInterceptors(Dio dio) {

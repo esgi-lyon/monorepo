@@ -4,17 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:abcleaver/commons/widgets/complex_button.dart';
-import 'package:abcleaver/commons/widgets/complex_text_field.dart';
 import 'package:abcleaver/features/user/bloc/user_bloc.dart';
 
 class EmailInput extends StatelessWidget {
-  const EmailInput({Key? key}) : super(key: key);
+  const EmailInput({Key? key, this.initialVal}) : super(key: key);
+
+  final String? initialVal;
 
   @override
   Widget build(BuildContext context) {
+    if (initialVal != null) {
+      context.read<UserBloc>().add(UserEmailChanged(initialVal.toString()));
+    }
+
     return BlocBuilder<UserBloc, UserState>(
-        buildWhen: (previous, current) => previous.email != current.email,
-        builder: (context, state) => TextField(
+        buildWhen: (previous, current) {
+          return previous.email != current.email;
+        },
+        builder: (context, state) => TextFormField(
+              initialValue: initialVal,
               onChanged: (v) =>
                   context.read<UserBloc>().add(UserEmailChanged(v)),
               decoration: InputDecoration(
@@ -28,15 +36,52 @@ class EmailInput extends StatelessWidget {
   }
 }
 
-class PasswordInput extends StatelessWidget {
-  const PasswordInput({Key? key}) : super(key: key);
+class PhoneInput extends StatelessWidget {
+  const PhoneInput({Key? key, this.initialVal}) : super(key: key);
+
+  final String? initialVal;
 
   @override
   Widget build(BuildContext context) {
+    if (initialVal != null) {
+      context.read<UserBloc>().add(UserPhoneChanged(initialVal.toString()));
+    }
+
+    return BlocBuilder<UserBloc, UserState>(
+        buildWhen: (previous, current) {
+          return previous.phoneNumber != current.phoneNumber;
+        },
+        builder: (context, state) => TextFormField(
+              initialValue: initialVal,
+              onChanged: (v) =>
+                  context.read<UserBloc>().add(UserPhoneChanged(v)),
+              decoration: InputDecoration(
+                hintText: 'user.phone.hint'.tr(),
+                labelText: 'user.phone.value'.tr(),
+                errorText: state.phoneNumber.pure
+                    ? null
+                    : state.phoneNumber.error?.toString().tr(),
+              ),
+            ));
+  }
+}
+
+class PasswordInput extends StatelessWidget {
+  const PasswordInput({Key? key, this.initialVal}) : super(key: key);
+
+  final String? initialVal;
+
+  @override
+  Widget build(BuildContext context) {
+    if (initialVal != null) {
+      context.read<UserBloc>().add(UserPasswordChanged(initialVal.toString()));
+    }
+
     return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: initialVal,
           obscureText: true,
           onChanged: (password) =>
               context.read<UserBloc>().add(UserPasswordChanged(password)),
@@ -62,7 +107,7 @@ class ConfirmationPasswordInput extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.confirmationPassword != current.confirmationPassword,
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
           obscureText: true,
           onChanged: (v) =>
               context.read<UserBloc>().add(UserConfirmationPasswordChanged(v)),
@@ -79,15 +124,48 @@ class ConfirmationPasswordInput extends StatelessWidget {
   }
 }
 
-class NameInput extends StatelessWidget {
-  const NameInput({Key? key}) : super(key: key);
+class OldPasswordInput extends StatelessWidget {
+  const OldPasswordInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
+      buildWhen: (previous, current) =>
+          previous.confirmationPassword != current.confirmationPassword,
+      builder: (context, state) {
+        return TextFormField(
+          obscureText: true,
+          onChanged: (v) =>
+              context.read<UserBloc>().add(UserOldPasswordChanged(v)),
+          decoration: InputDecoration(
+            labelText: 'login.password_old.value'.tr(),
+            hintText: 'login.password_old.hint'.tr(),
+            errorText: state.oldPassword.pure
+                ? null
+                : state.oldPassword.error?.toString().tr(),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class NameInput extends StatelessWidget {
+  const NameInput({Key? key, this.initialVal}) : super(key: key);
+
+  final String? initialVal;
+
+  @override
+  Widget build(BuildContext context) {
+    if (initialVal != null) {
+      context.read<UserBloc>().add(UserNameChanged(initialVal.toString()));
+    }
+
+    return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) => previous.name != current.name,
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: initialVal,
           onChanged: (v) => context.read<UserBloc>().add(UserNameChanged(v)),
           decoration: InputDecoration(
             labelText: 'user.name.value'.tr(),
@@ -102,15 +180,24 @@ class NameInput extends StatelessWidget {
 }
 
 class FamilyNameInput extends StatelessWidget {
-  const FamilyNameInput({Key? key}) : super(key: key);
+  const FamilyNameInput({Key? key, this.initialVal}) : super(key: key);
+
+  final String? initialVal;
 
   @override
   Widget build(BuildContext context) {
+    if (initialVal != null) {
+      context
+          .read<UserBloc>()
+          .add(UserFamilyNameChanged(initialVal.toString()));
+    }
+
     return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) =>
           previous.familyName != current.familyName,
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: initialVal,
           onChanged: (familyName) =>
               context.read<UserBloc>().add(UserFamilyNameChanged(familyName)),
           decoration: InputDecoration(
@@ -127,10 +214,16 @@ class FamilyNameInput extends StatelessWidget {
 }
 
 class BirthDateInput extends StatelessWidget {
-  const BirthDateInput({Key? key}) : super(key: key);
+  const BirthDateInput({Key? key, this.initialVal}) : super(key: key);
+
+  final String? initialVal;
 
   @override
   Widget build(BuildContext context) {
+    if (initialVal != null) {
+      context.read<UserBloc>().add(UserBirthdateChanged(initialVal.toString()));
+    }
+
     return BlocBuilder<UserBloc, UserState>(
         buildWhen: (previous, current) =>
             previous.birthdate != current.birthdate,
@@ -150,14 +243,21 @@ class BirthDateInput extends StatelessWidget {
 }
 
 class GenderInput extends StatelessWidget {
-  const GenderInput({Key? key}) : super(key: key);
+  const GenderInput({Key? key, this.initialVal}) : super(key: key);
+
+  final String? initialVal;
 
   @override
   Widget build(BuildContext context) {
+    if (initialVal != null) {
+      context.read<UserBloc>().add(UserGenderChanged(initialVal.toString()));
+    }
+
     return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) => previous.gender != current.gender,
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: initialVal.toString(),
           onChanged: (v) => context.read<UserBloc>().add(UserGenderChanged(v)),
           decoration: InputDecoration(
             labelText: 'user.gender.value'.tr(),
@@ -172,14 +272,21 @@ class GenderInput extends StatelessWidget {
 }
 
 class PictureInput extends StatelessWidget {
-  const PictureInput({Key? key}) : super(key: key);
+  const PictureInput({Key? key, this.initialVal}) : super(key: key);
+
+  final String? initialVal;
 
   @override
   Widget build(BuildContext context) {
+    if (initialVal != null) {
+      context.read<UserBloc>().add(UserPictureChanged(initialVal.toString()));
+    }
+
     return BlocBuilder<UserBloc, UserState>(
       buildWhen: (previous, current) => previous.picture != current.picture,
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: initialVal,
           onChanged: (v) => context.read<UserBloc>().add(UserPictureChanged(v)),
           decoration: InputDecoration(
             labelText: 'user.picture.value'.tr(),

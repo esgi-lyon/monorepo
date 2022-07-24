@@ -69,6 +69,7 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc/DefaultApi.md) | [**interactionControllerLogin**](doc/DefaultApi.md#interactioncontrollerlogin) | **GET** /interaction/{uid} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**interactionControllerLoginCheck**](doc/DefaultApi.md#interactioncontrollerlogincheck) | **POST** /interaction/{uid} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**ldapControllerDeletion**](doc/DefaultApi.md#ldapcontrollerdeletion) | **DELETE** /ldap | 
+[*DefaultApi*](doc/DefaultApi.md) | [**ldapControllerFindByEmail**](doc/DefaultApi.md#ldapcontrollerfindbyemail) | **GET** /ldap | 
 [*DefaultApi*](doc/DefaultApi.md) | [**ldapControllerRegister**](doc/DefaultApi.md#ldapcontrollerregister) | **POST** /ldap | 
 [*DefaultApi*](doc/DefaultApi.md) | [**ldapControllerUpdate**](doc/DefaultApi.md#ldapcontrollerupdate) | **PATCH** /ldap | 
 
@@ -78,6 +79,7 @@ Class | Method | HTTP request | Description
  - [LoginDto](doc/LoginDto.md)
  - [RegisterResultDto](doc/RegisterResultDto.md)
  - [RegisterResultDtoUser](doc/RegisterResultDtoUser.md)
+ - [RegisterUserDto](doc/RegisterUserDto.md)
  - [UpdateResultDto](doc/UpdateResultDto.md)
  - [UpdateUserDto](doc/UpdateUserDto.md)
  - [UserDto](doc/UserDto.md)

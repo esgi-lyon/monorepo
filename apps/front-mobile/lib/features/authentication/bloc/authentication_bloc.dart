@@ -19,7 +19,8 @@ class AuthenticationBloc
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
     _authenticationStatusSubscription = _authenticationRepository.status.listen(
-      (status) => add(AuthenticationStatusChanged(status, _authenticationRepository.currentLoggingInUsername)),
+      (status) => add(AuthenticationStatusChanged(
+          status, _authenticationRepository.currentLoggingInUsername)),
     );
   }
 
@@ -39,13 +40,16 @@ class AuthenticationBloc
     AuthenticationStatusChanged event,
     Emitter<AuthenticationState> emit,
   ) async {
-    if (event.username == "") return emit(const AuthenticationState.unauthenticated());
+    if (event.username == "") {
+      return emit(const AuthenticationState.unauthenticated());
+    }
 
     switch (event.status) {
       case AuthenticationStatus.unauthenticated:
         return emit(const AuthenticationState.unauthenticated());
       case AuthenticationStatus.authenticated:
-        final user = await _tryGetUser();
+        final user = await _tryGetUser(event.username);
+
         return emit(user != null
             ? AuthenticationState.authenticated(user)
             : const AuthenticationState.unauthenticated());
@@ -61,9 +65,9 @@ class AuthenticationBloc
     _authenticationRepository.logOut();
   }
 
-  Future<User?> _tryGetUser() async {
+  Future<User?> _tryGetUser(String email) async {
     try {
-      final user = await _userRepository.get();
+      final user = await _userRepository.get(email);
       return user;
     } catch (_) {
       return null;

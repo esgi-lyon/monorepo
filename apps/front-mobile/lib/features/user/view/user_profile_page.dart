@@ -1,3 +1,5 @@
+import 'package:abcleaver/features/authentication/bloc/authentication_bloc.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,15 +42,29 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: EdgeInsets.all(size.width - size.width * .90),
                     alignment: Alignment.center,
                     child: BlocListener<UserBloc, UserState>(
-                        listener: ((context, state) =>
-                            state.status.isSubmissionSuccess
-                                ? Navigator.of(context).maybePop()
-                                : null),
-                        child: UserForm(
-                          inputs: UserFormConfigs.updateInputs,
-                          successMessage: 'saved'.tr(),
-                          failedMessage: 'failed'.tr(),
-                        )),
+                        listener: ((context, userState) {
+                          if (!userState.status.isSubmissionSuccess) {
+                            return;
+                          }
+                          context.read<AuthenticationBloc>().add(
+                              AuthenticationStatusChanged(
+                                  AuthenticationStatus.authenticated,
+                                  userState.email.value));
+                          Navigator.of(context).maybePop();
+
+                          context.read<AuthenticationBloc>().add(
+                              AuthenticationStatusChanged(
+                                  AuthenticationStatus.authenticated,
+                                  userState.email.value));
+                        }),
+                        child: BlocBuilder<AuthenticationBloc,
+                                AuthenticationState>(
+                            builder: (context, authState) => UserForm(
+                                  inputs: UserFormConfigs.updateInputs(
+                                      authState.user),
+                                  successMessage: 'saved'.tr(),
+                                  failedMessage: 'failed'.tr(),
+                                ))),
                   ))),
         ));
   }

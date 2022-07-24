@@ -6,7 +6,7 @@ import {
   Delete,
   Request, UseInterceptors, Get, Param, Query
 } from "@nestjs/common";
-import { UserDto, RegisterDtoType, RegisterResultDto, UpdateResultDto, UpdateUserDto } from "./user.model";
+import { UserDto, RegisterDtoType, RegisterResultDto, UpdateResultDto, UpdateUserDto, RegisterUserDto } from "./user.model";
 import { UserService } from "./user.service";
 import { Request as Req } from 'express';
 import { EntityErrorInterceptor } from "../interceptors/entity-error.interceptor";
@@ -22,9 +22,9 @@ export class LdapController {
   @Post()
   @ApiResponse({ status: 201, type: RegisterResultDto, description: 'Register user' })
   public async register(
-    @Body() user: UserDto
+    @Body() user: RegisterUserDto
   ): Promise<RegisterResultDto> {
-    return this.userService.register(user as RegisterDtoType)
+    return this.userService.register(user)
   }
 
   @Patch()

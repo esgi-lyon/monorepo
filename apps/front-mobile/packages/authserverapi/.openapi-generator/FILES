@@ -6,6 +6,7 @@ doc/DefaultApi.md
 doc/LoginDto.md
 doc/RegisterResultDto.md
 doc/RegisterResultDtoUser.md
+doc/RegisterUserDto.md
 doc/UpdateResultDto.md
 doc/UpdateUserDto.md
 doc/UserDto.md
@@ -21,6 +22,7 @@ lib/src/deserialize.dart
 lib/src/model/login_dto.dart
 lib/src/model/register_result_dto.dart
 lib/src/model/register_result_dto_user.dart
+lib/src/model/register_user_dto.dart
 lib/src/model/update_result_dto.dart
 lib/src/model/update_user_dto.dart
 lib/src/model/user_dto.dart

@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**interactionControllerLogin**](DefaultApi.md#interactioncontrollerlogin) | **GET** /interaction/{uid} | 
 [**interactionControllerLoginCheck**](DefaultApi.md#interactioncontrollerlogincheck) | **POST** /interaction/{uid} | 
 [**ldapControllerDeletion**](DefaultApi.md#ldapcontrollerdeletion) | **DELETE** /ldap | 
+[**ldapControllerFindByEmail**](DefaultApi.md#ldapcontrollerfindbyemail) | **GET** /ldap | 
 [**ldapControllerRegister**](DefaultApi.md#ldapcontrollerregister) | **POST** /ldap | 
 [**ldapControllerUpdate**](DefaultApi.md#ldapcontrollerupdate) | **PATCH** /ldap | 
 
@@ -291,8 +292,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **ldapControllerRegister**
-> RegisterResultDto ldapControllerRegister(userDto)
+# **ldapControllerFindByEmail**
+> UserDto ldapControllerFindByEmail(email)
 
 
 
@@ -301,10 +302,51 @@ No authorization required
 import 'package:authserver/api.dart';
 
 final api = Authserver().getDefaultApi();
-final UserDto userDto = ; // UserDto | 
+final String email = email_example; // String | 
 
 try {
-    final response = api.ldapControllerRegister(userDto);
+    final response = api.ldapControllerFindByEmail(email);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->ldapControllerFindByEmail: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **email** | **String**|  | 
+
+### Return type
+
+[**UserDto**](UserDto.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ldapControllerRegister**
+> RegisterResultDto ldapControllerRegister(registerUserDto)
+
+
+
+### Example
+```dart
+import 'package:authserver/api.dart';
+
+final api = Authserver().getDefaultApi();
+final RegisterUserDto registerUserDto = ; // RegisterUserDto | 
+
+try {
+    final response = api.ldapControllerRegister(registerUserDto);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling DefaultApi->ldapControllerRegister: $e\n');
@@ -315,7 +357,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userDto** | [**UserDto**](UserDto.md)|  | 
+ **registerUserDto** | [**RegisterUserDto**](RegisterUserDto.md)|  | 
 
 ### Return type
 

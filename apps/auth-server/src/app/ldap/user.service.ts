@@ -4,11 +4,10 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { PasswordChangeDtoType, RegisterDtoType, RegisterResultDto, UpdateResultDto, UpdateUserDto, User, UserDto } from "./user.model";
+import { PasswordChangeDtoType, RegisterDtoType, RegisterResultDto, RegisterUserDto, UpdateResultDto, UpdateUserDto, User, UserDto } from "./user.model";
 import { getRepoKey } from "../utils/db.utils";
 import { isEmpty } from "lodash";
 import { BaseError } from "sequelize";
-import { ApiProperty } from '@nestjs/swagger';
 
 export class PasswordException extends BaseError {}
 
@@ -31,7 +30,7 @@ export class UserService {
     return this.secureClass(user) as User
   }
 
-  async register(user: RegisterDtoType): Promise<RegisterResultDto> {
+  async register(user: RegisterUserDto): Promise<RegisterResultDto> {
     this.checkPasswordEquals(user as RegisterDtoType)
 
     const u = await this.userModel.create(user, {
@@ -63,6 +62,8 @@ export class UserService {
     return new UpdateResultDto(
       `${data.email} successfully updated`,
       result
+        .map(e => (e as unknown as object)['email'] ?? data.email)
+        .filter(e => e != null)
     )
   }
 
@@ -83,7 +84,8 @@ export class UserService {
   protected async parseAndValidatePasswordChangeCase(
     data: PasswordChangeDtoType
   ): Promise<PasswordChangeDtoType> {
-    if (data.password == null) return data
+    console.log(data.oldPassword, "==",data.password)
+    if (data.password == null || data.oldPassword == data.password) return data
 
     if (
       data?.oldPassword == null ||
@@ -118,6 +120,7 @@ export class UserService {
   }
 
   protected checkPasswordEquals(registerOrUpdating: RegisterDtoType) {
+    console.log(registerOrUpdating)
     if (registerOrUpdating.confirmationPassword !== registerOrUpdating.password)
       throw new UnauthorizedException("Password are not equals")
   }

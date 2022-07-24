@@ -16,6 +16,15 @@ class UserEmailChanged extends UserEvent {
   List<Object> get props => [email];
 }
 
+class UserPhoneChanged extends UserEvent {
+  const UserPhoneChanged(this.phoneNumber);
+
+  final String phoneNumber;
+
+  @override
+  List<Object> get props => [phoneNumber];
+}
+
 class UserPasswordChanged extends UserEvent {
   const UserPasswordChanged(this.password);
 
@@ -32,6 +41,15 @@ class UserConfirmationPasswordChanged extends UserEvent {
 
   @override
   List<Object> get props => [passwordConfirmation];
+}
+
+class UserOldPasswordChanged extends UserEvent {
+  const UserOldPasswordChanged(this.oldPassword);
+
+  final String oldPassword;
+
+  @override
+  List<Object> get props => [oldPassword];
 }
 
 class UserNameChanged extends UserEvent {

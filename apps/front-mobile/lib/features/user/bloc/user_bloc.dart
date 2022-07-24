@@ -1,3 +1,4 @@
+import 'package:authserver/authserver.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
@@ -5,7 +6,6 @@ import 'package:abcleaver/features/user/validations/email.dart';
 import 'package:abcleaver/commons/validations/validations.dart';
 import 'package:abcleaver/features/user/validations/password.dart';
 import 'package:user_repository/user_repository.dart';
-import 'package:abcleaver/commons/extensions/string.dart';
 import 'package:abcleaver/commons/extensions/formz.dart';
 
 part 'user_event.dart';
@@ -16,6 +16,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       : _userRepository = userRepository,
         super(const UserState()) {
     on<UserEmailChanged>(_onEmailChanged);
+    on<UserPhoneChanged>(_onPhoneChanged);
     on<UserNameChanged>(_onNameChanged);
     on<UserPasswordChanged>(_onPasswordChanged);
     on<UserConfirmationPasswordChanged>(_onConfirmationPasswordChanged);
@@ -27,6 +28,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserUpdateSubmitted>(_onUpdate);
     on<UserRegistrationSubmitted>(_onRegister);
     on<UserPasswordChangeSubmitted>(_onPasswordChange);
+    on<UserOldPasswordChanged>(_onOldPasswordChange);
   }
 
   final UserRepository _userRepository;
@@ -40,6 +42,25 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       email: email,
       status: Formz.validate([
         email,
+        state.name,
+        state.password,
+        state.confirmationPassword,
+        state.familyName,
+        state.birthdate,
+        state.gender
+      ]),
+    ));
+  }
+
+  void _onPhoneChanged(
+    UserPhoneChanged event,
+    Emitter<UserState> emit,
+  ) {
+    final phoneNumber = SimpleString.dirty(event.phoneNumber);
+    emit(state.copyWith(
+      phoneNumber: phoneNumber,
+      status: Formz.validate([
+        phoneNumber,
         state.name,
         state.password,
         state.confirmationPassword,
@@ -185,6 +206,25 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     ));
   }
 
+  void _onOldPasswordChange(
+    UserOldPasswordChanged event,
+    Emitter<UserState> emit,
+  ) {
+    final oldPassword = Password.dirty(event.oldPassword);
+    emit(state.copyWith(
+      oldPassword: oldPassword,
+      status: Formz.validate([
+        state.email,
+        state.name,
+        state.password,
+        oldPassword,
+        state.familyName,
+        state.gender,
+        state.gender
+      ]),
+    ));
+  }
+
   void _onRegister(
     UserRegistrationSubmitted event,
     Emitter<UserState> emit,
@@ -199,7 +239,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       await _userRepository.register(state.toFullDto());
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } catch (_) {
+    } catch (e) {
+      print(e);
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
@@ -216,9 +257,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     try {
-      await _userRepository.update(state.toPartialDto());
+      await _userRepository.update(state.toUpdateDto());
+
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } catch (_) {
+    } catch (e) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }
@@ -243,7 +285,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     try {
-      await _userRepository.update(state.toPartialDto());
+      await _userRepository.update(state.toUpdateDto());
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } catch (_) {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

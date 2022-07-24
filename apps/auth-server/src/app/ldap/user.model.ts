@@ -48,7 +48,7 @@ export class UserDto {
   @IsNotEmpty()
   email: string;
 
-  @IsPhoneNumber()
+  // @IsPhoneNumber()
   @ApiProperty()
   @IsNotEmpty()
   phoneNumber: string;
@@ -61,8 +61,8 @@ export class UserDto {
   @IsNotEmpty()
   familyName: string;
 
-  @ApiProperty()
-  address: object = {};
+  // @ApiProperty()
+  // address: object = {};
 
   @ApiProperty()
   @IsNotEmpty()
@@ -73,10 +73,17 @@ export class UserDto {
   @IsEnum(Gender)
   gender: Gender;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsPasswordValid({ strength: 1 })
   @Length(PASSWORD_MIN, PASSWORD_MAX)
   password: string;
+}
+
+export class RegisterUserDto extends UserDto {
+  @ApiProperty()
+  @IsPasswordValid({ strength: 1 })
+  @Length(PASSWORD_MIN, PASSWORD_MAX)
+  confirmationPassword: string
 }
 
 /**
@@ -193,9 +200,9 @@ export class UpdateResultDto {
   @ApiProperty()
   public readonly message: string;
   @ApiProperty()
-  public readonly result: [affectedCount: number];
+  public readonly result: string[];
 
-  constructor(message: string, result: [affectedCount: number]) {
+  constructor(message: string, result: string[]) {
     this.message = message;
     this.result = result;
   }

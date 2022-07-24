@@ -1,4 +1,4 @@
-# authserver.model.UpdateUserDto
+# authserver.model.RegisterUserDto
 
 ## Load the model package
 ```dart
@@ -15,8 +15,7 @@ Name | Type | Description | Notes
 **birthdate** | [**DateTime**](DateTime.md) |  | 
 **gender** | **String** |  | 
 **password** | **String** |  | [optional] 
-**confirmationPassword** | **String** |  | [optional] 
-**oldPassword** | **String** |  | [optional] 
+**confirmationPassword** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

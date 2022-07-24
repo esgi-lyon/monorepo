@@ -4,7 +4,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user_dto.g.dart';
+part 'register_user_dto.g.dart';
 
 
 @JsonSerializable(
@@ -13,9 +13,9 @@ part 'user_dto.g.dart';
   disallowUnrecognizedKeys: false,
   explicitToJson: true,
 )
-class UserDto {
-  /// Returns a new [UserDto] instance.
-  UserDto({
+class RegisterUserDto {
+  /// Returns a new [RegisterUserDto] instance.
+  RegisterUserDto({
 
     required  this.email,
 
@@ -30,6 +30,8 @@ class UserDto {
     required  this.gender,
 
      this.password,
+
+    required  this.confirmationPassword,
   });
 
   @JsonKey(
@@ -100,7 +102,7 @@ class UserDto {
   )
 
 
-  final UserDtoGenderEnum gender;
+  final RegisterUserDtoGenderEnum gender;
 
 
 
@@ -116,15 +118,28 @@ class UserDto {
 
 
 
+  @JsonKey(
+    
+    name: r'confirmationPassword',
+    required: true,
+    includeIfNull: false
+  )
+
+
+  final String confirmationPassword;
+
+
+
   @override
-  bool operator ==(Object other) => identical(this, other) || other is UserDto &&
+  bool operator ==(Object other) => identical(this, other) || other is RegisterUserDto &&
      other.email == email &&
      other.phoneNumber == phoneNumber &&
      other.name == name &&
      other.familyName == familyName &&
      other.birthdate == birthdate &&
      other.gender == gender &&
-     other.password == password;
+     other.password == password &&
+     other.confirmationPassword == confirmationPassword;
 
   @override
   int get hashCode =>
@@ -134,11 +149,12 @@ class UserDto {
     familyName.hashCode +
     birthdate.hashCode +
     gender.hashCode +
-    password.hashCode;
+    password.hashCode +
+    confirmationPassword.hashCode;
 
-  factory UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
+  factory RegisterUserDto.fromJson(Map<String, dynamic> json) => _$RegisterUserDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserDtoToJson(this);
+  Map<String, dynamic> toJson() => _$RegisterUserDtoToJson(this);
 
   @override
   String toString() {
@@ -148,7 +164,7 @@ class UserDto {
 }
 
 
-enum UserDtoGenderEnum {
+enum RegisterUserDtoGenderEnum {
   @JsonValue(r'man')
   man,
   @JsonValue(r'woman')

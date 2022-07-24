@@ -13,19 +13,21 @@ String genderFrom({g: String}) {
 }
 
 class User extends Equatable {
-  const User(this.name, this.email, this.familyName, this.picture,
-      this.birthdate, this.gender);
+  const User(this.name, this.phoneNumber, this.email, this.familyName,
+      this.picture, this.birthdate, this.gender);
 
   final String name;
 
   final String email;
+  final String phoneNumber;
   final String familyName;
   final String picture;
   final String birthdate;
   final String gender;
 
   @override
-  List<Object> get props => [name, email, familyName];
+  List<Object> get props =>
+      [name, phoneNumber, email, familyName, picture, birthdate, gender];
 
-  static const empty = User('-', '-', '-', '-', '-', '-');
+  static const empty = User('-', '-', '-', '-', '-', '-', '-');
 }

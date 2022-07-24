@@ -1,15 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_result_dto_user.dart';
+part of 'register_user_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegisterResultDtoUser _$RegisterResultDtoUserFromJson(
-        Map<String, dynamic> json) =>
+RegisterUserDto _$RegisterUserDtoFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      'RegisterResultDtoUser',
+      'RegisterUserDto',
       json,
       ($checkedConvert) {
         $checkKeys(
@@ -20,10 +19,11 @@ RegisterResultDtoUser _$RegisterResultDtoUserFromJson(
             'name',
             'familyName',
             'birthdate',
-            'gender'
+            'gender',
+            'confirmationPassword'
           ],
         );
-        final val = RegisterResultDtoUser(
+        final val = RegisterUserDto(
           email: $checkedConvert('email', (v) => v as String),
           phoneNumber: $checkedConvert('phoneNumber', (v) => v as String),
           name: $checkedConvert('name', (v) => v as String),
@@ -31,22 +31,23 @@ RegisterResultDtoUser _$RegisterResultDtoUserFromJson(
           birthdate:
               $checkedConvert('birthdate', (v) => DateTime.parse(v as String)),
           gender: $checkedConvert('gender',
-              (v) => $enumDecode(_$RegisterResultDtoUserGenderEnumEnumMap, v)),
+              (v) => $enumDecode(_$RegisterUserDtoGenderEnumEnumMap, v)),
           password: $checkedConvert('password', (v) => v as String?),
+          confirmationPassword:
+              $checkedConvert('confirmationPassword', (v) => v as String),
         );
         return val;
       },
     );
 
-Map<String, dynamic> _$RegisterResultDtoUserToJson(
-    RegisterResultDtoUser instance) {
+Map<String, dynamic> _$RegisterUserDtoToJson(RegisterUserDto instance) {
   final val = <String, dynamic>{
     'email': instance.email,
     'phoneNumber': instance.phoneNumber,
     'name': instance.name,
     'familyName': instance.familyName,
     'birthdate': instance.birthdate.toIso8601String(),
-    'gender': _$RegisterResultDtoUserGenderEnumEnumMap[instance.gender]!,
+    'gender': _$RegisterUserDtoGenderEnumEnumMap[instance.gender]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -56,11 +57,12 @@ Map<String, dynamic> _$RegisterResultDtoUserToJson(
   }
 
   writeNotNull('password', instance.password);
+  val['confirmationPassword'] = instance.confirmationPassword;
   return val;
 }
 
-const _$RegisterResultDtoUserGenderEnumEnumMap = {
-  RegisterResultDtoUserGenderEnum.man: 'man',
-  RegisterResultDtoUserGenderEnum.woman: 'woman',
-  RegisterResultDtoUserGenderEnum.other: 'other',
+const _$RegisterUserDtoGenderEnumEnumMap = {
+  RegisterUserDtoGenderEnum.man: 'man',
+  RegisterUserDtoGenderEnum.woman: 'woman',
+  RegisterUserDtoGenderEnum.other: 'other',
 };

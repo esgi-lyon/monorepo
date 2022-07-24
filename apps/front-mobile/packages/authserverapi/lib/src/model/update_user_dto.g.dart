@@ -18,10 +18,8 @@ UpdateUserDto _$UpdateUserDtoFromJson(Map<String, dynamic> json) =>
             'phoneNumber',
             'name',
             'familyName',
-            'address',
             'birthdate',
-            'gender',
-            'password'
+            'gender'
           ],
         );
         final val = UpdateUserDto(
@@ -29,12 +27,11 @@ UpdateUserDto _$UpdateUserDtoFromJson(Map<String, dynamic> json) =>
           phoneNumber: $checkedConvert('phoneNumber', (v) => v as String),
           name: $checkedConvert('name', (v) => v as String),
           familyName: $checkedConvert('familyName', (v) => v as String),
-          address: $checkedConvert('address', (v) => v as Object),
           birthdate:
               $checkedConvert('birthdate', (v) => DateTime.parse(v as String)),
           gender: $checkedConvert('gender',
               (v) => $enumDecode(_$UpdateUserDtoGenderEnumEnumMap, v)),
-          password: $checkedConvert('password', (v) => v as String),
+          password: $checkedConvert('password', (v) => v as String?),
           confirmationPassword:
               $checkedConvert('confirmationPassword', (v) => v as String?),
           oldPassword: $checkedConvert('oldPassword', (v) => v as String?),
@@ -49,10 +46,8 @@ Map<String, dynamic> _$UpdateUserDtoToJson(UpdateUserDto instance) {
     'phoneNumber': instance.phoneNumber,
     'name': instance.name,
     'familyName': instance.familyName,
-    'address': instance.address,
     'birthdate': instance.birthdate.toIso8601String(),
     'gender': _$UpdateUserDtoGenderEnumEnumMap[instance.gender]!,
-    'password': instance.password,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -61,6 +56,7 @@ Map<String, dynamic> _$UpdateUserDtoToJson(UpdateUserDto instance) {
     }
   }
 
+  writeNotNull('password', instance.password);
   writeNotNull('confirmationPassword', instance.confirmationPassword);
   writeNotNull('oldPassword', instance.oldPassword);
   return val;
