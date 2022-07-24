@@ -3,7 +3,6 @@ package com.abclever.gamification.web;
 
 import com.abclever.gamification.repository.UserAnswer;
 import com.abclever.gamification.repository.UserAnswerRepository;
-
 import com.abclever.gamification.service.Statistic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,7 @@ public class UserAnswerController {
     userAnswer.setId(UUID.randomUUID());
     userAnswer.setCorrect(userAnswerDto.correct());
     userAnswer.setAnswer(userAnswerDto.answer());
-    userAnswer.setUserId(userAnswerDto.userId());
+    userAnswer.setUserId(UUID.fromString(userAnswerDto.userId()));
     userAnswer.setQuestion(userAnswerDto.question());
     userAnswer.setTime(userAnswerDto.time());
     this.userAnswerRepository.save(userAnswer);
@@ -50,12 +49,12 @@ public class UserAnswerController {
   }
 
   @GetMapping("user-answers")
-  public Iterable<UserAnswer> getAll(@RequestParam(name = "userId") int userId){
+  public Iterable<UserAnswer> getAll(@RequestParam(name = "userId") UUID userId){
     return userAnswerRepository.findAllByUserId(userId);
   }
 
   @GetMapping("stats")
-  public StatisticDto getStat(@RequestParam(name = "userId") int userId) {
+  public StatisticDto getStat(@RequestParam(name = "userId") UUID userId) {
     return statistic.getStat(userId);
   }
 }

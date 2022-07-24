@@ -2,7 +2,7 @@ package com.abcleaver.quizz.domain
 
 import com.abcleaver.quizz.port.ImageOut
 import com.abcleaver.quizz.port.MessageOut
-import java.nio.file.Path
+import java.util.*
 
 class QuizzService constructor(private val imageIn: ImageOut, private val messageOut: MessageOut) {
 
@@ -17,7 +17,7 @@ class QuizzService constructor(private val imageIn: ImageOut, private val messag
     return Quizz(questions);
   }
 
-  fun submit(answer: String, userId: Long, question: Letter): Boolean {
+  fun submit(answer: String, userId: UUID, question: Letter): Boolean {
     val correct = isCorrect(answer, question)
 
     messageOut.dispatch(

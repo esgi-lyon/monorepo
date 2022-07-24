@@ -13,7 +13,7 @@ public class UserAnswer {
   private UUID id;
   private boolean correct;
   private String answer;
-  private Long userId;
+  private UUID userId;
   private String question;
   private Double time;
 
@@ -49,11 +49,11 @@ public class UserAnswer {
     this.answer = answer;
   }
 
-  public Long getUserId() {
+  public UUID getUserId() {
     return userId;
   }
 
-  public void setUserId(Long userId) {
+  public void setUserId(UUID userId) {
     this.userId = userId;
   }
 

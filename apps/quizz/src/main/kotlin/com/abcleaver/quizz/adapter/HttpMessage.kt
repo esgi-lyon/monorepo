@@ -10,13 +10,14 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.springframework.web.util.UriComponentsBuilder
 import java.io.IOException
+import java.util.*
 
 class HttpMessage(private val gamificationHost: String, private val gamificationPort: String) : MessageOut {
   val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
 
-  override fun dispatch(correct: Boolean, answer: String, userId: Long, question: String) {
+  override fun dispatch(correct: Boolean, answer: String, userId: UUID, question: String) {
     val client = OkHttpClient()
-    val dto = UserAnswerDto(correct, answer, userId, question)
+    val dto = GamificationUserAnswerDto(correct, answer, userId, question)
     val body: RequestBody = jacksonObjectMapper().writeValueAsString(dto).toRequestBody(JSON)
 
     val url = UriComponentsBuilder.newInstance()
