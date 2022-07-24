@@ -42,9 +42,6 @@ class FormBloc extends Bloc<FormEvent, AppFormState> with ValidationMixin {
       if (isFieldEmpty(event.password)) {
         fieldsError.putIfAbsent("password", () => FieldError.empty);
       }
-      if (!isPasswordSecured(event.password)) {
-        fieldsError.putIfAbsent("password", () => FieldError.unsecuredPassword);
-      }
 
       if (fieldsError.isNotEmpty) {
         emit(InvalidFormState(fieldsError));
