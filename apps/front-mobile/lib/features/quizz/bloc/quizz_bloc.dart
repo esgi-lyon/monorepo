@@ -1,14 +1,24 @@
+import 'package:abcleaver/features/quizz/bloc/quizz_event.dart';
+import 'package:abcleaver/features/quizz/bloc/quizz_state.dart';
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'quizz_event.dart';
-part 'quizz_state.dart';
-part 'quizz_bloc.freezed.dart';
+import '../data/repository/quizz_repository.dart';
+
 
 class QuizzBloc extends Bloc<QuizzEvent, QuizzState> {
-  QuizzBloc() : super(_Initial()) {
-    on<QuizzEvent>((event, emit) {
-      // TODO: implement event handler
+  final QuizzRepository quizzRepository = QuizzRepository();
+
+  QuizzBloc() : super(InitialQuizzState()) {
+    on<LoadQuizzEvent>((event, emit) async {
+      try {
+        var quizzs = await quizzRepository.get();
+        emit(LoadedQuizzState(quizzs));
+      } catch (e) {
+        emit(ErrorQuizzState(e.toString()));
+      }
     });
   }
 }
+
+
+

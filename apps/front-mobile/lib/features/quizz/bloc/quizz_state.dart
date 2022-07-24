@@ -1,6 +1,34 @@
-part of 'quizz_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@freezed
-class QuizzState with _$QuizzState {
-  const factory QuizzState.initial() = _Initial;
+import '../data/models/quizz.dart';
+
+abstract class QuizzState extends Equatable {
+  const QuizzState();
+
+  @override
+  List<Object> get props => [];
+  }
+
+class InitialQuizzState extends QuizzState {
+  @override
+  List<Object> get props => [];
+}
+
+class LoadedQuizzState extends QuizzState {
+  final List<Question> quizzs;
+
+  const LoadedQuizzState(this.quizzs);
+
+  @override
+  List<Object> get props => [quizzs];
+}
+
+
+class ErrorQuizzState extends QuizzState {
+  final String error;
+
+  const ErrorQuizzState(this.error);
+
+  @override
+  List<Object> get props => [error];
 }
