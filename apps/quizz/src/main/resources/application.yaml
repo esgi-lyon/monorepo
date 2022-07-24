@@ -6,6 +6,7 @@ spring:
 ---
 server:
   address: 0.0.0.0
+  addressBis: 127.0.0.1
   port: 8085
 gamification:
   address: 0.0.0.0
