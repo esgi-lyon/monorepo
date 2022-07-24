@@ -10,7 +10,8 @@ class UserState extends Equatable {
       this.familyName = const SimpleString.pure(),
       this.picture = const SimpleString.pure(),
       this.gender = const SimpleString.pure(),
-      this.birthdate = const SimpleString.pure()});
+      this.birthdate = const SimpleString.pure(),
+      this.oldPassword = const SimpleString.pure()});
 
   final FormzStatus status;
   final Email email;
@@ -21,18 +22,19 @@ class UserState extends Equatable {
   final SimpleString picture;
   final SimpleString gender;
   final SimpleString birthdate;
+  final SimpleString oldPassword;
 
-  UserState copyWith({
-    FormzStatus? status,
-    Email? email,
-    Password? password,
-    Password? confirmationPassword,
-    SimpleString? name,
-    SimpleString? familyName,
-    SimpleString? picture,
-    SimpleString? birthdate,
-    SimpleString? gender,
-  }) =>
+  UserState copyWith(
+          {FormzStatus? status,
+          Email? email,
+          Password? password,
+          Password? confirmationPassword,
+          SimpleString? name,
+          SimpleString? familyName,
+          SimpleString? picture,
+          SimpleString? birthdate,
+          SimpleString? gender,
+          SimpleString? oldPassword}) =>
       UserState(
         status: status ?? this.status,
         name: name ?? this.name,
@@ -43,6 +45,7 @@ class UserState extends Equatable {
         birthdate: birthdate ?? this.birthdate,
         picture: picture ?? this.picture,
         gender: gender ?? this.gender,
+        oldPassword: oldPassword ?? this.oldPassword,
       );
 
   toPartialDto() => PartialUserDto(
@@ -53,7 +56,8 @@ class UserState extends Equatable {
       birthdate: birthdate.value.toNullIfEmpty(),
       gender: gender.value.toNullIfEmpty(),
       password: password.value.toNullIfEmpty(),
-      confirmationPassword: confirmationPassword.value.toNullIfEmpty());
+      confirmationPassword: confirmationPassword.value.toNullIfEmpty(),
+      oldPassword: oldPassword.value.toNullIfEmpty());
 
   toFullDto() => FullUserDto(
       name: name.value,
@@ -75,6 +79,7 @@ class UserState extends Equatable {
         confirmationPassword,
         picture,
         gender,
-        birthdate
+        birthdate,
+        oldPassword
       ];
 }

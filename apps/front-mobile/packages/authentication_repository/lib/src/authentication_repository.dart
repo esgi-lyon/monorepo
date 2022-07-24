@@ -11,6 +11,8 @@ enum AuthenticationStatus { unknown, authenticated, unauthenticated, loading }
 class AuthenticationRepository {
   final _controller = StreamController<AuthenticationStatus>();
 
+  String currentLoggingInUsername = "";
+
   static final authServer = Authserver();
   static final dio = addInterceptors(authServer.dio);
   final apiClient = DefaultApi(dio);
@@ -26,6 +28,7 @@ class AuthenticationRepository {
     required String password,
   }) async {
     _controller.add(AuthenticationStatus.loading);
+    currentLoggingInUsername = username;
 
     try {
       var loginUid = await uidFromOidcAuth();
@@ -44,6 +47,7 @@ class AuthenticationRepository {
 
       return confirm(uidFromHeader(checkStep2.headers.map['Location']!.first));
     } catch (e) {
+      currentLoggingInUsername = "";
       print(e.toString());
       return {'error': e};
     }

@@ -5,7 +5,9 @@ build.yaml
 doc/DefaultApi.md
 doc/LoginDto.md
 doc/RegisterResultDto.md
+doc/RegisterResultDtoUser.md
 doc/UpdateResultDto.md
+doc/UpdateUserDto.md
 doc/UserDto.md
 lib/authserver.dart
 lib/src/api.dart
@@ -18,8 +20,8 @@ lib/src/auth/oauth.dart
 lib/src/deserialize.dart
 lib/src/model/login_dto.dart
 lib/src/model/register_result_dto.dart
+lib/src/model/register_result_dto_user.dart
 lib/src/model/update_result_dto.dart
+lib/src/model/update_user_dto.dart
 lib/src/model/user_dto.dart
 pubspec.yaml
-test/register_result_dto_test.dart
-test/update_result_dto_test.dart

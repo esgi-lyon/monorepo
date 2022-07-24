@@ -1,6 +1,8 @@
 import 'package:authserver/src/model/login_dto.dart';
 import 'package:authserver/src/model/register_result_dto.dart';
+import 'package:authserver/src/model/register_result_dto_user.dart';
 import 'package:authserver/src/model/update_result_dto.dart';
+import 'package:authserver/src/model/update_user_dto.dart';
 import 'package:authserver/src/model/user_dto.dart';
 
 final _regList = RegExp(r'^List<(.*)>$');
@@ -25,8 +27,12 @@ final _regMap = RegExp(r'^Map<String,(.*)>$');
           return LoginDto.fromJson(value as Map<String, dynamic>) as ReturnType;
         case 'RegisterResultDto':
           return RegisterResultDto.fromJson(value as Map<String, dynamic>) as ReturnType;
+        case 'RegisterResultDtoUser':
+          return RegisterResultDtoUser.fromJson(value as Map<String, dynamic>) as ReturnType;
         case 'UpdateResultDto':
           return UpdateResultDto.fromJson(value as Map<String, dynamic>) as ReturnType;
+        case 'UpdateUserDto':
+          return UpdateUserDto.fromJson(value as Map<String, dynamic>) as ReturnType;
         case 'UserDto':
           return UserDto.fromJson(value as Map<String, dynamic>) as ReturnType;
         default:

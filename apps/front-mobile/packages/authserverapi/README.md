@@ -77,7 +77,9 @@ Class | Method | HTTP request | Description
 
  - [LoginDto](doc/LoginDto.md)
  - [RegisterResultDto](doc/RegisterResultDto.md)
+ - [RegisterResultDtoUser](doc/RegisterResultDtoUser.md)
  - [UpdateResultDto](doc/UpdateResultDto.md)
+ - [UpdateUserDto](doc/UpdateUserDto.md)
  - [UserDto](doc/UserDto.md)
 
 

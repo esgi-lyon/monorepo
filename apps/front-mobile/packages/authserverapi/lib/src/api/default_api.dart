@@ -12,6 +12,7 @@ import 'package:dio/dio.dart';
 import 'package:authserver/src/model/login_dto.dart';
 import 'package:authserver/src/model/register_result_dto.dart';
 import 'package:authserver/src/model/update_result_dto.dart';
+import 'package:authserver/src/model/update_user_dto.dart';
 import 'package:authserver/src/model/user_dto.dart';
 
 class DefaultApi {
@@ -474,7 +475,7 @@ _responseData = deserialize<RegisterResultDto, RegisterResultDto>(_response.data
   /// 
   ///
   /// Parameters:
-  /// * [userDto] 
+  /// * [updateUserDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -485,7 +486,7 @@ _responseData = deserialize<RegisterResultDto, RegisterResultDto>(_response.data
   /// Returns a [Future] containing a [Response] with a [UpdateResultDto] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<UpdateResultDto>> ldapControllerUpdate({ 
-    required UserDto userDto,
+    required UpdateUserDto updateUserDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -510,7 +511,7 @@ _responseData = deserialize<RegisterResultDto, RegisterResultDto>(_response.data
     dynamic _bodyData;
 
     try {
-_bodyData=jsonEncode(userDto);
+_bodyData=jsonEncode(updateUserDto);
     } catch(error, stackTrace) {
       throw DioError(
          requestOptions: _options.compose(

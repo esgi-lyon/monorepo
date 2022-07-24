@@ -333,7 +333,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ldapControllerUpdate**
-> UpdateResultDto ldapControllerUpdate(userDto)
+> UpdateResultDto ldapControllerUpdate(updateUserDto)
 
 
 
@@ -342,10 +342,10 @@ No authorization required
 import 'package:authserver/api.dart';
 
 final api = Authserver().getDefaultApi();
-final UserDto userDto = ; // UserDto | 
+final UpdateUserDto updateUserDto = ; // UpdateUserDto | 
 
 try {
-    final response = api.ldapControllerUpdate(userDto);
+    final response = api.ldapControllerUpdate(updateUserDto);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling DefaultApi->ldapControllerUpdate: $e\n');
@@ -356,7 +356,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userDto** | [**UserDto**](UserDto.md)|  | 
+ **updateUserDto** | [**UpdateUserDto**](UpdateUserDto.md)|  | 
 
 ### Return type
 

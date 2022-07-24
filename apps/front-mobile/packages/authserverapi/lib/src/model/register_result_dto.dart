@@ -2,6 +2,7 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
+import 'package:authserver/src/model/register_result_dto_user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'register_result_dto.g.dart';
@@ -42,7 +43,7 @@ class RegisterResultDto {
   )
 
 
-  final Object user;
+  final RegisterResultDtoUser user;
 
 
 
