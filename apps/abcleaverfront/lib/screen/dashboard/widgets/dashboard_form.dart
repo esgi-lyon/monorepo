@@ -8,17 +8,8 @@ class DashboardForm extends StatefulWidget {
   const DashboardForm({Key? key}) : super(key: key);
 
   @override
-  State<DashboardForm> createState() => _DashboardFormState();
+  State<DashboardForm> createState() => _DashboardForm();
 }
-
-class _DashboardFormState extends State<DashboardForm> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-
 class _DashboardForm extends State<DashboardForm> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 

@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            'assets/svg/splash-screen.svg',
+            'assets/svg/baby-lion.svg',
             height: 30.h,
           ),
         ],
