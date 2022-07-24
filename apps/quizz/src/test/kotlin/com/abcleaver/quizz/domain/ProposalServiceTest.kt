@@ -6,11 +6,11 @@ import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertIs
 
-internal class ProposalServiceTest {
+internal class ProposalServiceTest() {
  private val proposalService: ProposalService;
 
-  constructor(){
-    val imageOut = LocalImage()
+  init {
+    val imageOut = LocalImage("localhost", "8081")
     proposalService = ProposalService(imageOut)
   }
 

@@ -8,14 +8,14 @@ import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
 
-internal class QuizzServiceTest {
+internal class QuizzServiceTest() {
 
   private var quizzService: QuizzService
   private var alphabet: Set<String> = setOf("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
 
-  constructor() {
-    val imageOut = LocalImage()
+  init {
+    val imageOut = LocalImage("locahost", "8081")
     val messageOut = KafkaMessage()
     quizzService = QuizzService(imageOut, messageOut)
   }
