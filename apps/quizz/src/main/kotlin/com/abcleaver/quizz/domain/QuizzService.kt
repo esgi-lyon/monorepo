@@ -2,6 +2,7 @@ package com.abcleaver.quizz.domain
 
 import com.abcleaver.quizz.port.ImageOut
 import com.abcleaver.quizz.port.MessageOut
+import java.nio.file.Path
 
 class QuizzService constructor(private val imageIn: ImageOut, private val messageOut: MessageOut) {
 

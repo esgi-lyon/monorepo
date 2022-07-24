@@ -1,5 +1,6 @@
 package com.abcleaver.quizz.domain
 
+import java.net.URI
 import java.nio.file.Path
 import kotlin.random.Random
 
@@ -17,4 +18,4 @@ enum class QuestionType {
 
 }
 
-data class Question(val letter: Letter, val imagePath: Path, val questionType: QuestionType, val proposal: Proposal)
+data class Question(val letter: Letter, val imagePath: URI, val questionType: QuestionType, val proposal: Proposal)

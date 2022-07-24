@@ -2,11 +2,23 @@ package com.abcleaver.quizz.adapter
 
 import com.abcleaver.quizz.domain.Letter
 import com.abcleaver.quizz.port.ImageOut
-import java.nio.file.Path
+import org.springframework.beans.factory.annotation.Value
 
-class LocalImage : ImageOut {
-  override fun getImage(letter: Letter): Path {
-//    TODO implement this
-    return Path.of("https://flif.info/example-images/fish.png")
+import org.springframework.web.util.UriComponentsBuilder
+import java.net.URI
+
+
+class LocalImage( @Value("\${server.addressBis}") private val host : String,  @Value("\${server.port}")  private val port : String) : ImageOut {
+
+  override fun getImage(letter: Letter): URI {
+
+
+    return UriComponentsBuilder.newInstance()
+      .scheme("http")
+      .host(host).port(port)
+      .path("/${letter}.jpg")
+      .build()
+      .toUri()
+
   }
 }

@@ -5,16 +5,17 @@ import com.abcleaver.quizz.domain.Quizz
 import com.abcleaver.quizz.domain.QuizzService
 import com.abcleaver.quizz.port.QuizzIn
 import com.abcleaver.quizz.port.UserAnswerDto
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
-class MainController : QuizzIn {
+class MainController(  @Value("\${server.addressBis}") private val host : String,  @Value("\${server.port}")  private val port : String ) : QuizzIn {
 
-  private var quizzService: QuizzService
+  private lateinit var quizzService: QuizzService
 
-  constructor() {
-    val imageOut = LocalImage()
+  init {
+    val imageOut = LocalImage(host, port)
     val messageOut = KafkaMessage()
     quizzService = QuizzService(imageOut, messageOut)
   }
