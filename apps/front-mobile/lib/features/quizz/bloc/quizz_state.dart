@@ -7,7 +7,7 @@ abstract class QuizzState extends Equatable {
 
   @override
   List<Object> get props => [];
-  }
+}
 
 class InitialQuizzState extends QuizzState {
   @override
@@ -22,7 +22,6 @@ class LoadedQuizzState extends QuizzState {
   @override
   List<Object> get props => [quizzs];
 }
-
 
 class ErrorQuizzState extends QuizzState {
   final String error;

@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 
 import '../data/repository/quizz_repository.dart';
 
-
 class QuizzBloc extends Bloc<QuizzEvent, QuizzState> {
   final QuizzRepository quizzRepository = QuizzRepository();
 
@@ -19,6 +18,3 @@ class QuizzBloc extends Bloc<QuizzEvent, QuizzState> {
     });
   }
 }
-
-
-

@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 
 import '../data/models/quizz.dart';
@@ -13,5 +12,3 @@ class LoadQuizzEvent extends QuizzEvent {
 
   LoadQuizzEvent(this.quizz);
 }
-
-

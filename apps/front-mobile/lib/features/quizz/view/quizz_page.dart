@@ -17,9 +17,7 @@ class QuizzPage extends StatelessWidget {
           backgroundColor: Colors.white,
           title: Text(
             'Niveau 1',
-            style: TextStyle(color: AppTheme
-                .of(context)
-                .secondaryColor),
+            style: TextStyle(color: AppTheme.of(context).secondaryColor),
           ),
         ),
         body: Padding(
@@ -36,17 +34,18 @@ class QuizzPage extends StatelessWidget {
                 ),
                 BlocBuilder<QuizzBloc, QuizzState>(
                   builder: (context, state) {
-                    if(state is LoadedQuizzState) {
+                    if (state is LoadedQuizzState) {
                       // NextQuestion
                       return Expanded(
                         child: GridView.builder(
                           itemCount: state.quizzs.length,
                           scrollDirection: Axis.vertical,
-                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 3 / 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20),
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 200,
+                                  childAspectRatio: 3 / 2,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20),
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               child: Container(
@@ -72,7 +71,6 @@ class QuizzPage extends StatelessWidget {
                     } else {
                       return Text("is loading");
                     }
-
                   },
                 ),
                 SizedBox(
