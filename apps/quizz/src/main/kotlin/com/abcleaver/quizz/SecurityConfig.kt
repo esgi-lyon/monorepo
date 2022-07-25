@@ -17,8 +17,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
             "/swagger-ui/**",
             "/webjars/**",
             "/error**",
-            "/public/**",
-            "/**")
+            "/public/**")
           .permitAll()
           // TODO add oauth2-client to configure required endpoints that extract scopes
           // .mvcMatchers("/")
