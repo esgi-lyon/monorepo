@@ -15,9 +15,9 @@ import java.util.*
 class HttpMessage(private val gamificationHost: String, private val gamificationPort: String) : MessageOut {
   val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
 
-  override fun dispatch(correct: Boolean, answer: String, userId: UUID, question: String) {
+  override fun dispatch(correct: Boolean, answer: String, userId: UUID, question: String, time: Double) {
     val client = OkHttpClient()
-    val dto = GamificationUserAnswerDto(correct, answer, userId, question)
+    val dto = GamificationUserAnswerDto(correct, answer, userId, question, time)
     val body: RequestBody = jacksonObjectMapper().writeValueAsString(dto).toRequestBody(JSON)
 
     val url = UriComponentsBuilder.newInstance()
