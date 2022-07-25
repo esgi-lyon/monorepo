@@ -34,6 +34,7 @@ class MainController(  @Value("\${server.address}") private val host : String,
     return quizzService.submit(userAnswerDto.answer,
       UUID.fromString(userAnswerDto.userId),
       Letter.fromString(userAnswerDto.question),
+      userAnswerDto.time
     )
   }
 
