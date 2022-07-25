@@ -67,13 +67,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
 
     try {
-      var tokenInfo = await _authenticationRepository.logIn(
+      final tokenInfo = await _authenticationRepository.logIn(
         username: state.username.value,
         password: state.password.value,
       );
       emit(state.copyWith(
-          tokenInfo: tokenInfo, status: FormzStatus.submissionSuccess));
+          tokenInfo: {'idToken': tokenInfo!['idToken']},
+          status: FormzStatus.submissionSuccess));
     } catch (e) {
+      print(e);
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }

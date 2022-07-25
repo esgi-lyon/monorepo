@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 class HiveCookieStorage extends Storage {
   HiveCookieStorage(this.path);
 
-  static const String storageId = "HiveStorage";
+  static const String storageId = "hive_cookie_storage";
 
   final String? path;
 
@@ -29,7 +29,7 @@ class HiveCookieStorage extends Storage {
 
   @override
   Future<void> deleteAll(List<String> keys) async {
-    (await Hive.openBox<String>(storageId)).deleteAll(keys);
+    (await openBox()).deleteAll(keys);
   }
 
   @override

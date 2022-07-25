@@ -112,7 +112,7 @@ export class MixedCacheDbStorageService implements AdapterStorageInterface {
   async revokeByGrantId(grantId: string) {
     const grantRepo = this.getRepo<typeof Grant>()
 
-    let grant
+    let grant: Grant
     try {
       grant = await grantRepo.findOne({ where: { grantId }, raw: true})
     } catch (e) {
@@ -120,7 +120,7 @@ export class MixedCacheDbStorageService implements AdapterStorageInterface {
     }
 
     if (grant) {
-      grant.data.forEach(token => this.storage.delete(token));
+      (grant.data as Array<any>).forEach((token: any) => this.storage.delete(token));
     }
 
     await grantRepo.destroy({ where: { grantId } })
@@ -170,9 +170,9 @@ export class MixedCacheDbStorageService implements AdapterStorageInterface {
     }
   }
 
-  protected getWhereOption(id) {
+  protected getWhereOption(id: string) {
     return {
-      where: {id},
+      where: { id },
       raw: true
     }
   }

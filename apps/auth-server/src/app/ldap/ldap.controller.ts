@@ -4,9 +4,9 @@ import {
   Patch,
   Post,
   Delete,
-  Request, UseInterceptors, Get, Param, Query
+  Request, UseInterceptors, Get, Query
 } from "@nestjs/common";
-import { UserDto, RegisterDtoType, RegisterResultDto, UpdateResultDto, UpdateUserDto, RegisterUserDto } from "./user.model";
+import { UserDto, RegisterResultDto, UpdateResultDto, UpdateUserDto, RegisterUserDto } from "./user.model";
 import { UserService } from "./user.service";
 import { Request as Req } from 'express';
 import { EntityErrorInterceptor } from "../interceptors/entity-error.interceptor";

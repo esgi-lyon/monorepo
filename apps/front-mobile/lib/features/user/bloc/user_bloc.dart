@@ -240,7 +240,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       await _userRepository.register(state.toFullDto());
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } catch (e) {
-      print(e);
       emit(state.copyWith(status: FormzStatus.submissionFailure));
     }
   }

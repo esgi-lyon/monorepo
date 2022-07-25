@@ -15,7 +15,8 @@ import { isEmpty } from 'lodash';
 import { UserService } from '../ldap/user.service';
 import { ConfigService } from '@nestjs/config';
 import { filterUndefinedInObj } from '../utils/object.utils';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponse } from '@nestjs/swagger';
+import { InteractionConsentDto, InteractionDto, TokenDto } from './interaction.dto';
 
 type InteractionPayload = {
   prompt: PromptDetail;

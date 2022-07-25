@@ -42,7 +42,6 @@ class UserRepository {
       return User(u.name, u.phoneNumber, u.email, u.familyName, "",
           u.birthdate.toIso8601String(), u.gender.name);
     } catch (e) {
-      print(e);
       return null;
     }
   }

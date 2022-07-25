@@ -34,14 +34,13 @@ export class AppController {
   /**
    * Generic callback to get access to apps
    * @param query
-   * @param res
    */
   @Get('/callback')
-  async callback(@Query() query: Record<string, any>, @Response() res: Res) {
+  async callback(@Query() query: Record<string, any>) {
     const { code, error, error_description } = query;
 
     if (error) {
-      return res.json({ error, error_description });
+      return { error, error_description };
     }
 
     if (!code) {
@@ -64,7 +63,7 @@ export class AppController {
         }
       );
 
-      res.json(result.data);
+      return result.data
     } catch (err) {
       this.logger.error('Could not get token:', err);
 
