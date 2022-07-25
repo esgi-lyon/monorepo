@@ -16,7 +16,6 @@ import {
   IsEmail,
   Length,
   IsEnum,
-  IsPhoneNumber,
 } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';

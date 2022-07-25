@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { PasswordChangeDtoType, RegisterDtoType, RegisterResultDto, RegisterUserDto, UpdateResultDto, UpdateUserDto, User, UserDto } from "./user.model";
+import { PasswordChangeDtoType, RegisterDtoType, RegisterResultDto, RegisterUserDto, UpdateResultDto, UpdateUserDto, User } from "./user.model";
 import { getRepoKey } from "../utils/db.utils";
 import { isEmpty } from "lodash";
 import { BaseError } from "sequelize";
@@ -84,7 +84,6 @@ export class UserService {
   protected async parseAndValidatePasswordChangeCase(
     data: PasswordChangeDtoType
   ): Promise<PasswordChangeDtoType> {
-    console.log(data.oldPassword, "==",data.password)
     if (data.password == null || data.oldPassword == data.password) return data
 
     if (
