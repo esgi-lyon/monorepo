@@ -10,7 +10,7 @@ import 'package:authserver/src/auth/oauth.dart';
 import 'package:authserver/src/api/default_api.dart';
 
 class Authserver {
-  static const String basePath = r'http://0.0.0.0:3333';
+  static const String basePath = r'http://localhost:3333';
 
   final Dio dio;
   Authserver({

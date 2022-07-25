@@ -24,6 +24,8 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   authserver:
     path: packages/authserverapi
+  httputils:
+    path: packages/httputils
   hive: ^2.2.2
   shared_preferences: ^2.0.15
   freezed_annotation: ^2.0.3

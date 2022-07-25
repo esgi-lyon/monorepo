@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:path_provider/path_provider.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated, loading }
 
@@ -15,7 +14,7 @@ class AuthenticationRepository {
     this.apiClient = DefaultApi(dio);
   }
 
-  final String cookieStorage;
+  final Storage cookieStorage;
 
   final _controller = StreamController<AuthenticationStatus>();
 
@@ -100,9 +99,9 @@ class AuthenticationRepository {
     return uidFromHeader(oidcAuthRes.headers.map['Location']!.first);
   }
 
-  Dio init(Dio dio, String path) {
+  Dio init(Dio dio, Storage storage) {
     var cookieJar =
-        PersistCookieJar(ignoreExpires: true, storage: FileStorage(path));
+        PersistCookieJar(ignoreExpires: true, storage: storage);
     dio.interceptors.add(CookieManager(cookieJar));
     dio.interceptors.add(PrettyDioLogger());
     dio.options.followRedirects = false;

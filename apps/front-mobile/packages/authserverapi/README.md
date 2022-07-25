@@ -58,7 +58,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://0.0.0.0:3333*
+All URIs are relative to *http://localhost:3333*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
