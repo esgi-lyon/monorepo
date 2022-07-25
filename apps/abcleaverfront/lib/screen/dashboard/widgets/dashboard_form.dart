@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../app_routes.dart';
 
 
 class DashboardForm extends StatefulWidget {
@@ -49,7 +50,7 @@ class _DashboardForm extends State<DashboardForm> {
                       GestureDetector(
                         onTap: () {
                           // TODO Route vers quizz
-                          //Navigator.of(context).pushNamed(quizz);
+                          Navigator.pushReplacementNamed(context, quizzRoute);
                         },
                         child: Container(
                           decoration: const BoxDecoration(
@@ -70,8 +71,8 @@ class _DashboardForm extends State<DashboardForm> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // TODO
-                          //Navigator.of(context).pushNamed(routes.stat);
+                          // TODO stat route
+                          Navigator.pushReplacementNamed(context, statRoute);
                         },
                         child: Container(
                           decoration: const BoxDecoration(

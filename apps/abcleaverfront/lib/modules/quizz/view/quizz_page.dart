@@ -1,25 +1,21 @@
-import 'package:abcleaver/features/quizz/bloc/quizz_bloc.dart';
-import 'package:abcleaver/features/quizz/bloc/quizz_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../commons/theme.dart';
+import '../bloc/quizz_bloc.dart';
+import '../bloc/quizz_state.dart';
 
 class QuizzPage extends StatelessWidget {
-  const QuizzPage({Key? key}) : super(key: key);
+  const  QuizzPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text(
-            'Niveau 1',
-            style: TextStyle(color: AppTheme
-                .of(context)
-                .secondaryColor),
+          title: const Text(
+            'Niveau 1'
           ),
         ),
         body: Padding(
@@ -70,9 +66,7 @@ class QuizzPage extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return CircularProgressIndicator(
-                        value: 2,
-                      );
+                      return const Text("is loading");
                     }
 
                   },

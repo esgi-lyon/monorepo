@@ -1,3 +1,4 @@
+import 'package:abcleaverfront/modules/quizz/bloc/quizz_bloc.dart';
 import 'package:abcleaverfront/screen/dashboard/widgets/dashboard_form.dart';
 import 'package:abcleaverfront/screen/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
 
   final authBloc = locator<AuthBloc>();
   final formBloc = locator<FormBloc>();
+  final quizzBloc = locator<QuizzBloc>();
 
 
   @override
@@ -46,7 +48,8 @@ class MyApp extends StatelessWidget {
           builder: (_, widget) {
             return MultiBlocProvider(providers: [
               BlocProvider<AuthBloc>(create: (_) => authBloc),
-              BlocProvider<FormBloc>(create: (_) => formBloc)
+              BlocProvider<FormBloc>(create: (_) => formBloc),
+              BlocProvider<QuizzBloc>(create: (_) => quizzBloc)
             ], child: widget ?? Container());
           },
           home: FutureBuilder<User?>(
