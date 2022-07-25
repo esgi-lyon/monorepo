@@ -5,17 +5,25 @@ import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:path_provider/path_provider.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated, loading }
 
 class AuthenticationRepository {
+  AuthenticationRepository({required this.cookieStorage}) {
+    this.dio = init(authServer.dio, this.cookieStorage);
+    this.apiClient = DefaultApi(dio);
+  }
+
+  final String cookieStorage;
+
   final _controller = StreamController<AuthenticationStatus>();
 
   String currentLoggingInUsername = "";
 
   static final authServer = Authserver();
-  static final dio = addInterceptors(authServer.dio);
-  final apiClient = DefaultApi(dio);
+  Dio dio = authServer.dio;
+  DefaultApi? apiClient;
 
   Stream<AuthenticationStatus> get status async* {
     await Future<void>.delayed(const Duration(seconds: 1));
@@ -37,7 +45,7 @@ class AuthenticationRepository {
         return {'error': 'No uid find during login'};
       }
 
-      var checkStep1 = (await apiClient.interactionControllerLoginCheck(
+      var checkStep1 = (await apiClient!.interactionControllerLoginCheck(
               uid: loginUid,
               loginDto: LoginDto(email: username, password: password))
           as Response<Object>);
@@ -56,7 +64,7 @@ class AuthenticationRepository {
   Future<Map<String, dynamic>> confirm(String uid) async {
     _controller.add(AuthenticationStatus.loading);
 
-    Response<Object> confirmStep1 = await apiClient
+    Response<Object> confirmStep1 = await apiClient!
         .interactionControllerConfirmLogin(uid: uid) as Response<Object>;
 
     Response<dynamic> confirmStep2 =
@@ -92,8 +100,9 @@ class AuthenticationRepository {
     return uidFromHeader(oidcAuthRes.headers.map['Location']!.first);
   }
 
-  static Dio addInterceptors(Dio dio) {
-    var cookieJar = PersistCookieJar(ignoreExpires: true);
+  Dio init(Dio dio, String path) {
+    var cookieJar =
+        PersistCookieJar(ignoreExpires: true, storage: FileStorage(path));
     dio.interceptors.add(CookieManager(cookieJar));
     dio.interceptors.add(PrettyDioLogger());
     dio.options.followRedirects = false;

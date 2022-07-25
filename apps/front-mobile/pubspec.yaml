@@ -37,6 +37,7 @@ dependencies:
   flutter_svg: ^1.1.1+1
   json_annotation: ^4.6.0
   http: ^0.13.4
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:
@@ -56,3 +57,4 @@ flutter:
   assets:
     - assets/translations/
     - assets/svg/
+    - assets/cookies/
