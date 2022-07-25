@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+import 'dart:ffi';
+>>>>>>> b5ad921 (fix: build on quizz part 1 (#15))
 
 class Quizz {
   final List<Question> questions;
